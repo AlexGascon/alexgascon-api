@@ -12,12 +12,6 @@ Jets.boot
 
 require "jets/spec_helpers"
 
-require 'capybara/rspec'
-Capybara.app = Jets.application
-# Capybara.current_driver = :selenium
-# Capybara.app_host = 'http://localhost:8888'
-
-
 module Helpers
   def payload(name)
     JSON.load(IO.read("spec/fixtures/payloads/#{name}.json"))
