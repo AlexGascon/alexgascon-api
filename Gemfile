@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gem "jets"
 
-gem "pg", "~> 1.1"
+gem "dynamoid"
 
 group :development do
   gem 'rubocop'
