@@ -1,7 +1,16 @@
 # frozen_string_literal: true
 
 module Health
-  class Meal < ::ApplicationRecord
-    enum meal_type: %i[breakfast almuerzo lunch merienda dinner other]
+  class Meal
+    include Dynamoid::Document
+
+    field :carbohydrates_portions, :number
+    field :date, :date
+    field :food, :string
+    field :meal_type, :string
+    field :notes, :string
+
+    validates_presence_of :food
+    validates_presence_of :meal_type
   end
 end
