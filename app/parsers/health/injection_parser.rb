@@ -3,7 +3,11 @@
 module Health
   class InjectionParser < SnsParser
     def parse
-      event.slice(:injection_type, :notes, :units)
+      {
+        injection_type: event[:type],
+        notes: event[:notes],
+        units: event[:units]
+      }
     end
   end
 end
