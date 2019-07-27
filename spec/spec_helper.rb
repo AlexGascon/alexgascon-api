@@ -12,12 +12,10 @@ Jets.boot
 
 require "jets/spec_helpers"
 
-module Helpers
-  def payload(name)
-    JSON.load(IO.read("spec/fixtures/payloads/#{name}.json"))
-  end
-end
+Dir[Jets.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 RSpec.configure do |c|
-  c.include Helpers
+  c.before(:each) do
+    DynamoidReset.all
+  end
 end
