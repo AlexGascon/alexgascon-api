@@ -4,7 +4,7 @@ RSpec.describe Health::InjectionParser do
   let(:parser) { described_class.new(sns_event) }
 
   describe 'parse' do
-    let(:sns_event) { File.read('spec/fixtures/sns_events/health/InsulinInjected.json') }
+    let(:sns_event) { JSON.parse(File.read('spec/fixtures/sns_events/health/InsulinInjected.json')) }
 
     subject { parser.parse }
 

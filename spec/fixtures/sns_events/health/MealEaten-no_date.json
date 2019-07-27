@@ -1,6 +1,22 @@
 {
-    "carbohydrates_portions": 4,
-    "food": "Food for thought",
-    "meal_type": "almuerzo",
-    "notes": "Meal notes"
+  "Records": [
+    {
+      "EventSource": "aws:sns",
+      "EventVersion": "1.0",
+      "EventSubscriptionArn": "arn:aws:sns:eu-west-1:598877714121:MealEaten:a0c766c7-66ad-489c-a54e-de5432fc7db3",
+      "Sns": {
+        "Type": "Notification",
+        "MessageId": "cee471b5-17d9-5377-84a6-2403c61b67a8",
+        "TopicArn": "arn:aws:sns:eu-west-1:598877714121:MealEaten",
+        "Subject": null,
+        "Message": "{\"carbohydrates_portions\": 4, \"food\": \"Food for thought\", \"meal_type\": \"almuerzo\", \"notes\": \"Meal notes\" }",
+        "Timestamp": "2019-07-27T22:26:10.884Z",
+        "SignatureVersion": "1",
+        "Signature": "cGotLKMlhViXN4JHnoB/XcznGpmTxTZwwJ38+9XeyVKe/YsQK7ORih42EMhd1rdn4srSkFEyIRIhMRXWQE9KQvQFcgmpO1epzqRO1cwS14+A28FdnDTCmNRqBDUIRGcW6GrwcErmzBeXk+6CBzUGOuM75jPRQgpSpzI32Pw3KgeNmpz+r7lj88hsfIdMukB1O/tJjbeafV1j7hCF6dDKwYdvPKfsEvSLS5TujV5eqkKTK00GZTHMZdjQIRuCoC/RCNEaqrpuCz1/Eo5ymY4WOMUi37S8+E+C5tTXQmCGZCiBkpW2sQ0oyPK9IpEcDCOmxFjxVgJhBdzz8FprKLjJFw==",
+        "SigningCertUrl": "https://sns.eu-west-1.amazonaws.com/SimpleNotificationService-6aad65c2f9911b05cd53efda11f913f9.pem",
+        "UnsubscribeUrl": "https://sns.eu-west-1.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:eu-west-1:598877714121:MealEaten:a0c766c7-66ad-489c-a54e-de5432fc7db3",
+        "MessageAttributes": {}
+      }
+    }
+  ]
 }

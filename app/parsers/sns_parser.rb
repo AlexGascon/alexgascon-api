@@ -4,6 +4,7 @@ class SnsParser
   attr_reader :event
 
   def initialize(event)
-    @event = JSON.parse(event).with_indifferent_access
+    sns_payload = event['Records'].first['Sns']
+    @event = JSON.parse(sns_payload['Message']).with_indifferent_access
   end
 end

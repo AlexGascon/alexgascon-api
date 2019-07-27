@@ -1,5 +1,22 @@
 {
-    "type": "basal",
-    "notes": "Injection testing notes",
-    "units": 15
+  "Records": [
+    {
+      "EventSource": "aws:sns",
+      "EventVersion": "1.0",
+      "EventSubscriptionArn": "arn:aws:sns:eu-west-1:598877714121:InsulinInjected:bb252d77-c541-46c0-8a9e-5ba5aa45ee35",
+      "Sns": {
+        "Type": "Notification",
+        "MessageId": "9d044cb2-0d73-5525-a38e-19048502e12c",
+        "TopicArn": "arn:aws:sns:eu-west-1:598877714121:InsulinInjected",
+        "Subject": null,
+        "Message": "{\"units\": 15, \"type\": \"basal\", \"notes\": \"Injection testing notes\"}",
+        "Timestamp": "2019-07-27T17:13:21.905Z",
+        "SignatureVersion": "1",
+        "Signature": "DHe9GXILX41drnka/cgWVHFgO/+1Y39n0ERJzfSB/NoHE4K53DpdOrFC1tZUX/polhjgVL8XEZMoWC/p5mxv5di6vbqRqpyErldvKU3Maz6X06MKNoPlHUgeTRIruUa4Nd0tT049x5Chbym1AiK1a+/XTII0+UNk4SfEKuvMW4rlH3saRezWXKgUHhV3LuxhcAVpjQ0jdpvHxZqPTBCMe4dfY5RWCdHxHF83aAOEGJvjuoOoTmqnc1XGIJXTzQEBukBsD5ePIyTrWeZzVV+JJL7VpvEr26syasa7bgz6/qTa4AKjuu5GEZ2zR1J90C8DQJ1Ev1BJxZIFywWq0OsuSQ==",
+        "SigningCertUrl": "https://sns.eu-west-1.amazonaws.com/SimpleNotificationService-6aad65c2f9911b05cd53efda11f913f9.pem",
+        "UnsubscribeUrl": "https://sns.eu-west-1.amazonaws.com/?Action=Unsubscribe\\u0026SubscriptionArn=arn:aws:sns:eu-west-1:598877714121:InsulinInjected:bb252d77-c541-46c0-8a9e-5ba5aa45ee35",
+        "MessageAttributes": {}
+      }
+    }
+  ]
 }

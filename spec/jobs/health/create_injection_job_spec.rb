@@ -2,7 +2,7 @@
 
 RSpec.describe Health::CreateInjectionJob do
   describe 'create_injection' do
-    let(:event) { File.read('spec/fixtures/sns_events/health/InsulinInjected.json') }
+    let(:event) { JSON.parse(File.read('spec/fixtures/sns_events/health/InsulinInjected.json')) }
 
     subject { described_class.perform_now(:create_injection, event) }
 
