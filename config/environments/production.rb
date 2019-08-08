@@ -7,3 +7,9 @@ Jets.application.configure do
   # Docs: http://rubyonjets.com/docs/email-sending/
   # config.action_mailer.raise_delivery_errors = false
 end
+
+Dynamoid.configure do |config|
+  config.namespace = "#{Jets.application.config.project_name}_#{Jets.env}"
+  config.read_capacity = 1
+  config.write_capacity = 2
+end
