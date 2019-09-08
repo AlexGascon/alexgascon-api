@@ -4,9 +4,9 @@ module Partners
   module Dexcom
     class AuthController < ::ApplicationController
       def auth_callback
-        return render json: {}, status: :unauthorized if unauthorized?
+        return head :unauthorized if unauthorized?
 
-        render json: { msg: "Works" }, status: :ok
+        head :ok
       end
 
       private
