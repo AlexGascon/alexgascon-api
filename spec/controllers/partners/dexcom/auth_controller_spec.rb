@@ -3,6 +3,12 @@
 RSpec.describe Partners::Dexcom::AuthController do
   describe '#auth_callback' do
     let(:authorization_code) { 'auth_code_123' }
+    let(:auth_service) { instance_double(Partners::Dexcom::AuthService) }
+
+    before do
+      allow(Partners::Dexcom::AuthService).to receive(:new).and_return(auth_service)
+      allow(auth_service).to receive(:obtain_oauth_token)
+    end
 
     subject { get '/dexcom/auth_callback', query: { authorization_code: authorization_code } }
 
@@ -10,6 +16,12 @@ RSpec.describe Partners::Dexcom::AuthController do
       subject
 
       expect(response.status).to eq 200
+    end
+
+    it 'obtains the OAuth token' do
+      expect(auth_service).to receive(:obtain_oauth_token)
+
+      subject
     end
 
     context 'when the authorization code is not present' do

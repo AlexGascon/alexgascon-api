@@ -6,6 +6,8 @@ module Partners
       def auth_callback
         return head :unauthorized if unauthorized?
 
+        auth_service.obtain_oauth_token
+
         head :ok
       end
 
@@ -13,6 +15,10 @@ module Partners
 
       def auth_code
         @auth_code ||= permitted_params[:authorization_code]
+      end
+
+      def auth_service
+        @auth_service ||= Partners::Dexcom::AuthService.new(auth_code)
       end
 
       def unauthorized?
