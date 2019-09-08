@@ -11,5 +11,15 @@ RSpec.describe Partners::Dexcom::AuthController do
 
       expect(response.status).to eq 200
     end
+
+    context 'when the authorization code is not present' do
+      let(:authorization_code) { nil }
+
+      it 'returns an HTTP 401 Unauthorized response' do
+        subject
+
+        expect(response.status).to eq 401
+      end
+    end
   end
 end
