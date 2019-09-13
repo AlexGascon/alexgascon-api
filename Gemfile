@@ -2,7 +2,11 @@ source "https://rubygems.org"
 
 gem "jets"
 
+gem 'climate_control'
 gem "dynamoid"
+gem "httparty"
+
+
 
 group :development do
   gem 'rubocop'
@@ -19,4 +23,5 @@ end
 group :test do
   gem 'rspec' # rspec test group only or we get the "irb: warn: can't alias context from irb_context warning" when starting jets console
   gem 'launchy'
+  gem 'webmock'
 end
