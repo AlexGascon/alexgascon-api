@@ -35,9 +35,13 @@ RSpec.describe Partners::Dexcom::AuthService do
       @stub = stub_request(:post, 'https://api.dexcom.com/v2/oauth2/token')
               .with(headers: mock_headers, body: mock_request_body)
               .to_return(status: 200, body: mock_response.to_json)
+
+      travel_to Time.new(2018, 10, 30, 12, 34, 56)
     end
 
     around { |example| with_modified_env(mock_dexcom_credentials) { example.run } }
+
+    after { travel_back }
 
     subject { described_class.new('1234') }
 
@@ -47,6 +51,15 @@ RSpec.describe Partners::Dexcom::AuthService do
       expect(@stub).to have_been_requested
     end
 
-    it 'stores the access token information'
+    it 'stores the access token information' do
+      token = subject.obtain_oauth_token
+
+      expected_attributes = {
+        access_token: 'example_access_token',
+        expiration_time: Time.new(2018, 10, 30, 14, 34, 56).to_i,
+        refresh_token: 'example_refresh_token'
+      }
+      expect(token).to have_attributes expected_attributes
+    end
   end
 end

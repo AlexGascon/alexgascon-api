@@ -7,6 +7,7 @@ require "byebug"
 require "fileutils"
 require "jets"
 require 'webmock/rspec'
+require 'active_support/testing/time_helpers'
 
 WebMock.disable_net_connect!(allow_localhost: true)
 
@@ -21,6 +22,8 @@ RSpec.configure do |c|
   c.before(:each) do
     DynamoidReset.all
   end
+
+  c.include ActiveSupport::Testing::TimeHelpers
 end
 
 def with_modified_env(options, &block)
