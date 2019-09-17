@@ -5,6 +5,7 @@ module Partners
     class AuthToken
       include Dynamoid::Document
 
+      field :authorization_code, :string
       field :access_token, :string
       field :expiration_time, :number 
       field :refresh_token, :string

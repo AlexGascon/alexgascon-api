@@ -43,16 +43,16 @@ RSpec.describe Partners::Dexcom::AuthService do
 
     after { travel_back }
 
-    subject { described_class.new('1234') }
+    subject { described_class.new.obtain_oauth_token('1234') }
 
     it 'requests the access token to Dexcom' do
-      subject.obtain_oauth_token
+      subject
 
       expect(@stub).to have_been_requested
     end
 
     it 'stores the access token information' do
-      token = subject.obtain_oauth_token
+      token = subject
 
       expected_attributes = {
         access_token: 'example_access_token',
