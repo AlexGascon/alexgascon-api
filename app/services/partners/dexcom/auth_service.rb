@@ -10,10 +10,19 @@ module Partners
         token.update_attributes!(auth_token_attributes)
       end
 
+      def renew_oauth_token
+        @response = refresh_auth_token
+        token.update_attributes!(auth_token_attributes)
+      end
+
       private
 
       def request_auth_token
         HTTParty.post(endpoint_url, headers: headers, body: auth_payload)
+      end
+
+      def refresh_auth_token
+        HTTParty.post(endpoint_url, headers: headers, body: refresh_payload)
       end
 
       def auth_token_attributes
@@ -42,6 +51,10 @@ module Partners
 
       def auth_payload
         base_payload.merge!(code: token.authorization_code, grant_type: 'authorization_code')
+      end
+
+      def refresh_payload
+        base_payload.merge!(refresh_token: token.refresh_token, grant_type: 'refresh_token')
       end
 
       def response_body
