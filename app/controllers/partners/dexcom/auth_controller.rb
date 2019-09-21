@@ -14,7 +14,7 @@ module Partners
       private
 
       def auth_code
-        @auth_code ||= permitted_params[:authorization_code]
+        @auth_code ||= permitted_params[:code]
       end
 
       def auth_service
@@ -26,7 +26,7 @@ module Partners
       end
 
       def permitted_params
-        params.permit(:authorization_code)
+        params.permit(:code)
       end
     end
   end
