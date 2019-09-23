@@ -2,8 +2,14 @@
 
 class DynamoidHelper
   def self.create_tables
-    Dynamoid.included_models.each do |model|
-      model.create_table
-    end
+    load_models
+
+    Dynamoid.included_models.each(&:create_table)
+  end
+
+  private
+
+  def load_models
+    Dir[File.join(Dynamoid::Config.models_dir, '**/*.rb')].sort.each { |file| require file }
   end
 end
