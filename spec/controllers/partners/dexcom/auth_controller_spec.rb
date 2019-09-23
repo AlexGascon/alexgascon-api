@@ -10,7 +10,7 @@ RSpec.describe Partners::Dexcom::AuthController do
       allow(auth_service).to receive(:obtain_oauth_token)
     end
 
-    subject { get '/dexcom/auth_callback', query: { authorization_code: authorization_code } }
+    subject { get '/dexcom/auth_callback', query: { code: authorization_code } }
 
     it 'returns an HTTP 200 OK response' do
       subject
