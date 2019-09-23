@@ -11,7 +11,7 @@ module Partners
       field :refresh_token, :string
 
       def self.instance
-        return new if count.zero?
+        create if first.nil?
 
         first
       end
