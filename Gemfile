@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "jets"
+gem "jets", "<= 1.9.30"
 
 gem 'climate_control'
 gem "dynamoid"
