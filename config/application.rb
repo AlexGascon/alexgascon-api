@@ -2,7 +2,8 @@ Jets.application.configure do
   config.project_name = "alexgascon-api"
   config.mode = "html"
 
-  config.prewarm.enable = true # default is true
+  config.prewarm.enable = false
+
   Dynamoid.configure do |config|
     config.namespace = "#{Jets.application.config.project_name}_#{Jets.env}"
   end
