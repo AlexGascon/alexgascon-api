@@ -5,6 +5,7 @@ gem "jets", "<= 1.9.30"
 gem 'climate_control'
 gem "dynamoid"
 gem "httparty"
+gem 'aws-sdk-cloudwatch'
 
 
 
