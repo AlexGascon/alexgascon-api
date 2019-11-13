@@ -46,6 +46,9 @@ GEM
     aws-sdk-cloudformation (1.24.0)
       aws-sdk-core (~> 3, >= 3.58.0)
       aws-sigv4 (~> 1.1)
+    aws-sdk-cloudwatch (1.26.0)
+      aws-sdk-core (~> 3, >= 3.58.0)
+      aws-sigv4 (~> 1.1)
     aws-sdk-cloudwatchlogs (1.23.0)
       aws-sdk-core (~> 3, >= 3.58.0)
       aws-sigv4 (~> 1.1)
@@ -234,6 +237,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aws-sdk-cloudwatch
   byebug
   climate_control
   dynamoid
