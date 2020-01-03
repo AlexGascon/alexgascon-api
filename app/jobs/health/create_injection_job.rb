@@ -14,6 +14,8 @@ module Health
       )
 
       publish_injection_metric(injection)
+
+      injection
     end
 
     private

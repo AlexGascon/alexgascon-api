@@ -3,6 +3,12 @@
 RSpec.describe Health::CreateInjectionJob do
   describe 'create_injection' do
     let(:event) { JSON.parse(File.read('spec/fixtures/sns_events/health/InsulinInjected.json')) }
+    let(:metrics_service) { instance_double(AwsServices::CloudwatchWrapper) }
+
+    before do
+      allow(AwsServices::CloudwatchWrapper).to receive(:new).and_return metrics_service
+      allow(metrics_service).to receive(:publish_injection)
+    end
 
     subject { described_class.perform_now(:create_injection, event) }
 
@@ -18,6 +24,12 @@ RSpec.describe Health::CreateInjectionJob do
       expect(subject.injection_type).to eq 'basal'
       expect(subject.notes).to eq 'Injection testing notes'
       expect(subject.units).to eq 15
+    end
+
+    it 'publishes the injection information to CloudWatch' do
+      expect(metrics_service).to receive(:publish_injection).with an_instance_of(Health::Injection)
+
+      subject
     end
   end
 end
