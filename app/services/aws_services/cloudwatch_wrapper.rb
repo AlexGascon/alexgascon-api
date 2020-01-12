@@ -34,7 +34,7 @@ module AwsServices
             name: 'Category',
             value: expense.category
           }],
-          value: expense.amount
+          value: expense.amount.to_f
         }]
       )
     end
