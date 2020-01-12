@@ -3,8 +3,14 @@
 RSpec.describe Finance::CreateExpenseJob do
   describe 'create_expense' do
     let(:event) { JSON.parse(File.read('spec/fixtures/sns_events/finance/MoneySpent.json')) }
+    let(:mock_cw) { instance_double(AwsServices::CloudwatchWrapper) }
 
     subject { described_class.perform_now(:create_expense, event) }
+
+    before do
+      allow(AwsServices::CloudwatchWrapper).to receive(:new).and_return(mock_cw)
+      allow(mock_cw).to receive(:publish_expense).and_return({})
+    end
 
     it 'creates a new expense' do
       expect { subject }.to change { Finance::Expense.all.count }.by 1
@@ -20,6 +26,12 @@ RSpec.describe Finance::CreateExpenseJob do
       expect(expense.amount).to eq 42.24
       expect(expense.category).to eq 'eating out'
       expect(expense.notes).to eq 'Expense testing notes'
+    end
+
+    it 'publishes the expense in CloudWatch' do
+      expect(mock_cw).to receive(:publish_expense)
+
+      subject
     end
   end
 end
