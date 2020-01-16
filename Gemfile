@@ -6,6 +6,7 @@ gem 'climate_control'
 gem "dynamoid"
 gem "httparty"
 gem 'aws-sdk-cloudwatch'
+gem 'ynab'
 
 
 
