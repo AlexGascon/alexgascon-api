@@ -10,7 +10,7 @@ RSpec.describe Ynab::TransactionData do
     before { expense.save }
 
     it('sets the YNAB account_id') { expect(transaction.account_id).to eq default_account_id }
-    it('sets the transaction amount in cents') { expect(transaction.amount).to eq 4224 }
+    it('sets the transaction amount in negative miliunits') { expect(transaction.amount).to eq -42240 }
     it('sets the transaction date') { expect(transaction.date).to eq Date.today.strftime('%Y-%m-%d') }
     it('sets the memo') { expect(transaction.memo).to eq 'Expense for testing' }
     it('sets the category id') { expect(transaction.category_id).to eq 'f8ba8264-2699-49b4-b233-1fca11788721' }
