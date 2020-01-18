@@ -14,6 +14,7 @@ module Airtable
       expense = new({})
 
       expense.amount = finance_expense.amount
+      expense.category = Airtable::Categories::MAPPING[finance_expense.category]
       expense.datetime = finance_expense.created_at.iso8601
       expense.title = finance_expense.notes
 
