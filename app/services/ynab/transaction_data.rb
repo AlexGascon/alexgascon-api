@@ -16,5 +16,15 @@ module Ynab
 
       transaction
     end
+
+    def to_h
+      {
+        account_id: account_id,
+        amount: amount,
+        category_id: category_id,
+        date: date,
+        memo: memo
+      }
+    end
   end
 end
