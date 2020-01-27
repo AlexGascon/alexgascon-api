@@ -15,6 +15,7 @@ RSpec.describe Ynab::TransactionData do
     it('sets the transaction date') { expect(transaction.date).to eq Date.today.strftime('%Y-%m-%d') }
     it('sets the memo') { expect(transaction.memo).to eq 'Expense for testing' }
     it('sets the category id') { expect(transaction.category_id).to eq eating_out_category_id }
+    it('marks the transaction as approved') { expect(transaction.approved).to be true }
 
     context 'when the category is invalid' do
       let(:expense) { Finance::Expense.new(amount: 42.0, notes: 'Expense for testing', category: 'Something random') }
@@ -35,6 +36,7 @@ RSpec.describe Ynab::TransactionData do
 
     before do
       transaction.amount = amount
+      transaction.approved = true
       transaction.memo = notes
       transaction.category_id = eating_out_category_id
       transaction.account_id = default_account_id
@@ -48,9 +50,11 @@ RSpec.describe Ynab::TransactionData do
     it { expect(subject[:account_id]).to eq transaction.account_id }
     it { expect(subject[:memo]).to eq transaction.memo }
     it { expect(subject[:date]).to eq transaction.date }
+    it { expect(subject[:approved]).to eq true }
 
     it 'has the correct keys' do
-      expect(subject.keys).to contain_exactly(:amount, :category_id, :account_id, :memo, :date)
+      expected_keys = %i[amount category_id account_id memo date approved]
+      expect(subject.keys).to contain_exactly(*expected_keys)
     end
   end
 end
