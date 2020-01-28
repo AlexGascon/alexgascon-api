@@ -14,6 +14,8 @@ RSpec.describe Finance::CreateExpenseJob do
 
       allow(YNAB::API).to receive(:new).and_return(mock_ynab)
       allow(mock_ynab).to receive_message_chain(:transactions, :create_transaction)
+
+      allow_any_instance_of(Airtable::Expense).to receive(:save)
     end
 
     it 'creates a new expense' do
@@ -40,6 +42,12 @@ RSpec.describe Finance::CreateExpenseJob do
 
     it 'publishes the expense in YNAB' do
       expect(mock_ynab).to receive_message_chain(:transactions, :create_transaction)
+
+      subject
+    end
+
+    it 'publishes the expense in Airtable' do
+      expect_any_instance_of(Airtable::Expense).to receive(:save)
 
       subject
     end

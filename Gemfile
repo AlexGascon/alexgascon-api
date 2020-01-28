@@ -7,6 +7,7 @@ gem "dynamoid"
 gem "httparty"
 gem 'aws-sdk-cloudwatch'
 gem 'ynab'
+gem 'airrecord'
 
 
 

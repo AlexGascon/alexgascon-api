@@ -14,6 +14,7 @@ module Finance
       )
 
       publish_expense_metric(expense)
+      publish_expense_in_airtable(expense)
       publish_expense_in_ynab(expense)
 
       expense
@@ -23,6 +24,10 @@ module Finance
 
     def publish_expense_metric(expense)
       AwsServices::CloudwatchWrapper.new.publish_expense(expense)
+    end
+
+    def publish_expense_in_airtable(expense)
+      Airtable::Expense.from_expense(expense)
     end
 
     def publish_expense_in_ynab(expense)
