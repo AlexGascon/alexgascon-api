@@ -3,6 +3,10 @@
 RSpec.describe Airtable::Expense do
   let(:finance_expense) { Finance::Expense.new(amount: 42.24, notes: 'Expense for testing', category: 'eating out') }
 
+  before do
+    allow_any_instance_of(described_class).to receive(:save)
+  end
+
   describe '.from_expense' do
     subject(:expense) { Airtable::Expense.from_expense(finance_expense) }
 
