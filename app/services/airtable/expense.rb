@@ -4,11 +4,12 @@ module Airtable
   class Expense < Airrecord::Table
     self.table_name = 'Expense Tracking'
 
-    # Column names
-    AMOUNT = 'Total'
-    CATEGORY = 'Category'
-    DATETIME = 'Date & Time'
-    TITLE = 'Short Description'
+    ATTRIBUTE_TO_COLUMN = {
+      'amount' => 'Total',
+      'category' => 'Category',
+      'datetime' => 'Date & Time',
+      'title' => 'Short Description'
+    }.freeze
 
     def self.from_expense(finance_expense)
       expense = new({})
@@ -21,36 +22,16 @@ module Airtable
       expense
     end
 
-    def amount
-      self[AMOUNT]
-    end
+    ATTRIBUTE_TO_COLUMN.keys.each do |attribute|
+      column = ATTRIBUTE_TO_COLUMN[attribute]
 
-    def amount=(value)
-      self[AMOUNT] = value
-    end
+      define_method("#{attribute}") do
+        self[column]
+      end
 
-    def category
-      self[CATEGORY]
-    end
-
-    def category=(value)
-      self[CATEGORY] = value
-    end
-
-    def datetime
-      self[DATETIME]
-    end
-
-    def datetime=(value)
-      self[DATETIME] = value
-    end
-
-    def title
-      self[TITLE]
-    end
-
-    def title=(value)
-      self[TITLE] = value
+      define_method("#{attribute}=") do |value|
+        self[column] = value
+      end
     end
   end
 end
