@@ -18,6 +18,15 @@ RSpec.describe PublishEmptyMetricsJob do
     end
   end
 
+  RSpec.shared_examples 'empty expense metrics' do |category|
+    it "publishes an empty #{category} expense" do
+      empty_expense = Finance::Expense.new(amount: 0, notes: nil, category: category)
+      expect(mock_cw).to receive(:publish_expense).with(empty_expense)
+
+      subject
+    end
+  end
+
   describe '#publish' do
     subject { described_class.perform_now(:publish) }
 
@@ -26,6 +35,12 @@ RSpec.describe PublishEmptyMetricsJob do
 
       INJECTION_TYPES.each do |injection_type|
         include_examples 'empty injection metrics', injection_type
+      end
+    end
+
+    context 'expenses' do
+      Finance::ExpenseCategories::ALL.each do |category|
+        include_examples 'empty expense metrics', category
       end
     end
   end

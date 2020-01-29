@@ -9,5 +9,10 @@ class PublishEmptyMetricsJob < ApplicationJob
 
     empty_bolus = Health::Injection.new(injection_type: 'bolus', units: 0)
     cloudwatch.publish_injection(empty_bolus)
+
+    Finance::ExpenseCategories::ALL.each do |category|
+      empty_expense = Finance::Expense.new(amount: 0, category: category)
+      cloudwatch.publish_expense(empty_expense)
+    end
   end
 end

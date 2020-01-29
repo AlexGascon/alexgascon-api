@@ -4,5 +4,7 @@ module Finance
     EATING_OUT = 'eating out'
     FUN = 'fun money'
     SUPERMARKET = 'supermercado'
+
+    ALL = [COCA_COLA, EATING_OUT, FUN, SUPERMARKET]
   end
 end
