@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe PublishEmptyMetricsJob do
+RSpec.describe PublishEmptyDatapointsJob do
   let(:mock_cw) { instance_double(AwsServices::CloudwatchWrapper) }
 
   before do

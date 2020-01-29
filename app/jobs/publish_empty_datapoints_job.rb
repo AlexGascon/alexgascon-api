@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class PublishEmptyMetricsJob < ApplicationJob
+class PublishEmptyDatapointsJob < ApplicationJob
+
+  rate '1 hour'
   def publish
     cloudwatch = AwsServices::CloudwatchWrapper.new
 
