@@ -10,5 +10,12 @@ module Finance
 
     validates_presence_of :amount
     validates_presence_of :category
+
+    def ==(other)
+      other.class == self.class &&
+        other.amount == self.amount &&
+        other.category == self.category &&
+        other.notes == self.notes
+    end
   end
 end

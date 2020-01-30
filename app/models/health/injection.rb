@@ -10,5 +10,12 @@ module Health
 
     validates_presence_of :injection_type
     validates_presence_of :units
+
+    def ==(other)
+      other.class == self.class &&
+        other.units == self.units &&
+        other.injection_type == self.injection_type &&
+        other.notes == self.notes
+    end
   end
 end
