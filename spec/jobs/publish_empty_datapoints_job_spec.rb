@@ -31,9 +31,7 @@ RSpec.describe PublishEmptyDatapointsJob do
     subject { described_class.perform_now(:publish) }
 
     context 'injections' do
-      INJECTION_TYPES = ['basal', 'bolus']
-
-      INJECTION_TYPES.each do |injection_type|
+      Health::Injection::TYPES.each do |injection_type|
         include_examples 'empty injection metrics', injection_type
       end
     end

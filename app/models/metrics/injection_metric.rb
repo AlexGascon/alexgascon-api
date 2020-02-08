@@ -19,8 +19,8 @@ module Metrics
 
     def map_injection_type(injection)
       {
-        'basal' => DIMENSION_BASAL,
-        'bolus' => DIMENSION_BOLUS
+        Health::Injection::TYPE_BASAL => DIMENSION_BASAL,
+        Health::Injection::TYPE_BOLUS => DIMENSION_BOLUS
       }[injection.injection_type]
     end
   end
