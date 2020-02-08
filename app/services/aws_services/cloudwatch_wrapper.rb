@@ -25,18 +25,8 @@ module AwsServices
     end
 
     def publish_expense(expense)
-      client.put_metric_data(
-        namespace: 'Finance',
-        metric_data: [{
-          metric_name: 'Money spent',
-          timestamp: expense.created_at,
-          dimensions: [{
-            name: 'Category',
-            value: expense.category
-          }],
-          value: expense.amount.to_f
-        }]
-      )
+      metric_data = Metrics::ExpenseMetric.new(expense)
+      client.put_metric_data(namespace: 'Finance', metric_data: [metric_data])
     end
   end
 end
