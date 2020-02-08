@@ -29,7 +29,7 @@ RSpec.describe Metrics::InjectionMetric do
     it 'sets the "Type" dimension' do
       dimension = metric.dimensions.first
       expect(dimension[:name]).to eq 'Type'
-      expect(dimension[:value]).to eq 'basal'
+      expect(dimension[:value]).to eq 'Basal'
     end
   end
 end
