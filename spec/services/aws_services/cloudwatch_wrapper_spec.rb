@@ -10,7 +10,7 @@ RSpec.describe AwsServices::CloudwatchWrapper do
 
   describe '#publish_injection' do
     it 'publishes the injection in CloudWatch' do
-      injection = Health::Injection.new(units: 22, injection_type: 'basal', notes: 'test injection')
+      injection = Health::Injection.new(units: 22, injection_type: Health::Injection::TYPE_BASAL, notes: 'test injection')
       expected_metric_data = {
         namespace: 'Health',
         metric_data: [Metrics::InjectionMetric.new(injection)]

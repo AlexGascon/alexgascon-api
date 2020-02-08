@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Metrics::InjectionMetric do
-  let(:injection) { Health::Injection.new(units: 22, injection_type: 'basal', notes: 'test injection') }
+  let(:injection) { Health::Injection.new(units: 22, injection_type: Health::Injection::TYPE_BASAL, notes: 'test injection') }
 
   describe '#new' do
     subject(:metric) { Metrics::InjectionMetric.new(injection) }

@@ -9,7 +9,7 @@ RSpec.describe Health::InjectionParser do
     subject { parser.parse }
 
     it 'returns a hash with the injection information' do
-      expected_injection = { units: 15, notes: 'Injection testing notes', injection_type: 'basal' }
+      expected_injection = { units: 15, notes: 'Injection testing notes', injection_type: Health::Injection::TYPE_BASAL }
 
       expect(subject).to include expected_injection
     end
