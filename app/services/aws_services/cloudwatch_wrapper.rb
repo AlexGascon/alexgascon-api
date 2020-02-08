@@ -9,34 +9,13 @@ module AwsServices
     end
 
     def publish_injection(injection)
-      client.put_metric_data(
-        namespace: 'Health',
-        metric_data: [{
-          metric_name: 'Insulin',
-          dimensions: [{
-            name: 'Type',
-            value: injection.injection_type
-          }],
-          timestamp: injection.created_at,
-          value: injection.units.to_f,
-          unit: 'Count'
-        }]
-      )
+      metric_data = Metrics::InjectionMetric.new(injection)
+      client.put_metric_data(namespace: 'Health', metric_data: [metric_data])
     end
 
     def publish_expense(expense)
-      client.put_metric_data(
-        namespace: 'Finance',
-        metric_data: [{
-          metric_name: 'Money spent',
-          timestamp: expense.created_at,
-          dimensions: [{
-            name: 'Category',
-            value: expense.category
-          }],
-          value: expense.amount.to_f
-        }]
-      )
+      metric_data = Metrics::ExpenseMetric.new(expense)
+      client.put_metric_data(namespace: 'Finance', metric_data: [metric_data])
     end
   end
 end
