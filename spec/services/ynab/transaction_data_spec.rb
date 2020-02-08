@@ -17,8 +17,8 @@ RSpec.describe Ynab::TransactionData do
     it('sets the category id') { expect(transaction.category_id).to eq eating_out_category_id }
     it('marks the transaction as approved') { expect(transaction.approved).to be true }
 
-    context 'when the category is invalid' do
-      let(:expense) { Finance::Expense.new(amount: 42.0, notes: 'Expense for testing', category: 'Something random') }
+    context 'when the category is not mapped' do
+      let(:expense) { Finance::Expense.new(amount: 42.0, notes: 'Expense for testing', category: 'Something random', created_at: Time.now) }
       let(:uncategorized_category_id) { 'e172c064-eb5c-4fb2-9bd7-ae5fe9af692f' }
 
       it 'sets the transaction as "Uncategorized"' do

@@ -51,5 +51,25 @@ RSpec.describe Finance::CreateExpenseJob do
 
       subject
     end
+
+    context 'when the category is not in lowercase' do
+      let(:event) { JSON.parse(File.read('spec/fixtures/sns_events/finance/MoneySpent-uppercase.json')) }
+
+      it 'creates a new expense' do
+        expect { subject }.to change { Finance::Expense.all.count }.by 1
+      end
+
+      it 'sets the category in lowercase' do
+        expect(subject[:category]).to eq 'eating out'
+      end
+    end
+
+    context 'when the category is invalid' do
+      let(:event) { JSON.parse(File.read('spec/fixtures/sns_events/finance/MoneySpent-invalid_category.json')) }
+
+      it 'raises a validation error' do
+        expect { subject }.to raise_error Dynamoid::Errors::DocumentNotValid
+      end
+    end
   end
 end
