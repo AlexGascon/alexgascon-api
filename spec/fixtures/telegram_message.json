@@ -1,0 +1,21 @@
+{
+    "ok": true,
+    "result": {
+        "message_id": 4382,
+        "from": {
+            "id": 603317491,
+            "is_bot": true,
+            "first_name": "BOT_NAME",
+            "username": "BOT_USERNAME"
+        },
+        "chat": {
+            "id": 12345,
+            "first_name": "RECEIVER_NAME",
+            "last_name": "RECEIVER_LAST_NAME",
+            "username": "RECEIVER_USER_NAME",
+            "type": "private"
+        },
+        "date": 1581250622,
+        "text": "Hey, this is a message!"
+    }
+}
