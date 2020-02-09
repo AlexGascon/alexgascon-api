@@ -29,3 +29,7 @@ end
 def with_modified_env(options, &block)
   ClimateControl.modify(options, &block)
 end
+
+def load_json_fixture(path)
+  JSON.parse(File.read("spec/fixtures/#{path}"))
+end
