@@ -8,8 +8,7 @@ gem "httparty"
 gem 'aws-sdk-cloudwatch'
 gem 'ynab'
 gem 'airrecord'
-
-
+gem 'telegram-bot-ruby'
 
 group :development do
   gem 'rubocop'
