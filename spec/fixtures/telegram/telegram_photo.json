@@ -1,0 +1,43 @@
+{
+    "ok": true,
+    "result": {
+        "message_id": 4923,
+        "from": {
+            "id": 603317491,
+            "is_bot": true,
+            "first_name": "Algasbot",
+            "username": "Algasbot"
+        },
+        "chat": {
+            "id": 713744,
+            "first_name": "Alex",
+            "last_name": "Gascón",
+            "username": "AlexGascon",
+            "type": "private"
+        },
+        "date": 1582392506,
+        "photo": [
+            {
+                "file_id": "AgACAgQAAxkDAAITO15RZLrHETDGPlj7IV7kn4OQMFaNAAICqzEbmQGMUoMD9Tr95ctzRxK2GwAEAQADAgADbQADPHsDAAEYBA",
+                "file_unique_id": "AQADRxK2GwAEPHsDAAE",
+                "file_size": 5938,
+                "width": 320,
+                "height": 168
+            },
+            {
+                "file_id": "AgACAgQAAxkDAAITO15RZLrHETDGPlj7IV7kn4OQMFaNAAICqzEbmQGMUoMD9Tr95ctzRxK2GwAEAQADAgADeAADPXsDAAEYBA",
+                "file_unique_id": "AQADRxK2GwAEPXsDAAE",
+                "file_size": 21735,
+                "width": 800,
+                "height": 421
+            },
+            {
+                "file_id": "AgACAgQAAxkDAAITO15RZLrHETDGPlj7IV7kn4OQMFaNAAICqzEbmQGMUoMD9Tr95ctzRxK2GwAEAQADAgADeQADPnsDAAEYBA",
+                "file_unique_id": "AQADRxK2GwAEPnsDAAE",
+                "file_size": 28137,
+                "width": 950,
+                "height": 500
+            }
+        ]
+    }
+}
