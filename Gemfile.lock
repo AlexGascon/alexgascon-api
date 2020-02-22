@@ -276,6 +276,7 @@ PLATFORMS
 DEPENDENCIES
   airrecord
   aws-sdk-cloudwatch
+  aws-sdk-s3
   byebug
   climate_control
   dynamoid

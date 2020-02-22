@@ -6,6 +6,7 @@ gem 'climate_control'
 gem "dynamoid"
 gem "httparty"
 gem 'aws-sdk-cloudwatch'
+gem 'aws-sdk-s3'
 gem 'ynab'
 gem 'airrecord'
 gem 'telegram-bot-ruby'
