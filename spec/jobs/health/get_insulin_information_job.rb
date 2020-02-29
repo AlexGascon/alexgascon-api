@@ -2,7 +2,7 @@
 
 RSpec.describe Health::GetInsulinInformationJob do
   describe 'get_insulin_information' do
-    let(:event) { load_json_fixture('sns_events/health/InsulinInformationRequested.json') }
+    let(:event) { load_json_fixture('sns_events/health/SummaryRequested.json') }
     let(:mock_cw) { instance_double(AwsServices::CloudwatchWrapper) }
     let(:mock_telegram) { instance_double(TelegramBot) }
     let(:image_url) { 'https://my.image.com/url' }
