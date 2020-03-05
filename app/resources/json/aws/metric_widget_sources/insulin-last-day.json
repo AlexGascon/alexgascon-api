@@ -1,0 +1,15 @@
+{
+    "metrics": [
+        [ "Health", "Insulin", "Type", "Basal" ],
+        [ "...", "Bolus", { "yAxis": "right" } ]
+    ],
+    "view": "timeSeries",
+    "stacked": false,
+    "stat": "Sum",
+    "period": 3600,
+    "title": "Insulin - Last 24 hours",
+    "width": 950,
+    "height": 500,
+    "start": "-P1D",
+    "end": "P0D"
+}

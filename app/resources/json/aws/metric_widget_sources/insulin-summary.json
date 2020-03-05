@@ -1,0 +1,17 @@
+{
+    "metrics": [
+        [ { "expression": "1800/SUM(METRICS())", "label": "Sensitivity factor", "id": "e1", "region": "eu-west-1" } ],
+        [ { "expression": "m1+m2", "label": "Total units", "id": "e4", "region": "eu-west-1" } ],
+        [ "Health", "Insulin", "Type", "Basal", { "id": "m1", "visible": false } ],
+        [ "...", "Bolus", { "id": "m2", "visible": false } ]
+    ],
+    "view": "singleValue",
+    "stat": "Sum",
+    "period": 300,
+    "title": "Sensitivity factor",
+    "setPeriodToTimeRange": true,
+    "width": 800,
+    "height": 250,
+    "start": "-P1D",
+    "end": "P0D"
+}

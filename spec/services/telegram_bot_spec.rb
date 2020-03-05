@@ -15,7 +15,7 @@ RSpec.describe TelegramBot do
 
   describe '#send_message' do
     let(:message) { 'Hey, this is a message!' }
-    let(:sent_message_object) { load_json_fixture('telegram_message.json') }
+    let(:sent_message_object) { load_json_fixture('telegram/telegram_message.json') }
 
     before do
       allow(subject).to receive_message_chain(:bot, :api, :send_message) { sent_message_object }
@@ -31,6 +31,27 @@ RSpec.describe TelegramBot do
 
     it 'returns the message object' do
       expect(subject.send_message('something')).to eq sent_message_object
+    end
+  end
+
+  describe '#send_photo' do
+    let(:photo_url) { 'https://photourl.com' }
+    let(:sent_photo_message) { load_json_fixture('telegram/telegram_photo.json') }
+
+    before do
+      allow(subject).to receive_message_chain(:bot, :api, :send_photo) { sent_photo_message }
+    end
+
+    it 'sends the photo' do
+      expect(subject)
+        .to receive_message_chain(:bot, :api, :send_photo)
+        .with(chat_id: '123456', photo: photo_url)
+
+      subject.send_photo photo_url
+    end
+
+    it 'returns the sent message' do
+      expect(subject.send_photo(photo_url)).to eq sent_photo_message
     end
   end
 end
