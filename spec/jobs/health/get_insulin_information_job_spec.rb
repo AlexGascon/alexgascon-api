@@ -15,13 +15,6 @@ RSpec.describe Health::GetInsulinInformationJob do
 
       allow(TelegramBot).to receive(:new).and_return(mock_telegram)
       allow(mock_telegram).to receive(:send_photo)
-      allow(mock_telegram).to receive(:send_message)
-    end
-
-    it 'sends a message to tell that we are preparing everything' do
-      expect(mock_telegram).to receive(:send_message).once
-
-      subject
     end
 
     it 'obtains the image for the last 24h of metrics' do

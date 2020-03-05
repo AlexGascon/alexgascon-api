@@ -5,7 +5,6 @@ module Health
 
     sns_event 'SummaryRequested'
     def get_insulin_information
-      telegram.send_message('Preparing insulin summary...')
       image_url = cloudwatch.retrieve_insulin_last_day_image
       telegram.send_photo(image_url)
     end
