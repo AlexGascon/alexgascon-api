@@ -1,7 +1,7 @@
 ENV["TEST"] = "1"
 ENV["JETS_ENV"] ||= "test"
-# Ensures aws api never called. Fixture home folder does not contain ~/.aws/credentails
-ENV['HOME'] = "spec/fixtures/home"
+# Ensures AWS APIs are never called. Fixture home folder does not contain ~/.aws/credentials
+ENV['HOME'] = File.join(Dir.pwd,'spec/fixtures/home')
 
 require "byebug"
 require "fileutils"

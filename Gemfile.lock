@@ -298,6 +298,7 @@ DEPENDENCIES
   httparty
   jets (<= 1.9.30)
   launchy
+  pry
   pry-byebug
   pry-stack_explorer
   puma

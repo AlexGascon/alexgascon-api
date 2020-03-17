@@ -19,6 +19,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'awesome_print'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'pry'
   gem 'pry-byebug'
   gem 'pry-stack_explorer'
   gem 'shotgun'
