@@ -6,6 +6,7 @@ Jets.application.configure do
 
   Dynamoid.configure do |config|
     config.namespace = "#{Jets.application.config.project_name}_#{Jets.env}"
+    config.logger = Jets.logger
   end
 
   # config.prewarm.rate = '30 minutes' # default is '30 minutes'
