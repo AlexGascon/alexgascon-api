@@ -15,7 +15,7 @@ RSpec.describe TelegramBot do
 
   describe '#send_message' do
     let(:message) { 'Hey, this is a message!' }
-    let(:sent_message_object) { load_json_fixture('telegram/telegram_message.json') }
+    let(:sent_message_object) { load_json_fixture('telegram/telegram_message') }
 
     before do
       allow(subject).to receive_message_chain(:bot, :api, :send_message) { sent_message_object }
@@ -49,7 +49,7 @@ RSpec.describe TelegramBot do
 
   describe '#send_photo' do
     let(:photo_url) { 'https://photourl.com' }
-    let(:sent_photo_message) { load_json_fixture('telegram/telegram_photo.json') }
+    let(:sent_photo_message) { load_json_fixture('telegram/telegram_photo') }
 
     before do
       allow(subject).to receive_message_chain(:bot, :api, :send_photo) { sent_photo_message }

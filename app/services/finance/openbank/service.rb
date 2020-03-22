@@ -20,7 +20,7 @@ module Finance
 
         response['movimientos']
       rescue EOFError
-        Jets.logger.warn("Error while retrieving bank transactions, retrying... Retry #: #{retries}")
+        Jets.logger.warn "Error while retrieving bank transactions, retrying... Retry #: #{retries}"
 
         retry if retries < MAX_RETRIES
 

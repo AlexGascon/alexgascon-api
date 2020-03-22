@@ -2,7 +2,8 @@
 
 RSpec.describe Finance::CreateExpenseJob do
   describe 'create_expense' do
-    let(:event) { JSON.parse(File.read('spec/fixtures/sns_events/finance/MoneySpent.json')) }
+    let(:fixture) { 'sns_events/finance/MoneySpent' }
+    let(:event) { load_json_fixture fixture }
     let(:mock_cw) { instance_double(AwsServices::CloudwatchWrapper) }
     let(:mock_ynab) { instance_double(YNAB::API) }
 
@@ -53,7 +54,7 @@ RSpec.describe Finance::CreateExpenseJob do
     end
 
     context 'when the category is not in lowercase' do
-      let(:event) { JSON.parse(File.read('spec/fixtures/sns_events/finance/MoneySpent-uppercase.json')) }
+      let(:fixture) { 'sns_events/finance/MoneySpent-uppercase' }
 
       it 'creates a new expense' do
         expect { subject }.to change { Finance::Expense.all.count }.by 1
@@ -65,7 +66,7 @@ RSpec.describe Finance::CreateExpenseJob do
     end
 
     context 'when the category is invalid' do
-      let(:event) { JSON.parse(File.read('spec/fixtures/sns_events/finance/MoneySpent-invalid_category.json')) }
+      let(:fixture) { 'sns_events/finance/MoneySpent-invalid_category' }
 
       it 'raises a validation error' do
         expect { subject }.to raise_error Dynamoid::Errors::DocumentNotValid

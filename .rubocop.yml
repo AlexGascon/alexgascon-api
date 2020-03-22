@@ -10,6 +10,8 @@ Metrics/BlockLength:
     - 'spec/**/*'
 Metrics/LineLength:
   Max: 100
+  Exclude:
+    - 'config/application.rb'
 Metrics/MethodLength:
   Max: 20
 

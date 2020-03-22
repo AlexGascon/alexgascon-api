@@ -4,6 +4,8 @@ module Finance
   class Expense
     include Dynamoid::Document
 
+    ERROR_CATEGORY_INVALID = 'Invalid category'
+
     field :amount, :number
     field :category, :string
     field :notes, :string
@@ -26,7 +28,11 @@ module Finance
     private
 
     def category_is_a_valid_expense_category
-      errors.add(:category, 'Invalid category') unless Finance::ExpenseCategories::ALL.include? category
+      errors.add(:category, ERROR_CATEGORY_INVALID) unless valid_category?
+    end
+
+    def valid_category?
+      Finance::ExpenseCategories::ALL.include? category
     end
   end
 end

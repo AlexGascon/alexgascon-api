@@ -2,7 +2,7 @@
 
 RSpec.describe Health::CreateInjectionJob do
   describe 'create_injection' do
-    let(:event) { JSON.parse(File.read('spec/fixtures/sns_events/health/InsulinInjected.json')) }
+    let(:event) { load_json_fixture('sns_events/health/InsulinInjected') }
     let(:metrics_service) { instance_double(AwsServices::CloudwatchWrapper) }
 
     before do

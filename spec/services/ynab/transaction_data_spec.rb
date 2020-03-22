@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe Ynab::TransactionData do
-  let(:expense) { Finance::Expense.new(amount: 42.24, notes: 'Expense for testing', category: 'eating out') }
+  let(:category) { 'eating out' }
+  let(:expense) { Finance::Expense.new(amount: 42.24, notes: 'Expense for testing', category: category, created_at: Time.now) }
   let(:default_account_id) { 'e1a73ac1-62aa-4c12-a012-040982104623' }
   let(:eating_out_category_id) { 'f8ba8264-2699-49b4-b233-1fca11788721' }
 
@@ -10,18 +11,36 @@ RSpec.describe Ynab::TransactionData do
 
     before { expense.save }
 
-    it('sets the YNAB account_id') { expect(transaction.account_id).to eq default_account_id }
-    it('sets the transaction amount in negative miliunits') { expect(transaction.amount).to eq(-42_240) }
-    it('sets the transaction date') { expect(transaction.date).to eq Date.today.strftime('%Y-%m-%d') }
-    it('sets the memo') { expect(transaction.memo).to eq 'Expense for testing' }
-    it('sets the category id') { expect(transaction.category_id).to eq eating_out_category_id }
-    it('marks the transaction as approved') { expect(transaction.approved).to be true }
+    it 'sets the YNAB account_id' do
+      expect(transaction.account_id).to eq default_account_id
+    end
+
+    it 'sets the transaction amount in negative miliunits' do
+      expect(transaction.amount).to eq(-42_240)
+    end
+
+    it 'sets the transaction date' do
+      expected_date = Date.today.strftime('%Y-%m-%d')
+      expect(transaction.date).to eq expected_date
+    end
+
+    it 'sets the memo' do
+      expect(transaction.memo).to eq 'Expense for testing'
+    end
+
+    it 'sets the category id' do
+      expect(transaction.category_id).to eq eating_out_category_id
+    end
+
+    it 'marks the transaction as approved' do
+      expect(transaction.approved).to be true
+    end
 
     context 'when the category is not mapped' do
-      let(:expense) { Finance::Expense.new(amount: 42.0, notes: 'Expense for testing', category: 'Something random', created_at: Time.now) }
-      let(:uncategorized_category_id) { 'e172c064-eb5c-4fb2-9bd7-ae5fe9af692f' }
+      let(:category) { 'Something random' }
 
       it 'sets the transaction as "Uncategorized"' do
+        uncategorized_category_id = 'e172c064-eb5c-4fb2-9bd7-ae5fe9af692f'
         expect(transaction.category_id).to eq uncategorized_category_id
       end
     end
@@ -45,16 +64,17 @@ RSpec.describe Ynab::TransactionData do
 
     subject { transaction.to_h }
 
-    it { expect(subject[:amount]).to eq transaction.amount }
-    it { expect(subject[:category_id]).to eq transaction.category_id }
-    it { expect(subject[:account_id]).to eq transaction.account_id }
-    it { expect(subject[:memo]).to eq transaction.memo }
-    it { expect(subject[:date]).to eq transaction.date }
-    it { expect(subject[:approved]).to eq true }
+    expected_attributes = %i[amount category_id account_id memo date approved]
+
+    expected_attributes.each do |attribute|
+      it "maps #{attribute} correctly" do
+        attribute_value = transaction.send(attribute)
+        expect(subject[attribute]).to eq attribute_value
+      end
+    end
 
     it 'has the correct keys' do
-      expected_keys = %i[amount category_id account_id memo date approved]
-      expect(subject.keys).to contain_exactly(*expected_keys)
+      expect(subject.keys).to contain_exactly(*expected_attributes)
     end
   end
 end

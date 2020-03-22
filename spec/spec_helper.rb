@@ -33,5 +33,5 @@ def with_modified_env(options, &block)
 end
 
 def load_json_fixture(path)
-  JSON.parse(File.read("spec/fixtures/#{path}"))
+  JSON.parse(File.read("spec/fixtures/#{path}.json"))
 end

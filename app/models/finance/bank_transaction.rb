@@ -7,6 +7,9 @@ module Finance
     OPENBANK = 'Openbank'
     VALID_BANKS = [OPENBANK].freeze
 
+    ERROR_BANK_INVALID = 'The specified bank is not allowed'
+    ERROR_INTERNAL_ID_BLANK = 'internal_id cannot be blank if the bank is present'
+
     field :amount_in_cents, :number
     field :bank, :string
     field :datetime, :datetime
@@ -27,8 +30,8 @@ module Finance
     def bank_information_is_valid?
       return if bank.blank?
 
-      errors.add(:bank, 'The specified bank is not allowed') unless bank_is_valid?
-      errors.add(:internal_id, 'internal_id cannot be blank if the bank is specified') if internal_id.blank?
+      errors.add(:bank, ERROR_BANK_INVALID) unless bank_is_valid?
+      errors.add(:internal_id, ERROR_INTERNAL_ID_BLANK) if internal_id.blank?
     end
 
     private

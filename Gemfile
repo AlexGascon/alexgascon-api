@@ -29,6 +29,6 @@ end
 
 group :test do
   gem 'launchy'
-  gem 'rspec' # rspec test group only or we get the "irb: warn: can't alias context from irb_context warning" when starting jets console
+  gem 'rspec'
   gem 'webmock'
 end

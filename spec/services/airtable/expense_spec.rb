@@ -12,9 +12,21 @@ RSpec.describe Airtable::Expense do
 
     before { finance_expense.save }
 
-    it('sets the title') { expect(expense.title).to eq 'Expense for testing' }
-    it('sets the amount') { expect(expense.amount).to eq 42.24 }
-    it('sets the category') { expect(expense.category).to eq 'Bar / Restaurant' }
-    it('sets the datetime') { expect(expense.datetime).to eq finance_expense.created_at.strftime('%Y-%m-%dT%H:%M:%S%Z') }
+    it 'sets the title' do
+      expect(expense.title).to eq 'Expense for testing'
+    end
+
+    it 'sets the amount' do
+      expect(expense.amount).to eq 42.24
+    end
+
+    it 'sets the category' do
+      expect(expense.category).to eq 'Bar / Restaurant'
+    end
+
+    it 'sets the datetime' do
+      expected_datetime = finance_expense.created_at.strftime('%Y-%m-%dT%H:%M:%S%Z')
+      expect(expense.datetime).to eq expected_datetime
+    end
   end
 end
