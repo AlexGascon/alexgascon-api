@@ -33,7 +33,6 @@ RSpec.describe Metrics::BaseMetric do
     end
 
     context 'compares dimensions' do
-
       before { metric2.dimensions = metric.dimensions.map(&:clone) }
 
       it 'returns true if their names and values match' do

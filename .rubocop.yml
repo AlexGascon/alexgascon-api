@@ -1,0 +1,20 @@
+Layout/EmptyLinesAroundClassBody:
+  Details: >-
+    Allowing to leave a blank line on top of the job trigger.
+    This reduces the clutter and makes the job code easier to read.
+  Exclude:
+    - 'app/jobs/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+Metrics/LineLength:
+  Max: 100
+Metrics/MethodLength:
+  Max: 20
+
+Style/Documentation:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Include:
+    - '*.rb'

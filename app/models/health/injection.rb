@@ -6,7 +6,7 @@ module Health
 
     TYPE_BASAL = 'basal'
     TYPE_BOLUS = 'bolus'
-    TYPES = [TYPE_BASAL, TYPE_BOLUS]
+    TYPES = [TYPE_BASAL, TYPE_BOLUS].freeze
 
     field :injection_type, :string
     field :notes, :string
@@ -22,9 +22,9 @@ module Health
 
     def ==(other)
       other.class == self.class &&
-        other.units == self.units &&
-        other.injection_type == self.injection_type &&
-        other.notes == self.notes
+        other.units == units &&
+        other.injection_type == injection_type &&
+        other.notes == notes
     end
 
     private

@@ -1,35 +1,35 @@
 # frozen_string_literal: true
 
 RSpec.describe Partners::Dexcom::AuthService do
-    let(:mock_dexcom_credentials) do
-      {
-        DEXCOM_URL: 'https://api.dexcom.com',
-        DEXCOM_CLIENT_ID: 'client_id',
-        DEXCOM_CLIENT_SECRET: 'client_secret',
-        DEXCOM_REDIRECT_URI: 'www.example.com/dexcom'
-      }
-    end
+  let(:mock_dexcom_credentials) do
+    {
+      DEXCOM_URL: 'https://api.dexcom.com',
+      DEXCOM_CLIENT_ID: 'client_id',
+      DEXCOM_CLIENT_SECRET: 'client_secret',
+      DEXCOM_REDIRECT_URI: 'www.example.com/dexcom'
+    }
+  end
 
-    let(:mock_headers) { { 'Content-Type' => 'application/x-www-form-urlencoded' } }
-    let(:base_payload) do
-      {
-        client_id: 'client_id',
-        client_secret: 'client_secret',
-        redirect_uri: 'www.example.com/dexcom'
-      }
-    end
+  let(:mock_headers) { { 'Content-Type' => 'application/x-www-form-urlencoded' } }
+  let(:base_payload) do
+    {
+      client_id: 'client_id',
+      client_secret: 'client_secret',
+      redirect_uri: 'www.example.com/dexcom'
+    }
+  end
 
-    before do
-      @stub = stub_request(:post, 'https://api.dexcom.com/v2/oauth2/token')
-              .with(headers: mock_headers, body: mock_request_body)
-              .to_return(status: 200, body: mock_response.to_json)
+  before do
+    @stub = stub_request(:post, 'https://api.dexcom.com/v2/oauth2/token')
+            .with(headers: mock_headers, body: mock_request_body)
+            .to_return(status: 200, body: mock_response.to_json)
 
-      travel_to Time.new(2018, 10, 30, 12, 34, 56)
-    end
+    travel_to Time.new(2018, 10, 30, 12, 34, 56)
+  end
 
-    around { |example| with_modified_env(mock_dexcom_credentials) { example.run } }
+  around { |example| with_modified_env(mock_dexcom_credentials) { example.run } }
 
-    after { travel_back }
+  after { travel_back }
 
   describe '#obtain_oauth_token' do
     let(:mock_request_body) { base_payload.merge(code: '1234', grant_type: 'authorization_code') }
@@ -82,8 +82,9 @@ RSpec.describe Partners::Dexcom::AuthService do
     end
 
     before do
-      Partners::Dexcom::AuthToken.instance
-      .update_attributes(refresh_token: '5678')
+      Partners::Dexcom::AuthToken
+        .instance
+        .update_attributes(refresh_token: '5678')
     end
 
     subject { described_class.new.renew_oauth_token }

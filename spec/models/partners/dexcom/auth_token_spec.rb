@@ -21,7 +21,7 @@ RSpec.describe Partners::Dexcom::AuthToken do
       end
 
       it 'does not create new tokens' do
-        expect { described_class.instance.save }.not_to change { described_class.count }
+        expect { described_class.instance.save }.not_to(change { described_class.count })
       end
     end
   end

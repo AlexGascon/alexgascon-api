@@ -4,9 +4,7 @@ module DynamoidReset
   def self.all
     Dynamoid.adapter.list_tables.each do |table|
       # Only delete tables in our namespace
-      if table =~ /^#{Dynamoid::Config.namespace}/
-        Dynamoid.adapter.delete_table(table)
-      end
+      Dynamoid.adapter.delete_table(table) if table =~ /^#{Dynamoid::Config.namespace}/
     end
     Dynamoid.adapter.tables.clear
     # Recreate all tables to avoid unexpected errors

@@ -18,9 +18,9 @@ module Finance
 
     def ==(other)
       other.class == self.class &&
-        other.amount == self.amount &&
-        other.category == self.category &&
-        other.notes == self.notes
+        other.amount == amount &&
+        other.category == category &&
+        other.notes == notes
     end
 
     private

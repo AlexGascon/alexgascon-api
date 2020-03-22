@@ -1,20 +1,22 @@
-ENV["TEST"] = "1"
-ENV["JETS_ENV"] ||= "test"
-# Ensures AWS APIs are never called. Fixture home folder does not contain ~/.aws/credentials
-ENV['HOME'] = File.join(Dir.pwd,'spec/fixtures/home')
+# frozen_string_literal: true
 
-require "byebug"
-require "fileutils"
-require "jets"
+ENV['TEST'] = '1'
+ENV['JETS_ENV'] ||= 'test'
+# Ensures AWS APIs are never called. Fixture home folder does not contain ~/.aws/credentials
+ENV['HOME'] = File.join(Dir.pwd, 'spec/fixtures/home')
+
+require 'byebug'
+require 'fileutils'
+require 'jets'
 require 'webmock/rspec'
 require 'active_support/testing/time_helpers'
 
 WebMock.disable_net_connect!(allow_localhost: true)
 
-abort("The Jets environment is running in production mode!") if Jets.env == "production"
+abort('The Jets environment is running in production mode!') if Jets.env == 'production'
 Jets.boot
 
-require "jets/spec_helpers"
+require 'jets/spec_helpers'
 
 Dir[Jets.root.join('spec/support/**/*.rb')].each { |f| require f }
 

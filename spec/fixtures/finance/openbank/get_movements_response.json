@@ -1,0 +1,291 @@
+{
+    "_links": {
+        "self": {
+            "href": "http://api.openbank.es:80/my-money/cuentas/movimientos?producto=055&numeroContrato=5567850&fechaDesde=2020-03-02&fechaHasta=2020-03-05&numeroDgo=0&discriminacionOperacion=PRIMERA"
+        }
+    },
+    "importeHasta": {
+        "divisa": ""
+    },
+    "repaginacion": {
+        "fechaAlta": "2020-03-03",
+        "diaMovimiento": 1,
+        "situacion": "4",
+        "indicadorMas": "N",
+        "operacionDGO": {
+            "centro": {
+                "centro": "0100",
+                "empresa": "0073"
+            },
+            "codigoterminaldgo": "BH157",
+            "numerodgo": 14229
+        },
+        "importeCuenta": {
+            "divisa": "EUR",
+            "importe": 0
+        },
+        "numeroMovimiento": 3
+    },
+    "importeDesde": {
+        "divisa": ""
+    },
+    "movimientos": [
+        {
+            "recibo": false,
+            "subtipoContratoPrincipal": {
+                "subtipodeproducto": "002",
+                "tipodeproducto": {
+                    "empresa": "0073",
+                    "tipodeproducto": "506"
+                }
+            },
+            "categorias": [
+                {
+                    "online": true,
+                    "category": "Comercio y tiendas",
+                    "subcategory": "Otros (Comercio y tiendas)",
+                    "relevance": 0.99997959225225
+                },
+                {
+                    "online": true,
+                    "category": "Otros gastos",
+                    "subcategory": "Otros gastos",
+                    "relevance": 2.040774774997412E-5
+                }
+            ],
+            "conceptoTabla": "COMPRA EN PAYPAL *DAZN, CON LA TARJETA : XXXXXXXXXXXX4205 EL 2020-03-02                             ",
+            "fechaValor": "2020-03-04",
+            "operacionDGO": {
+                "centro": {
+                    "centro": "0100",
+                    "empresa": "0073"
+                },
+                "codigoterminaldgo": "BH027",
+                "numerodgo": 10226
+            },
+            "saldo": {
+                "divisa": "EUR",
+                "importe": 2395.47
+            },
+            "categoriaGanadora": {
+                "online": true,
+                "category": "Comercio y tiendas",
+                "subcategory": "Otros (Comercio y tiendas)",
+                "relevance": 0.99997959225225
+            },
+            "pendienteValoracion": false,
+            "importe": {
+                "divisa": "EUR",
+                "importe": -9.99
+            },
+            "indFinanciacion": "N",
+            "contratoPrincipalOperacion": {
+                "numerodecontrato": "1980528",
+                "centro": {
+                    "centro": "0100",
+                    "empresa": "0073"
+                },
+                "producto": "506"
+            },
+            "diaMvto": 99999,
+            "nummov": 3,
+            "fechaOperacion": "2020-03-04"
+        },
+        {
+            "recibo": false,
+            "subtipoContratoPrincipal": {
+                "subtipodeproducto": "002",
+                "tipodeproducto": {
+                    "empresa": "0073",
+                    "tipodeproducto": "506"
+                }
+            },
+            "categorias": [
+                {
+                    "online": true,
+                    "category": "Casa y hogar",
+                    "subcategory": "Alimentación y supermercados",
+                    "relevance": 0.9999803925403914
+                },
+                {
+                    "online": true,
+                    "category": "Otros gastos",
+                    "subcategory": "Otros gastos",
+                    "relevance": 1.960745960856689E-5
+                }
+            ],
+            "conceptoTabla": "COMPRA EN SUPERMAC'S, CON LA TARJETA : XXXXXXXXXXXX4205 EL 2020-03-01                               ",
+            "fechaValor": "2020-03-03",
+            "operacionDGO": {
+                "centro": {
+                    "centro": "0100",
+                    "empresa": "0073"
+                },
+                "codigoterminaldgo": "BH157",
+                "numerodgo": 14231
+            },
+            "saldo": {
+                "divisa": "EUR",
+                "importe": 2405.46
+            },
+            "categoriaGanadora": {
+                "online": true,
+                "category": "Casa y hogar",
+                "subcategory": "Alimentación y supermercados",
+                "relevance": 0.9999803925403914
+            },
+            "pendienteValoracion": false,
+            "importe": {
+                "divisa": "EUR",
+                "importe": -7.5
+            },
+            "indFinanciacion": "N",
+            "contratoPrincipalOperacion": {
+                "numerodecontrato": "1980528",
+                "centro": {
+                    "centro": "0100",
+                    "empresa": "0073"
+                },
+                "producto": "506"
+            },
+            "diaMvto": 99999,
+            "nummov": 3,
+            "fechaOperacion": "2020-03-03"
+        },
+        {
+            "recibo": false,
+            "subtipoContratoPrincipal": {
+                "subtipodeproducto": "002",
+                "tipodeproducto": {
+                    "empresa": "0073",
+                    "tipodeproducto": "506"
+                }
+            },
+            "categorias": [
+                {
+                    "online": true,
+                    "category": "Comercio y tiendas",
+                    "subcategory": "Electrónica, libros, prensa, música y Apps",
+                    "relevance": 0.9872820907588656
+                },
+                {
+                    "online": true,
+                    "category": "Casa y hogar",
+                    "subcategory": "Telefonía, Internet y televisión",
+                    "relevance": 0.012698163598381343
+                },
+                {
+                    "online": true,
+                    "category": "Otros gastos",
+                    "subcategory": "Otros gastos",
+                    "relevance": 1.9745642753044973E-5
+                }
+            ],
+            "conceptoTabla": "COMPRA EN GOOGLE*GOOGLE STORAGE, CON LA TARJETA : XXXXXXXXXXXX4205 EL 2020-02-29                    ",
+            "fechaValor": "2020-03-03",
+            "operacionDGO": {
+                "centro": {
+                    "centro": "0100",
+                    "empresa": "0073"
+                },
+                "codigoterminaldgo": "BH157",
+                "numerodgo": 14230
+            },
+            "saldo": {
+                "divisa": "EUR",
+                "importe": 2412.96
+            },
+            "categoriaGanadora": {
+                "online": true,
+                "category": "Comercio y tiendas",
+                "subcategory": "Electrónica, libros, prensa, música y Apps",
+                "relevance": 0.9872820907588656
+            },
+            "pendienteValoracion": false,
+            "importe": {
+                "divisa": "EUR",
+                "importe": -1.99
+            },
+            "indFinanciacion": "N",
+            "contratoPrincipalOperacion": {
+                "numerodecontrato": "1980528",
+                "centro": {
+                    "centro": "0100",
+                    "empresa": "0073"
+                },
+                "producto": "506"
+            },
+            "diaMvto": 2,
+            "nummov": 3,
+            "fechaOperacion": "2020-03-03"
+        },
+        {
+            "recibo": false,
+            "subtipoContratoPrincipal": {
+                "subtipodeproducto": "002",
+                "tipodeproducto": {
+                    "empresa": "0073",
+                    "tipodeproducto": "506"
+                }
+            },
+            "categorias": [
+                {
+                    "online": true,
+                    "category": "Comercio y tiendas",
+                    "subcategory": "Otros (Comercio y tiendas)",
+                    "relevance": 0.99997959225225
+                },
+                {
+                    "online": true,
+                    "category": "Otros gastos",
+                    "subcategory": "Otros gastos",
+                    "relevance": 2.040774774997412E-5
+                }
+            ],
+            "conceptoTabla": "COMPRA EN PAYPAL *ENEBA, CON LA TARJETA : XXXXXXXXXXXX4205 EL 2020-02-28                            ",
+            "fechaValor": "2020-03-03",
+            "operacionDGO": {
+                "centro": {
+                    "centro": "0100",
+                    "empresa": "0073"
+                },
+                "codigoterminaldgo": "BH157",
+                "numerodgo": 14229
+            },
+            "saldo": {
+                "divisa": "EUR",
+                "importe": 2414.95
+            },
+            "categoriaGanadora": {
+                "online": true,
+                "category": "Comercio y tiendas",
+                "subcategory": "Otros (Comercio y tiendas)",
+                "relevance": 0.99997959225225
+            },
+            "pendienteValoracion": false,
+            "importe": {
+                "divisa": "EUR",
+                "importe": -43.56
+            },
+            "indFinanciacion": "N",
+            "contratoPrincipalOperacion": {
+                "numerodecontrato": "1980528",
+                "centro": {
+                    "centro": "0100",
+                    "empresa": "0073"
+                },
+                "producto": "506"
+            },
+            "diaMvto": 1,
+            "nummov": 3,
+            "fechaOperacion": "2020-03-03"
+        }
+    ],
+    "cuentaAsociada": {
+        "codbban": "00730100580555567850          ",
+        "digitodecontrol": "76",
+        "pais": "ES"
+    },
+    "titular": "GASCON BONONAD ALEJANDRO    ",
+    "masMovimientos": false
+}

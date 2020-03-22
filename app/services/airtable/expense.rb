@@ -28,7 +28,7 @@ module Airtable
     ATTRIBUTE_TO_COLUMN.keys.each do |attribute|
       column = ATTRIBUTE_TO_COLUMN[attribute]
 
-      define_method("#{attribute}") do
+      define_method(attribute.to_s) do
         self[column]
       end
 

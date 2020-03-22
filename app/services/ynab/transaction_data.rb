@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Ynab
   class TransactionData
     MILIUNITS_PER_EURO = 1000

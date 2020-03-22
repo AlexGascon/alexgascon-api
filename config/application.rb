@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 Jets.application.configure do
-  config.project_name = "alexgascon-api"
-  config.mode = "html"
+  config.project_name = 'alexgascon-api'
+  config.mode = 'html'
 
   config.prewarm.enable = false
 
@@ -52,7 +54,6 @@ Jets.application.configure do
 
   # config.api.endpoint_type = 'PRIVATE' # Default is 'EDGE' https://amzn.to/2r0Iu2L
   # config.api.authorization_type = "AWS_IAM" # default is 'NONE' https://amzn.to/2qZ7zLh
-
 
   # More info: http://rubyonjets.com/docs/routing/custom-domain/
   # config.domain.hosted_zone_name = "example.com"

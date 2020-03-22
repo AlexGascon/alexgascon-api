@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Finance
   module ExpenseCategories
     COCA_COLA = 'coca cola'
@@ -5,6 +7,6 @@ module Finance
     FUN = 'fun money'
     SUPERMARKET = 'supermercado'
 
-    ALL = [COCA_COLA, EATING_OUT, FUN, SUPERMARKET]
+    ALL = [COCA_COLA, EATING_OUT, FUN, SUPERMARKET].freeze
   end
 end
