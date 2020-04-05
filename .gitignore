@@ -13,3 +13,6 @@ tmp
 /public/packs
 /public/packs-test
 /node_modules
+
+# DynamoDB local instance
+shared-local-instance.db
