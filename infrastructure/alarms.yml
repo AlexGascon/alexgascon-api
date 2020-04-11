@@ -1,0 +1,99 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: CloudWatch Alarms used to verify that the components in alexgascon-api are working properly
+
+Resources:
+  BasalNotPublishedAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: alexgascon-api_Basal-Insulin-Not-Published
+      AlarmDescription: Alarm to monitor if basal insulin's datapoints are being published correctly
+      Namespace: Health
+      MetricName: Insulin
+      Dimensions:
+      - Name: Type
+        Value: Basal
+      Unit: Count
+      ComparisonOperator: LessThanThreshold
+      EvaluationPeriods: 1
+      Period: 3600
+      Statistic: SampleCount
+      Threshold: 1
+      TreatMissingData: breaching
+
+  BolusNotPublishedAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: alexgascon-api_Bolus-Insulin-Not-Published
+      AlarmDescription: Alarm to monitor if bolus insulin's datapoints are being published correctly
+      Namespace: Health
+      MetricName: Insulin
+      Dimensions:
+        - Name: Type
+          Value: Bolus
+      ComparisonOperator: LessThanThreshold
+      EvaluationPeriods: 1
+      Period: 3600
+      Statistic: SampleCount
+      Threshold: 1
+      TreatMissingData: breaching
+      Unit: Count
+
+  ExpensesNotPublishedAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: alexgascon-api_Expenses-Not-Published
+      AlarmDescription: Alarm to monitor if datapoints for the expense categories are being published correctly
+      Metrics:
+        - Label: Expense datapoints
+          Id: e1
+          Expression: SUM([m1, m2, m3, m4])
+          ReturnData: true
+        - Id: m1
+          MetricStat:
+            Metric:
+              Namespace: Finance
+              MetricName: Expense
+              Dimensions:
+                - Name: Category
+                  Value: Coca cola
+            Period: 3600
+            Stat: SampleCount
+          ReturnData: false
+        - Id: m2
+          MetricStat:
+            Metric:
+              Namespace: Finance
+              MetricName: Expense
+              Dimensions:
+                - Name: Category
+                  Value: Eating out
+            Period: 3600
+            Stat: SampleCount
+          ReturnData: false
+        - Id: m3
+          MetricStat:
+            Metric:
+              Namespace: Finance
+              MetricName: Expense
+              Dimensions:
+                - Name: Category
+                  Value: Fun
+            Period: 3600
+            Stat: SampleCount
+          ReturnData: false
+        - Id: m4
+          MetricStat:
+            Metric:
+              Namespace: Finance
+              MetricName: Expense
+              Dimensions:
+                - Name: Category
+                  Value: Supermarket
+            Period: 3600
+            Stat: SampleCount
+          ReturnData: false
+      ComparisonOperator: LessThanThreshold
+      EvaluationPeriods: 1
+      Threshold: 4
+      TreatMissingData: breaching
