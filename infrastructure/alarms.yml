@@ -20,6 +20,9 @@ Resources:
       Statistic: SampleCount
       Threshold: 1
       TreatMissingData: breaching
+      AlarmActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
+      OKActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
+      InsufficientDataActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
 
   BolusNotPublishedAlarm:
     Type: AWS::CloudWatch::Alarm
@@ -38,6 +41,9 @@ Resources:
       Threshold: 1
       TreatMissingData: breaching
       Unit: Count
+      AlarmActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
+      OKActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
+      InsufficientDataActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
 
   ExpensesNotPublishedAlarm:
     Type: AWS::CloudWatch::Alarm
@@ -97,3 +103,6 @@ Resources:
       EvaluationPeriods: 1
       Threshold: 4
       TreatMissingData: breaching
+      AlarmActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
+      OKActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
+      InsufficientDataActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']

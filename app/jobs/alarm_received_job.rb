@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AlarmReceivedJob < ApplicationJob
+  sns_event 'AlarmFired'
   def run
     SendTelegramMessageCommand.new(telegram_message).execute
   end
