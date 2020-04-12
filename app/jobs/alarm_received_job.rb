@@ -14,9 +14,9 @@ class AlarmReceivedJob < ApplicationJob
 
   def telegram_message
     <<~MSG
-    #{Emojis::BELL} Alarm! Alarm! #{Emojis::BELL}
+    #{Emojis::BELL} *Alarm! Alarm!* #{Emojis::BELL}
 
-    The alarm "#{alarm.name}" has entered into "#{alarm.state}"
+    The alarm "#{alarm.name}" has changed to "#{alarm.state}"
 
     Reason:
     #{alarm.reason}

@@ -19,9 +19,9 @@ RSpec.describe AlarmReceivedJob do
 
     it 'passes the correct message to the command' do
       expected_message = <<~MSG
-      \xF0\x9F\x94\x94 Alarm! Alarm! \xF0\x9F\x94\x94
+      \xF0\x9F\x94\x94 *Alarm! Alarm!* \xF0\x9F\x94\x94
 
-      The alarm "Example alarm name" has entered into "ALARM"
+      The alarm "Example alarm name" has changed to "ALARM"
 
       Reason:
       Threshold Crossed: 1 datapoint (10.0) was greater than or equal to the threshold (1.0).
