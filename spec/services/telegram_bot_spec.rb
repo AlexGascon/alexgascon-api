@@ -14,7 +14,7 @@ RSpec.describe TelegramBot do
   subject { described_class.new }
 
   describe '#send_message' do
-    let(:message) { 'Hey, this is a message!' }
+    let(:message) { 'Hey, this is a message' }
     let(:sent_message_object) { load_json_fixture('telegram/telegram_message') }
 
     before do
