@@ -59,7 +59,7 @@ Resources:
           MetricStat:
             Metric:
               Namespace: Finance
-              MetricName: Expense
+              MetricName: Money spent
               Dimensions:
                 - Name: Category
                   Value: Coca cola
@@ -70,7 +70,7 @@ Resources:
           MetricStat:
             Metric:
               Namespace: Finance
-              MetricName: Expense
+              MetricName: Money spent
               Dimensions:
                 - Name: Category
                   Value: Eating out
@@ -81,7 +81,7 @@ Resources:
           MetricStat:
             Metric:
               Namespace: Finance
-              MetricName: Expense
+              MetricName: Money spent
               Dimensions:
                 - Name: Category
                   Value: Fun
@@ -92,7 +92,7 @@ Resources:
           MetricStat:
             Metric:
               Namespace: Finance
-              MetricName: Expense
+              MetricName: Money spent
               Dimensions:
                 - Name: Category
                   Value: Supermarket

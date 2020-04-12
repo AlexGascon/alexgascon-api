@@ -4,7 +4,7 @@ require 'telegram/bot'
 
 class TelegramBot
   MARKDOWN_MODE = 'MarkdownV2'
-  RESERVED_CHARACTERS = '.$%-{}\/'
+  RESERVED_CHARACTERS = '.$%-{}\/!()'
 
   def initialize
     @bot = Telegram::Bot::Client.run(bot_token) { |bot| bot }
