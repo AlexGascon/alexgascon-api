@@ -23,6 +23,10 @@ module Finance
     validates_presence_of :description
     validate :bank_information_is_valid?
 
+    def amount
+      (amount_in_cents / 100).round(2)
+    end
+
     def expense?
       amount_in_cents.negative?
     end

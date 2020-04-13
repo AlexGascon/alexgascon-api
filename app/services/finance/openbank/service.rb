@@ -8,7 +8,9 @@ module Finance
 
       MAX_RETRIES = 3
 
-      def get_transactions(from, to = Date.today)
+      def get_transactions(from, to = nil)
+        to ||= from
+
         authenticate unless @auth_token
 
         response = request_transactions(from, to)
