@@ -26,6 +26,15 @@ module AwsServices
       file_url(filename)
     end
 
+    def get_file(filename)
+      response = client.get_object(
+        bucket: bucket,
+        key: filename
+      )
+
+      response.body.read
+    end
+
     private
 
     def default_filename(extension: 'png')
