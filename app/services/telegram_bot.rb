@@ -3,20 +3,12 @@
 require 'telegram/bot'
 
 class TelegramBot
-  MARKDOWN_MODE = 'MarkdownV2'
-  RESERVED_CHARACTERS = '.$%-{}\/!()_+#'
-
   def initialize
     @bot = Telegram::Bot::Client.run(bot_token) { |bot| bot }
   end
 
   def send_message(message)
-    escaped_message = message
-                      .each_char
-                      .map { |char| escape_character(char) }
-                      .join
-
-    bot.api.send_message(chat_id: chat_id, text: escaped_message, parse_mode: MARKDOWN_MODE)
+    bot.api.send_message(chat_id: chat_id, text: message)
   end
 
   def send_photo(url)
@@ -37,11 +29,5 @@ class TelegramBot
 
   def chat_id
     ENV['TELEGRAM_CHAT_ID']
-  end
-
-  def escape_character(char)
-    return "\\#{char}" if RESERVED_CHARACTERS.include? char
-
-    char
   end
 end

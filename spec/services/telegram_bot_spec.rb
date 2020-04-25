@@ -24,26 +24,13 @@ RSpec.describe TelegramBot do
     it 'sends the message' do
       expect(subject)
         .to receive_message_chain(:bot, :api, :send_message)
-        .with(chat_id: '123456', parse_mode: 'MarkdownV2', text: message)
+        .with(chat_id: '123456', text: message)
 
       subject.send_message message
     end
 
     it 'returns the message object' do
       expect(subject.send_message('something')).to eq sent_message_object
-    end
-
-    context 'when the message contains special characters' do
-      let(:message) { 'Hey... This is a -message- with $pecial characters /{}' }
-
-      it 'escapes the special characters' do
-        escaped_message = 'Hey\.\.\. This is a \-message\- with \$pecial characters \/\{\}'
-        expect(subject)
-          .to receive_message_chain(:bot, :api, :send_message)
-          .with(chat_id: '123456', parse_mode: 'MarkdownV2', text: escaped_message)
-
-        subject.send_message message
-      end
     end
   end
 
