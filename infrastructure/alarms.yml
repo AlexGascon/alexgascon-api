@@ -106,3 +106,18 @@ Resources:
       AlarmActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
       OKActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
       InsufficientDataActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
+
+  LambdaErrorAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: alexgascon-api_Lambda-Error
+      AlarmDescription: Fires if there's an error on any Lambda function
+      EvaluationPeriods: 1
+      Namespace: AWS/Lambda
+      MetricName: Errors
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      Statistic: Sum
+      Period: 300
+      Threshold: 1
+      AlarmActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
+      OKActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
