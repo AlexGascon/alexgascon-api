@@ -3,8 +3,7 @@
 module Health
   class Injection
     include Dynamoid::Document
-
-    delegate :namespace, :data, prefix: :metric, to: :metric_adapter
+    include Metricable
 
     TYPE_BASAL = 'basal'
     TYPE_BOLUS = 'bolus'
@@ -27,10 +26,6 @@ module Health
         other.units == units &&
         other.injection_type == injection_type &&
         other.notes == notes
-    end
-
-    def metric_adapter
-      @metric_adapter ||= Metrics::Health::InjectionMetricAdapter.new(self)
     end
 
     private

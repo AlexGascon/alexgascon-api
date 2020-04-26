@@ -3,8 +3,7 @@
 module Finance
   class Expense
     include Dynamoid::Document
-
-    delegate :namespace, :data, prefix: :metric, to: :metric_adapter
+    include Metricable
 
     ERROR_CATEGORY_INVALID = 'Invalid category'
 
@@ -25,10 +24,6 @@ module Finance
         other.amount == amount &&
         other.category == category &&
         other.notes == notes
-    end
-
-    def metric_adapter
-      @metric_adapter ||= Metrics::Finance::ExpenseMetricAdapter.new(self)
     end
 
     private
