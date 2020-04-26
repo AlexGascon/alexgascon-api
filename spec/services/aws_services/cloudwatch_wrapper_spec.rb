@@ -16,7 +16,7 @@ RSpec.describe AwsServices::CloudwatchWrapper do
       injection = Health::Injection.new(units: 22, injection_type: Health::Injection::TYPE_BASAL, notes: 'test injection')
       expected_metric_data = {
         namespace: 'Health',
-        metric_data: [Metrics::InjectionMetric.new(injection)]
+        metric_data: [injection.metric_adapter]
       }
 
       expect(metrics_service).to receive(:put_metric_data).with(expected_metric_data)
@@ -31,7 +31,7 @@ RSpec.describe AwsServices::CloudwatchWrapper do
       expense = Finance::Expense.new(amount: 42, category: 'eating out', notes: 'test expense note')
       expected_metric_data = {
         namespace: 'Finance',
-        metric_data: [Metrics::ExpenseMetric.new(expense)]
+        metric_data: [expense.metric_adapter]
       }
 
       expect(metrics_service).to receive(:put_metric_data).with(expected_metric_data)

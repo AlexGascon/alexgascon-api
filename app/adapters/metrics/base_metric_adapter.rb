@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Metrics
-  class BaseMetric < Aws::CloudWatch::Types::MetricDatum
+  class BaseMetricAdapter < Aws::CloudWatch::Types::MetricDatum
     UNIT_COUNT = 'Count'
 
     def namespace
