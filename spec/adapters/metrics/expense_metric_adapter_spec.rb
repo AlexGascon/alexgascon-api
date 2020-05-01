@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Metrics::ExpenseMetric do
+RSpec.describe Metrics::Finance::ExpenseMetricAdapter do
   let(:expense) do
     Finance::Expense.new(
       amount: 12,
@@ -10,7 +10,7 @@ RSpec.describe Metrics::ExpenseMetric do
   end
 
   describe '#new' do
-    subject(:metric) { Metrics::ExpenseMetric.new(expense) }
+    subject(:metric) { described_class.new(expense) }
 
     it 'sets the metric name' do
       expect(metric.metric_name).to eq 'Money spent'

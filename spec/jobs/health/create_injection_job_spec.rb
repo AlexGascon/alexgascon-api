@@ -7,7 +7,7 @@ RSpec.describe Health::CreateInjectionJob do
 
     before do
       allow(AwsServices::CloudwatchWrapper).to receive(:new).and_return metrics_service
-      allow(metrics_service).to receive(:publish_injection)
+      allow(metrics_service).to receive(:publish)
     end
 
     subject { described_class.perform_now(:create_injection, event) }
@@ -27,7 +27,7 @@ RSpec.describe Health::CreateInjectionJob do
     end
 
     it 'publishes the injection information to CloudWatch' do
-      expect(metrics_service).to receive(:publish_injection).with an_instance_of(Health::Injection)
+      expect(metrics_service).to receive(:publish).with an_instance_of(Health::Injection)
 
       subject
     end

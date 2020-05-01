@@ -1,10 +1,15 @@
 # frozen_string_literal: true
 
-RSpec.describe Metrics::InjectionMetric do
+RSpec.describe Metrics::Health::InjectionMetricAdapter do
   let(:injection) { Health::Injection.new(units: 22, injection_type: Health::Injection::TYPE_BASAL, notes: 'test injection') }
 
   describe '#new' do
-    subject(:metric) { Metrics::InjectionMetric.new(injection) }
+    let(:metric) { subject.data }
+    subject { described_class.new(injection) }
+
+    it 'sets the metric namespace' do
+      expect(subject.namespace).to eq 'Health'
+    end
 
     it 'sets the metric name' do
       expect(metric.metric_name).to eq 'Insulin'

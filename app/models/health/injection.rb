@@ -3,6 +3,7 @@
 module Health
   class Injection
     include Dynamoid::Document
+    include Metricable
 
     TYPE_BASAL = 'basal'
     TYPE_BOLUS = 'bolus'

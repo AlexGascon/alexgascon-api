@@ -11,14 +11,8 @@ module AwsServices
       @client = Aws::CloudWatch::Client.new
     end
 
-    def publish_injection(injection)
-      metric_data = Metrics::InjectionMetric.new(injection)
-      client.put_metric_data(namespace: 'Health', metric_data: [metric_data])
-    end
-
-    def publish_expense(expense)
-      metric_data = Metrics::ExpenseMetric.new(expense)
-      client.put_metric_data(namespace: 'Finance', metric_data: [metric_data])
+    def publish(metricable)
+      client.put_metric_data(namespace: metricable.metric_namespace, metric_data: [metricable.metric_data])
     end
 
     def retrieve_insulin_last_day_image

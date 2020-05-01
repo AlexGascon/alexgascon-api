@@ -21,7 +21,7 @@ module Health
     private
 
     def publish_injection_metric(injection)
-      AwsServices::CloudwatchWrapper.new.publish_injection(injection)
+      AwsServices::CloudwatchWrapper.new.publish(injection)
     end
   end
 end

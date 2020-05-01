@@ -23,7 +23,7 @@ module Finance
     private
 
     def publish_expense_metric(expense)
-      AwsServices::CloudwatchWrapper.new.publish_expense(expense)
+      AwsServices::CloudwatchWrapper.new.publish(expense)
     end
 
     def publish_expense_in_airtable(expense)

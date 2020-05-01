@@ -3,6 +3,7 @@
 module Finance
   class Expense
     include Dynamoid::Document
+    include Metricable
 
     ERROR_CATEGORY_INVALID = 'Invalid category'
 
