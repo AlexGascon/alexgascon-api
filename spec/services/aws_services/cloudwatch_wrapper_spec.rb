@@ -9,7 +9,7 @@ RSpec.describe AwsServices::CloudwatchWrapper do
 
   subject { described_class.new }
 
-  describe '#publish_injection' do
+  describe '#publish' do
     before { allow(metrics_service).to receive(:put_metric_data) }
 
     it 'publishes the injection in CloudWatch' do
@@ -20,12 +20,8 @@ RSpec.describe AwsServices::CloudwatchWrapper do
       }
 
       expect(metrics_service).to receive(:put_metric_data).with(expected_metric_data)
-      subject.publish_injection(injection)
+      subject.publish(injection)
     end
-  end
-
-  describe '#publish_expense' do
-    before { allow(metrics_service).to receive(:put_metric_data) }
 
     it 'publishes the expense in CloudWatch' do
       expense = Finance::Expense.new(amount: 42, category: 'eating out', notes: 'test expense note')
@@ -35,7 +31,7 @@ RSpec.describe AwsServices::CloudwatchWrapper do
       }
 
       expect(metrics_service).to receive(:put_metric_data).with(expected_metric_data)
-      subject.publish_expense(expense)
+      subject.publish(expense)
     end
   end
 

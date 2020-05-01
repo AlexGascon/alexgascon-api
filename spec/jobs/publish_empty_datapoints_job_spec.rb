@@ -5,14 +5,13 @@ RSpec.describe PublishEmptyDatapointsJob do
 
   before do
     allow(AwsServices::CloudwatchWrapper).to receive(:new).and_return(mock_cw)
-    allow(mock_cw).to receive(:publish_expense)
-    allow(mock_cw).to receive(:publish_injection)
+    allow(mock_cw).to receive(:publish)
   end
 
   RSpec.shared_examples 'empty injection metrics' do |type|
     it "publishes an empty #{type} injection" do
       empty_injection = Health::Injection.new(injection_type: type, units: 0)
-      expect(mock_cw).to receive(:publish_injection).with(empty_injection)
+      expect(mock_cw).to receive(:publish).with(empty_injection)
 
       subject
     end
@@ -21,7 +20,7 @@ RSpec.describe PublishEmptyDatapointsJob do
   RSpec.shared_examples 'empty expense metrics' do |category|
     it "publishes an empty #{category} expense" do
       empty_expense = Finance::Expense.new(amount: 0, notes: nil, category: category)
-      expect(mock_cw).to receive(:publish_expense).with(empty_expense)
+      expect(mock_cw).to receive(:publish).with(empty_expense)
 
       subject
     end

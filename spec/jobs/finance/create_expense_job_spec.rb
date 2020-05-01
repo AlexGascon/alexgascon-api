@@ -11,7 +11,7 @@ RSpec.describe Finance::CreateExpenseJob do
 
     before do
       allow(AwsServices::CloudwatchWrapper).to receive(:new).and_return(mock_cw)
-      allow(mock_cw).to receive(:publish_expense).and_return({})
+      allow(mock_cw).to receive(:publish).and_return({})
 
       allow(YNAB::API).to receive(:new).and_return(mock_ynab)
       allow(mock_ynab).to receive_message_chain(:transactions, :create_transaction)
@@ -36,7 +36,7 @@ RSpec.describe Finance::CreateExpenseJob do
     end
 
     it 'publishes the expense in CloudWatch' do
-      expect(mock_cw).to receive(:publish_expense)
+      expect(mock_cw).to receive(:publish)
 
       subject
     end

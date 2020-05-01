@@ -15,14 +15,6 @@ module AwsServices
       client.put_metric_data(namespace: metricable.metric_namespace, metric_data: [metricable.metric_data])
     end
 
-    def publish_injection(injection)
-      publish(injection)
-    end
-
-    def publish_expense(expense)
-      publish(expense)
-    end
-
     def retrieve_insulin_last_day_image
       metric_widget = get_metric_widget_image WIDGET_LAST_DAY
       s3.store_image(metric_widget)
