@@ -4,10 +4,7 @@ RSpec.describe AlarmReceivedJob do
   subject { described_class.perform_now(:run, event) }
 
   describe 'run' do
-    before do
-      allow(SendTelegramMessageCommand).to receive(:new).and_call_original
-      allow_any_instance_of(SendTelegramMessageCommand).to receive :execute
-    end
+    before { stub_command(SendTelegramMessageCommand) }
 
     let(:event) { load_json_fixture('sns_events/cloudwatch_alarm') }
 
