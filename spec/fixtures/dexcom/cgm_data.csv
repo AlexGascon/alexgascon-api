@@ -1,0 +1,27 @@
+Index,Timestamp (YYYY-MM-DDThh:mm:ss),Event Type,Event Subtype,Patient Info,Device Info,Source Device ID,Glucose Value (mg/dL),Insulin Value (u),Carb Value (grams),Duration (hh:mm:ss),Glucose Rate of Change (mg/dL/min),Transmitter Time (Long Integer),Transmitter ID
+1,,FirstName,,Alex,,,,,,,,,
+2,,LastName,,Gascon,,,,,,,,,
+3,,Device,,,Dexcom G6 Mobile App,Android G6,,,,,,,
+4,,Alert,Fall,,,Android G6,,,,,3,,
+5,,Alert,High,,,Android G6,170,,,,,,
+6,,Alert,Low,,,Android G6,70,,,,,,
+7,,Alert,Signal Loss,,,Android G6,,,,00:20:00,,,
+8,,Alert,Rise,,,Android G6,,,,,3,,
+9,,Alert,Urgent Low,,,Android G6,55,,,,,,
+10,,Alert,Urgent Low Soon,,,Android G6,55,,,,,,
+11,2020-04-05T00:00:28,EGV,,,,Android G6,86,,,,,5195173,8J525Y
+12,2020-04-05T00:05:28,EGV,,,,Android G6,90,,,,,5195473,8J525Y
+13,2020-04-05T00:10:28,EGV,,,,Android G6,92,,,,,5195773,8J525Y
+14,2020-04-05T00:15:28,EGV,,,,Android G6,95,,,,,5196073,8J525Y
+15,2020-04-05T00:20:29,EGV,,,,Android G6,99,,,,,5196373,8J525Y
+16,2020-04-05T00:25:28,EGV,,,,Android G6,104,,,,,5196673,8J525Y
+17,2020-04-05T00:30:29,EGV,,,,Android G6,105,,,,,5196973,8J525Y
+19,2020-04-05T00:40:27,EGV,,,,Android G6,108,,,,,5197573,8J525Y
+20,2020-04-05T00:45:28,EGV,,,,Android G6,111,,,,,5197873,8J525Y
+21,2020-04-05T00:50:28,EGV,,,,Android G6,118,,,,,5198173,8J525Y
+22,2020-04-05T00:55:29,EGV,,,,Android G6,121,,,,,5198473,8J525Y
+23,2020-04-05T01:00:28,EGV,,,,Android G6,123,,,,,5198773,8J525Y
+24,2020-04-05T01:05:29,EGV,,,,Android G6,125,,,,,5199073,8J525Y
+25,2020-04-05T01:10:29,EGV,,,,Android G6,128,,,,,5199373,8J525Y
+26,2020-04-05T01:15:28,EGV,,,,Android G6,130,,,,,5199673,8J525Y
+27,2020-04-05T01:20:29,EGV,,,,Android G6,130,,,,,5199973,8J525Y

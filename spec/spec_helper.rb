@@ -35,3 +35,8 @@ end
 def load_json_fixture(path)
   JSON.parse(File.read("spec/fixtures/#{path}.json"))
 end
+
+def stub_command(command_class)
+  allow(command_class).to receive(:new).and_call_original
+  allow_any_instance_of(command_class).to receive(:execute)
+end
