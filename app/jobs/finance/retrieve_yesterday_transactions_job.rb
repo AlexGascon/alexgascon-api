@@ -10,15 +10,23 @@ module Finance
 
       return if transactions_data.empty?
 
-      transactions_data.each do |transaction_data|
-        Finance::Openbank::TransactionBuilder.new(transaction_data).build
-      end
+      transactions_data
+        .map { |transaction_data| create_bank_transaction(transaction_data) }
+        .each { |bank_transaction| publish_in_cloudwatch(bank_transaction) }
     end
 
     private
 
     def yesterday
       DateTime.now.utc.yesterday.to_date
+    end
+
+    def create_bank_transaction(transaction_data)
+      Finance::Openbank::TransactionBuilder.new(transaction_data).build
+    end
+
+    def publish_in_cloudwatch(bank_transaction)
+      PublishCloudwatchDataCommand.new(bank_transaction).execute
     end
   end
 end
