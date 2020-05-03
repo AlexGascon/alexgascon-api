@@ -8,7 +8,7 @@ module Finance
       openbank = Finance::Openbank::Service.new
       transactions_data = openbank.get_transactions(yesterday)
 
-      return if transactions_data.blank?
+      return if transactions_data.empty?
 
       transactions_data.each do |transaction_data|
         Finance::Openbank::TransactionBuilder.new(transaction_data).build

@@ -8,6 +8,10 @@ module Finance
 
       MAX_RETRIES = 3
 
+      def initialize
+        @retries = 0
+      end
+
       def get_transactions(from, to = nil)
         to ||= from
 
@@ -20,13 +24,21 @@ module Finance
           response = request_transactions(from, to)
         end
 
+        if response.not_found?
+          Jets.logger.info "No new bank transactions on the range from #{from} to #{to}"
+
+          return []
+        end
+
         response['movimientos']
       rescue EOFError
-        Jets.logger.warn "Error while retrieving bank transactions, retrying... Retry #: #{retries}"
+        Jets.logger.warn "Error while retrieving bank transactions, retrying... Retry #: #{@retries}"
 
-        retry if retries < MAX_RETRIES
+        @retries += 1
+        retry unless @retries > MAX_RETRIES
 
         Jets.logger.error('No more retries left, aborting')
+        []
       end
 
       private
@@ -61,10 +73,6 @@ module Finance
           'fechaDesde' => from_formatted,
           'fechaHasta' => to_formatted
         }
-      end
-
-      def retries
-        @retries ||= 0
       end
 
       def authenticate
