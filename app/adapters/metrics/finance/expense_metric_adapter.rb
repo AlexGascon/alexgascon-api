@@ -12,13 +12,10 @@ module Metrics
 
       def initialize(expense)
         self.metric_name = METRIC_NAME
+        self.namespace = FINANCE
         self.dimensions = [{ name: 'Category', value: map_category(expense) }]
         self.timestamp = expense.created_at
         self.value = expense.amount.to_f
-      end
-
-      def namespace
-        'Finance'
       end
 
       private

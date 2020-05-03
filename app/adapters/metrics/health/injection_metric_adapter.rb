@@ -10,14 +10,11 @@ module Metrics
 
       def initialize(injection)
         self.metric_name = METRIC_NAME
+        self.namespace = HEALTH
         self.dimensions = [{ name: 'Type', value: map_injection_type(injection) }]
         self.timestamp = injection.created_at
         self.value = injection.units.to_f
-        self.unit = UNIT_COUNT
-      end
-
-      def namespace
-        'Health'
+        self.unit = COUNT
       end
 
       private

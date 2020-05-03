@@ -2,18 +2,17 @@
 
 module Metrics
   class BaseMetricAdapter < Aws::CloudWatch::Types::MetricDatum
-    UNIT_COUNT = 'Count'
+    include Namespaces
+    include Units
 
-    def namespace
-      nil
-    end
+    attr_accessor :namespace
 
     def data
       self
     end
 
     def ==(other)
-      other.namespace == self.namespace &&
+      other.namespace == namespace &&
         other.metric_name == metric_name &&
         other.value == value &&
         other.timestamp == timestamp &&

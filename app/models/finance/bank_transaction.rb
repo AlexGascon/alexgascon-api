@@ -3,6 +3,7 @@
 module Finance
   class BankTransaction
     include Dynamoid::Document
+    include Metricable
 
     OPENBANK = 'Openbank'
     VALID_BANKS = [OPENBANK].freeze

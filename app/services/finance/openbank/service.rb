@@ -8,6 +8,10 @@ module Finance
 
       MAX_RETRIES = 3
 
+      def initialize
+        @retries = 0
+      end
+
       def get_transactions(from, to = nil)
         to ||= from
 
@@ -20,13 +24,23 @@ module Finance
           response = request_transactions(from, to)
         end
 
+        if response.not_found?
+          Jets.logger.info "No new bank transactions on the range from #{from} to #{to}"
+
+          return []
+        end
+
         response['movimientos']
       rescue EOFError
-        Jets.logger.warn "Error while retrieving bank transactions, retrying... Retry #: #{retries}"
+        Jets.logger.warn "Error while retrieving bank transactions, retrying... Retry #: #{@retries}"
 
-        retry if retries < MAX_RETRIES
+        @retries += 1
+        retry unless @retries > MAX_RETRIES
 
         Jets.logger.error('No more retries left, aborting')
+        []
+      ensure
+        publish_retry_metric
       end
 
       private
@@ -63,10 +77,6 @@ module Finance
         }
       end
 
-      def retries
-        @retries ||= 0
-      end
-
       def authenticate
         response = HTTParty.post(auth_endpoint, headers: auth_headers, body: auth_payload.to_json)
         response_body = JSON.parse(response.body)
@@ -89,6 +99,18 @@ module Finance
           'documentType' => DOCUMENT_TYPE,
           'force' => true
         }
+      end
+
+      def publish_retry_metric
+        retry_metric = Metrics::BaseMetric.new
+        retry_metric.namespace = "#{Metrics::Namespaces::INFRASTRUCTURE}/#{Metrics::Namespaces::FINANCE}/Openbank"
+        retry_metric.metric_name = 'get_transactions retries'
+        retry_metric.unit = Metrics::Units::COUNT
+        retry_metric.value = @retries
+        retry_metric.timestamp = DateTime.now
+        retry_metric.dimensions = []
+
+        PublishCloudwatchDataCommand.new(retry_metric).execute
       end
     end
   end
