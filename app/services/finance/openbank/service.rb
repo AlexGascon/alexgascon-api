@@ -39,6 +39,8 @@ module Finance
 
         Jets.logger.error('No more retries left, aborting')
         []
+      ensure
+        publish_retry_metric
       end
 
       private
@@ -97,6 +99,18 @@ module Finance
           'documentType' => DOCUMENT_TYPE,
           'force' => true
         }
+      end
+
+      def publish_retry_metric
+        retry_metric = Metrics::BaseMetric.new
+        retry_metric.namespace = "#{Metrics::Namespaces::INFRASTRUCTURE}/#{Metrics::Namespaces::FINANCE}/Openbank"
+        retry_metric.metric_name = 'get_transactions retries'
+        retry_metric.unit = Metrics::Units::COUNT
+        retry_metric.value = @retries
+        retry_metric.timestamp = DateTime.now
+        retry_metric.dimensions = []
+
+        PublishCloudwatchDataCommand.new(retry_metric).execute
       end
     end
   end

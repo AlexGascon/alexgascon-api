@@ -26,15 +26,38 @@ RSpec.describe Finance::Openbank::Service do
       .with(query: movements_payload)
   end
 
+  let(:retries_metric) do
+    retry_metric = Metrics::BaseMetric.new
+    retry_metric.namespace = "Infrastructure/Finance/Openbank"
+    retry_metric.metric_name = 'get_transactions retries'
+    retry_metric.unit = 'Count'
+    retry_metric.value = expected_retries
+    retry_metric.timestamp = Time.new(2020, 5, 3, 12, 34, 56)
+    retry_metric.dimensions = []
+
+    retry_metric
+  end
+
   before do
     travel_to Time.new(2020, 5, 3, 12, 34, 56)
+    stub_command PublishCloudwatchDataCommand
   end
 
   around { |example| with_modified_env(openbank_credentials) { example.run } }
 
   after { travel_back }
 
-  subject { described_class.new }
+  subject { described_class.new.get_transactions(Date.yesterday) }
+
+  RSpec.shared_examples 'retry metric' do |retries|
+    let(:expected_retries) { retries }
+
+    it 'publishes a metric with the retries' do
+      expect(PublishCloudwatchDataCommand).to receive(:new).with(retries_metric)
+
+      subject
+    end
+  end
 
   describe 'get_transactions' do
     context 'when everything goes fine' do
@@ -48,9 +71,11 @@ RSpec.describe Finance::Openbank::Service do
       it 'retrieves the bank movements' do
         expected_response = load_json_fixture('finance/openbank/movements')
 
-        result = subject.get_transactions(Date.yesterday)
+        result = subject
         expect(result).to eq expected_response
       end
+
+      include_examples 'retry metric', 0
     end
 
     context 'when there are no new movements' do
@@ -62,9 +87,11 @@ RSpec.describe Finance::Openbank::Service do
       end
 
       it 'returns an empty array' do
-        result = subject.get_transactions(Date.yesterday)
+        result = subject
         expect(result).to eq []
       end
+
+      include_examples 'retry metric', 0
     end
 
     context 'when the request timeouts when reading' do
@@ -74,15 +101,17 @@ RSpec.describe Finance::Openbank::Service do
       end
 
       it 'retries 3 times' do
-        subject.get_transactions(Date.yesterday)
+        subject
 
         expect(movements_request).to have_been_made.times(4)
       end
 
       it 'returns an empty array' do
-        result = subject.get_transactions(Date.yesterday)
+        result = subject
         expect(result).to eq []
       end
+
+      include_examples 'retry metric', 4
     end
   end
 end
