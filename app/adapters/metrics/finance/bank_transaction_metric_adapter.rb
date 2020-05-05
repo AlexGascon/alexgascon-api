@@ -10,7 +10,7 @@ module Metrics
         self.namespace = FINANCE
         self.dimensions = [{ name: 'Bank', value: bank_transaction.bank }]
         self.timestamp = bank_transaction.datetime
-        self.value = bank_transaction.amount
+        self.value = bank_transaction.amount.to_f
       end
     end
   end

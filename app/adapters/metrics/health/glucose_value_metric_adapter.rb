@@ -8,7 +8,7 @@ module Metrics
       def initialize(glucose_value_entry)
         self.metric_name = METRIC_NAME
         self.timestamp = glucose_value_entry.timestamp
-        self.value = glucose_value_entry.value
+        self.value = glucose_value_entry.value.to_f
       end
 
       def namespace
