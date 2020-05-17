@@ -4,7 +4,7 @@ class Health::GlucoseValueFactory
 
     Health::GlucoseValue.send(
       creation_method,
-      glucose_value: glucose_value_entry.glucose_value, timestamp: glucose_value_entry.timestamp
+      value: glucose_value_entry.glucose_value, timestamp: glucose_value_entry.timestamp
     )
   end
 end

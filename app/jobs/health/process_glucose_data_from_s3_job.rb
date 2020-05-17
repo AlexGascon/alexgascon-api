@@ -24,7 +24,7 @@ class Health::ProcessGlucoseDataFromS3Job < ::ApplicationJob
   end
 
   def s3_file_path
-    s3_object['key']
+    CGI.unescape s3_object['key']
   end
 
   def parse_cgm_data(content)
