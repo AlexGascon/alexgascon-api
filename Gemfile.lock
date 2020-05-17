@@ -301,6 +301,7 @@ DEPENDENCIES
   httparty
   jets (<= 1.9.30)
   launchy
+  parallel
   pry
   pry-byebug
   pry-stack_explorer

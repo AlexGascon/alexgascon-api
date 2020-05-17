@@ -9,6 +9,7 @@ gem 'climate_control'
 gem 'dynamoid'
 gem 'factory_bot'
 gem 'httparty'
+gem 'parallel'
 gem 'telegram-bot-ruby'
 gem 'ynab'
 
