@@ -1,0 +1,119 @@
+{
+    "count": 0,
+    "resultList": [
+        {
+            "bankId": "2038",
+            "systemBankId": "2038",
+            "active": true,
+            "id": "5ebf41844afb2e1e7d3e7ea4",
+            "type": "ACCOUNT",
+            "productId": "3221",
+            "description": "Kindle Svcs*N59P04SY5 - Kindle Svcs*N59P04SY5",
+            "reference": "COMPRA COMERCIO",
+            "note": null,
+            "userDescription": null,
+            "read": false,
+            "quantity": -171,
+            "currency": "EURO",
+            "baseQuantity": -171,
+            "baseCurrency": "EURO",
+            "valueDate": "2020-05-15",
+            "userDate": "2020-05-15",
+            "operationDate": "2020-05-13",
+            "cleanNote": "KINDLE SVCS*N59P04SY5 - KINDLE SVCS*N59P04SY5",
+            "cleanUserDescription": "COMERCIO",
+            "offer": null,
+            "categorization": {
+                "weightedCategories": {
+                    "G0606": -171
+                },
+                "firedRuleId": "MULTILABEL",
+                "classified": true,
+                "categorizedByClient": false,
+                "categorizedByUserRule": false,
+                "categorizedBySystem": true,
+                "splited": false
+            },
+            "customAction": null,
+            "transactionCustomActionClick": null,
+            "primaryDisplay": "Kindle svcs*n59p04sy5 - kindle svcs*n59p04sy5",
+            "secondaryDisplay": "Comercio"
+        },
+        {
+            "bankId": "2038",
+            "systemBankId": "2038",
+            "active": true,
+            "id": "5ebf43a0eafb288bed3e7ea5",
+            "type": "ACCOUNT",
+            "productId": "3221",
+            "description": "ABONO A COMPRADOR POR DEVOLUCION - Kindle Svcs",
+            "reference": "DEVOLUCION COMERCIO",
+            "note": null,
+            "userDescription": null,
+            "read": false,
+            "quantity": 171,
+            "currency": "EURO",
+            "baseQuantity": 171,
+            "baseCurrency": "EURO",
+            "valueDate": "2020-05-15",
+            "userDate": "2020-05-15",
+            "operationDate": "2020-05-13",
+            "cleanNote": "ABONO A COMPRADOR POR DEVOLUCION - KINDLE SVCS",
+            "cleanUserDescription": "DEVOLUCION COMERCIO",
+            "offer": null,
+            "categorization": {
+                "weightedCategories": {
+                    "G0408": 171
+                },
+                "firedRuleId": "MULTILABEL",
+                "classified": true,
+                "categorizedByClient": false,
+                "categorizedByUserRule": false,
+                "categorizedBySystem": true,
+                "splited": false
+            },
+            "customAction": null,
+            "transactionCustomActionClick": null,
+            "primaryDisplay": "Abono a comprador por devolucion - kindle svcs",
+            "secondaryDisplay": "Devolucion comercio"
+        },
+        {
+            "bankId": "2038",
+            "systemBankId": "2038",
+            "active": true,
+            "id": "5e924063ca11630878c31c4e",
+            "type": "ACCOUNT",
+            "productId": "3221",
+            "description": "PEPEMOBILE, S.L.",
+            "reference": "202090001470186 SERV. PEPEPHONE.COM N.20",
+            "note": null,
+            "userDescription": null,
+            "read": true,
+            "quantity": -1990,
+            "currency": "EURO",
+            "baseQuantity": -1990,
+            "baseCurrency": "EURO",
+            "valueDate": "2020-04-07",
+            "userDate": "2020-04-07",
+            "operationDate": "2020-04-07",
+            "cleanNote": null,
+            "cleanUserDescription": null,
+            "offer": null,
+            "categorization": {
+                "weightedCategories": {
+                    "G0402": -1990
+                },
+                "firedRuleId": "MULTILABEL",
+                "classified": true,
+                "categorizedByClient": false,
+                "categorizedByUserRule": false,
+                "categorizedBySystem": true,
+                "splited": false
+            },
+            "customAction": null,
+            "transactionCustomActionClick": null,
+            "primaryDisplay": "Pepemobile, s.l.",
+            "secondaryDisplay": "202090001470186 serv. pepephone.com n.20"
+        }
+    ]
+}

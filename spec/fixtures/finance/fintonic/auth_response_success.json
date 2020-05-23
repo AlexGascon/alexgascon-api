@@ -1,0 +1,13 @@
+{
+    "data": {
+        "id_token": "id_token",
+        "token_type": "bearer",
+        "access_token": "access_token",
+        "expires_in": 1800,
+        "refresh_expires_in": 1800,
+        "refresh_token": "refresh_token",
+        "not-before-policy": 12345567,
+        "session_state": "02c49d73-c76a-4f83-1234-abcdef123456",
+        "scope": "openid profile email"
+    }
+}

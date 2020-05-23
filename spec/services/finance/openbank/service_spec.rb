@@ -49,16 +49,6 @@ RSpec.describe Finance::Openbank::Service do
 
   subject { described_class.new.get_transactions(Date.yesterday) }
 
-  RSpec.shared_examples 'retry metric' do |retries|
-    let(:expected_retries) { retries }
-
-    it 'publishes a metric with the retries' do
-      expect(PublishCloudwatchDataCommand).to receive(:new).with(retries_metric)
-
-      subject
-    end
-  end
-
   describe 'get_transactions' do
     context 'when everything goes fine' do
       let(:movements_response) { load_json_fixture 'finance/openbank/get_movements_response' }
