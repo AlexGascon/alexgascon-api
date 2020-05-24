@@ -5,24 +5,36 @@ module Finance
 
     cron '27 03 * * ? *'
     def run
+      transactions = [openbank_transactions + bankia_transactions]
+
+      transactions
+        .each { |bank_transaction| publish_in_cloudwatch(bank_transaction) }
+    end
+
+    private
+
+    def openbank_transactions
       openbank = Finance::Openbank::Service.new
       transactions_data = openbank.get_transactions(yesterday)
 
       return if transactions_data.empty?
 
       transactions_data
-        .map { |transaction_data| create_bank_transaction(transaction_data) }
-        .each { |bank_transaction| publish_in_cloudwatch(bank_transaction) }
+        .map { |transaction_data| Finance::Openbank::TransactionBuilder.new(transaction_data).build }
     end
 
-    private
+    def bankia_transactions
+      bankia = Finance::Bankia::Service.new
+      transactions_data = bankia.get_transactions(yesterday)
+
+      return if transactions_data.empty?
+
+      transactions_data
+        .map { |transaction_data| Finance::Bankia::TransactionBuilder.new(transaction_data).build }
+    end
 
     def yesterday
       DateTime.now.utc.yesterday.to_date
-    end
-
-    def create_bank_transaction(transaction_data)
-      Finance::Openbank::TransactionBuilder.new(transaction_data).build
     end
 
     def publish_in_cloudwatch(bank_transaction)
