@@ -3,34 +3,28 @@
 module Finance
   class RetrieveYesterdayTransactionsJob < ::ApplicationJob
 
+    BANKS = %w[Bankia Openbank].freeze
+
     cron '27 03 * * ? *'
     def run
-      transactions = [openbank_transactions + bankia_transactions]
-
-      transactions
+      BANKS
+        .map { |bank_name| retrieve_transactions(bank_name) }
+        .flatten
         .each { |bank_transaction| publish_in_cloudwatch(bank_transaction) }
     end
 
     private
 
-    def openbank_transactions
-      openbank = Finance::Openbank::Service.new
-      transactions_data = openbank.get_transactions(yesterday)
+    def retrieve_transactions(bank_name)
+      bank = "Finance::#{bank_name}::Service".constantize
+      transaction_builder = "Finance::#{bank_name}::TransactionBuilder".constantize
 
-      return if transactions_data.empty?
+      transactions_data = bank.new.get_transactions(yesterday)
 
-      transactions_data
-        .map { |transaction_data| Finance::Openbank::TransactionBuilder.new(transaction_data).build }
-    end
-
-    def bankia_transactions
-      bankia = Finance::Bankia::Service.new
-      transactions_data = bankia.get_transactions(yesterday)
-
-      return if transactions_data.empty?
+      return [] if transactions_data.empty?
 
       transactions_data
-        .map { |transaction_data| Finance::Bankia::TransactionBuilder.new(transaction_data).build }
+        .map { |transaction_data| transaction_builder.new(transaction_data).build }
     end
 
     def yesterday

@@ -5,8 +5,9 @@ module Finance
     include Dynamoid::Document
     include Metricable
 
+    BANKIA = 'Bankia'
     OPENBANK = 'Openbank'
-    VALID_BANKS = [OPENBANK].freeze
+    VALID_BANKS = [BANKIA, OPENBANK].freeze
 
     ERROR_BANK_INVALID = 'The specified bank is not allowed'
     ERROR_INTERNAL_ID_BLANK = 'internal_id cannot be blank if the bank is present'
