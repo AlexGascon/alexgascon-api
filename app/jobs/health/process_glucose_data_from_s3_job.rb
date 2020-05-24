@@ -18,7 +18,7 @@ class Health::ProcessGlucoseDataFromS3Job < ::ApplicationJob
       begin
         glucose_value = create_glucose_object(dexcom_glucose_entry)
         publish_metric(glucose_value)
-      rescue Aws::DynamoDB::Errors::ProvisionedThroughputExceeded => e
+      rescue Aws::DynamoDB::Errors::ProvisionedThroughputExceededException => e
         Jets.logger.warn "Error with entry: #{dexcom_glucose_entry}"
         Jets.logger.warn "Error encountered: #{e}"
 
