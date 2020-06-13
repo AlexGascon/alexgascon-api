@@ -7,7 +7,8 @@ module Health
     def run
       bg = ::Dexcom::BloodGlucose.last
       
-      Health::GlucoseValueFactory.from_dexcom_gem(bg, persist=true)
+      glucose_value = Health::GlucoseValueFactory.from_dexcom_gem(bg, persist=true)
+      PublishCloudwatchDataCommand.new(glucose_value).execute
     end
   end
 end
