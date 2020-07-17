@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Health
-  class GetLiveGlucoseDataJob < ApplicationJob
+  class GetLiveDexcomDataJob < ApplicationJob
 
     rate '5 minutes'
     def run

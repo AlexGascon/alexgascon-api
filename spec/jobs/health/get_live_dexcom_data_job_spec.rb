@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Health::GetLiveGlucoseDataJob do
+RSpec.describe Health::GetLiveDexcomDataJob do
   describe '#run' do
     before do
       bg = build(:dexcom_blood_glucose)
