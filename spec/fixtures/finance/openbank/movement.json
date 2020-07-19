@@ -1,0 +1,61 @@
+{
+    "recibo": false,
+    "subtipoContratoPrincipal": {
+        "subtipodeproducto": "002",
+        "tipodeproducto": {
+            "empresa": "0073",
+            "tipodeproducto": "506"
+        }
+    },
+    "categorias": [
+        {
+            "online": true,
+            "category": "Comercio y tiendas",
+            "subcategory": "Otros (Comercio y tiendas)",
+            "relevance": 0.99997959225225
+        },
+        {
+            "online": true,
+            "category": "Otros gastos",
+            "subcategory": "Otros gastos",
+            "relevance": 2.040774774997412E-5
+        }
+    ],
+    "conceptoTabla": "COMPRA EN PAYPAL *DAZN, CON LA TARJETA : XXXXXXXXXXXX4205 EL 2020-03-02                             ",
+    "fechaValor": "2020-03-03",
+    "operacionDGO": {
+        "centro": {
+            "centro": "0100",
+            "empresa": "0073"
+        },
+        "codigoterminaldgo": "BH027",
+        "numerodgo": 10226
+    },
+    "saldo": {
+        "divisa": "EUR",
+        "importe": 2395.47
+    },
+    "categoriaGanadora": {
+        "online": true,
+        "category": "Comercio y tiendas",
+        "subcategory": "Otros (Comercio y tiendas)",
+        "relevance": 0.99997959225225
+    },
+    "pendienteValoracion": false,
+    "importe": {
+        "divisa": "EUR",
+        "importe": -9.99
+    },
+    "indFinanciacion": "N",
+    "contratoPrincipalOperacion": {
+        "numerodecontrato": "1234567",
+        "centro": {
+            "centro": "0100",
+            "empresa": "0073"
+        },
+        "producto": "506"
+    },
+    "diaMvto": 99999,
+    "nummov": 3,
+    "fechaOperacion": "2020-03-03"
+}
