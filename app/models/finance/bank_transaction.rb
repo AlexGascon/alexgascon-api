@@ -18,6 +18,11 @@ module Finance
     field :description, :string
     field :internal_id, :string
 
+    # Indexes
+    field :year_month, :string
+    field :day, :string
+
+    global_secondary_index hash_key: :year_month, range_key: :day, projected_attributes: :all, name: 'transaction_date', read_capacity: 1, write_capacity: 1
     global_secondary_index hash_key: :internal_id
 
     validates_presence_of :amount_in_cents
