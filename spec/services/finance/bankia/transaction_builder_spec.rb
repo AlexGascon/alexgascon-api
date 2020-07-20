@@ -25,5 +25,13 @@ RSpec.describe Finance::Bankia::TransactionBuilder do
     it 'sets the internal_id' do
       expect(bank_transaction.internal_id).to eq '5ebf41844afb2e1e7d3e7ea4'
     end
+
+    it 'sets year_month' do
+      expect(bank_transaction.year_month).to eq '2020-05'
+    end
+
+    it 'sets day' do
+      expect(bank_transaction.day).to eq '02'
+    end
   end
 end

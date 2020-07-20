@@ -16,12 +16,24 @@ module Finance
         bank: bank,
         internal_id: internal_id,
         datetime: transaction_datetime,
-        description: description
+        description: description,
+        year_month: year_month,
+        day: day
       )
 
       transaction.save!
 
       transaction
+    end
+
+    private
+
+    def year_month
+      transaction_datetime.strftime('%Y-%m')
+    end
+
+    def day
+      transaction_datetime.strftime('%d')
     end
   end
 end

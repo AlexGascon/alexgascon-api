@@ -13,7 +13,12 @@ module Finance
     private
 
     def yesterday_transactions
-      @yesterday_transactions ||= Finance::BankTransaction.where('datetime.gte': Date.yesterday).to_a
+      yesterday = Date.yesterday
+
+      @yesterday_transactions ||=
+        Finance::BankTransaction
+          .where('year_month': yesterday.strftime('%Y-%m'), 'day.gte': yesterday.strftime('%d'))
+          .to_a
     end
 
     def telegram_message

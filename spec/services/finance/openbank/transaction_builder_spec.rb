@@ -25,5 +25,13 @@ RSpec.describe Finance::Openbank::TransactionBuilder do
     it 'sets the internal_id' do
       expect(bank_transaction.internal_id).to eq 'BH027_10226'
     end
+
+    it 'sets year_month' do
+      expect(bank_transaction.year_month).to eq '2020-03'
+    end
+
+    it 'sets day' do
+      expect(bank_transaction.day).to eq '03'
+    end
   end
 end
