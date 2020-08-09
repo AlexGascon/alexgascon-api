@@ -10,6 +10,8 @@ gem 'dexcom', '~> 0.2.2'
 gem 'dynamoid'
 gem 'factory_bot'
 gem 'httparty'
+# Min version forced by Lambda https://github.com/tongueroo/jets/pull/470
+gem 'json', '>= 2.3.1'
 gem 'parallel'
 gem 'telegram-bot-ruby'
 gem 'ynab'
