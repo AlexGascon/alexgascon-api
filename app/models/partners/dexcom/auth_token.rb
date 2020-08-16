@@ -11,6 +11,8 @@ module Partners
       field :refresh_token, :string
 
       def self.instance
+        Jets.logger.warn 'This class is deprecated, use AuthToken instead'
+
         create if first.nil?
 
         first
