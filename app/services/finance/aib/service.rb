@@ -5,6 +5,10 @@ module Finance
     class AuthError < StandardError; end
 
     class Service
+      def initialize
+        @auth_error = false
+      end
+
       def get_transactions(from, to = nil)
         to ||= from
 
@@ -21,18 +25,22 @@ module Finance
       rescue Finance::Aib::AuthError => e
         Jets.logger.warn "Authentication error: #{e.message}"
 
-        publish_auth_error_metric
-
+        @auth_error = true
         []
+      ensure
+        publish_auth_error_metric
       end
 
       private
 
       def request_transactions(from, to)
+        # TrueLayer considers the end of the range to not to be included
+        # so to get its movements we need to ask for the transactions up
+        # to the following day
         response = HTTParty.get(
           api_endpoint,
           headers: api_headers,
-          query: { from: from.strftime('%Y-%m-%d'), to: to.strftime('%Y-%m-%d') }
+          query: { from: from.strftime('%Y-%m-%d'), to: (to + 1.day).strftime('%Y-%m-%d') }
         )
       end
 
@@ -127,15 +135,15 @@ module Finance
       end
 
       def publish_auth_error_metric
-        retry_metric = Metrics::BaseMetric.new
-        retry_metric.namespace = "#{Metrics::Namespaces::INFRASTRUCTURE}/#{Metrics::Namespaces::FINANCE}/AIB"
-        retry_metric.metric_name = 'Auth error'
-        retry_metric.unit = Metrics::Units::COUNT
-        retry_metric.value = 1
-        retry_metric.timestamp = DateTime.now
-        retry_metric.dimensions = []
+        auth_error_metric = Metrics::BaseMetric.new
+        auth_error_metric.namespace = "#{Metrics::Namespaces::INFRASTRUCTURE}/#{Metrics::Namespaces::FINANCE}/AIB"
+        auth_error_metric.metric_name = 'Auth error'
+        auth_error_metric.unit = Metrics::Units::COUNT
+        auth_error_metric.value = @auth_error ? 1 : 0
+        auth_error_metric.timestamp = DateTime.now
+        auth_error_metric.dimensions = []
 
-        PublishCloudwatchDataCommand.new(retry_metric).execute
+        PublishCloudwatchDataCommand.new(auth_error_metric).execute
       end
     end
   end

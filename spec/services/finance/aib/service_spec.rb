@@ -31,7 +31,7 @@ RSpec.describe Finance::Aib::Service do
       stub_request(:get, 'https://api.fake-truelayer.com/data/v1/accounts/123456789009876543212/transactions')
       .with(
         headers: { 'Authorization' => 'Bearer defaultFactoryAccessToken' },
-        query: { from: '2020-07-31', to: '2020-08-01'}
+        query: { from: '2020-07-31', to: '2020-08-02'}
       )
     end
     let(:get_transactions_response) { load_json_fixture 'finance/truelayer/aib_transactions_response' }
@@ -46,6 +46,19 @@ RSpec.describe Finance::Aib::Service do
       it 'retrieves the bank movements' do
         expected_movements = load_json_fixture('finance/truelayer/aib_transactions')
         expect(subject).to eq expected_movements
+      end
+
+      it 'emits an error metric' do
+        auth_error_metric = Metrics::BaseMetric.new
+        auth_error_metric.namespace = "Infrastructure/Finance/AIB"
+        auth_error_metric.metric_name = 'Auth error'
+        auth_error_metric.unit = 'Count'
+        auth_error_metric.value = 0
+        auth_error_metric.timestamp = Time.new(2020, 8, 1, 12, 34, 56)
+        auth_error_metric.dimensions = []
+
+        expect(PublishCloudwatchDataCommand).to receive(:new).with(auth_error_metric)
+        subject
       end
 
       context 'when there are no bank movements' do
@@ -86,7 +99,7 @@ RSpec.describe Finance::Aib::Service do
         stub_request(:get, 'https://api.fake-truelayer.com/data/v1/accounts/123456789009876543212/transactions')
         .with(
           headers: { 'Authorization' => 'Bearer refreshedSuperLongAndRandomAccessTokenReturnedByTruelayer' },
-          query: { from: '2020-07-31', to: '2020-08-01'}
+          query: { from: '2020-07-31', to: '2020-08-02'}
         )
       end
 
