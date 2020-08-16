@@ -1,0 +1,13 @@
+{
+    "timestamp":"2020-08-10T23:00:00Z",
+    "description":"VDP-AMZNMktplace",
+    "transaction_type":"DEBIT",
+    "transaction_category":"DEBIT",
+    "transaction_classification":[],
+    "amount":-26.37,
+    "currency":"EUR",
+    "transaction_id":"7ee551d422dfd72ebe2b144396bb280c",
+    "meta": {
+        "transaction_type":"Debit"
+    }
+}

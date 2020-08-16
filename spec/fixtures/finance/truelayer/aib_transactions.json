@@ -1,0 +1,41 @@
+[
+    {
+        "timestamp":"2020-08-10T23:00:00Z",
+        "description":"VDP-AMZNMktplace",
+        "transaction_type":"DEBIT",
+        "transaction_category":"DEBIT",
+        "transaction_classification":[],
+        "amount":-26.37,
+        "currency":"EUR",
+        "transaction_id":"7ee551d422dfd72ebe2b144396bb280c",
+        "meta": {
+            "transaction_type":"Debit"
+        }
+    },
+    {
+        "timestamp":"2020-08-10T23:00:00Z",
+        "description":"VDP-DIGIWEB-EUR",
+        "transaction_type":"DEBIT",
+        "transaction_category":"DEBIT",
+        "transaction_classification":[],
+        "amount":-39.95,
+        "currency":"EUR",
+        "transaction_id":"5041362cef487681d06e369d6c1d4890",
+        "meta":{
+            "transaction_type":"Debit"
+        }
+    },
+    {
+        "timestamp":"2020-08-10T23:00:00Z",
+        "description":"VDP-MIP*3IRELAND T",
+        "transaction_type":"DEBIT",
+        "transaction_category":"DEBIT",
+        "transaction_classification":[],
+        "amount":-15.0,
+        "currency":"EUR",
+        "transaction_id":"47f3bec11b42052013ffbf83f567ae75",
+        "meta":{
+            "transaction_type":"Debit"
+        }
+    }
+]

@@ -122,3 +122,19 @@ Resources:
       TreatMissingData: notBreaching
       AlarmActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
       OKActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
+
+  AIBAuthErrorAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: alexgascon-api_AIB-auth-error
+      AlarmDescription: Fires if there are errors when authenticating to retrieve AIB transactions data
+      EvaluationPeriods: 1
+      Namespace: Infrastructure/Finance/AIB
+      MetricName: Auth error
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      Statistic: Sum
+      Period: 300
+      Threshold: 1
+      TreatMissingData: notBreaching
+      AlarmActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
+      OKActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
