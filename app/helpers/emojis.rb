@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module Emojis
+  # To obtain the bytes: https://apps.timwhitlock.info/emoji/tables/unicode
+  BANK = "\xF0\x9F\x8F\xA6"
   BELL = "\xF0\x9F\x94\x94"
   FLYING_MONEY = "\xF0\x9F\x92\xB8"
   MONEY_BAG = "\xF0\x9F\x92\xB0"

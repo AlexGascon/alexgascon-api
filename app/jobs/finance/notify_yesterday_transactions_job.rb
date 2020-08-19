@@ -32,7 +32,10 @@ module Finance
     end
 
     def format_transaction(transaction)
-      "#{Emojis::MONEY_BAG} #{transaction.amount}€: #{transaction.description}"
+      [
+        "#{Emojis::MONEY_BAG} #{transaction.amount}€: #{transaction.description}",
+        "#{Emojis::BANK} #{transaction.bank}"
+      ].join("\n")
     end
   end
 end
