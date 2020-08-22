@@ -18,7 +18,7 @@ module Finance
       end
 
       def transaction_datetime
-        DateTime.parse(@transaction_information['timestamp']).to_date
+        DateTime.parse(@transaction_information['timestamp']).in_time_zone('Europe/Dublin').to_date
       end
 
       def description
