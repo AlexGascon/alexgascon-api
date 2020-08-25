@@ -15,7 +15,7 @@ RSpec.describe Finance::Aib::TransactionBuilder do
     end
 
     it 'sets the datetime' do
-      expect(bank_transaction.datetime).to eq DateTime.parse('2020-08-10')
+      expect(bank_transaction.datetime).to eq DateTime.parse('2020-08-11')
     end
 
     it 'sets the description' do
@@ -31,7 +31,7 @@ RSpec.describe Finance::Aib::TransactionBuilder do
     end
 
     it 'sets day' do
-      expect(bank_transaction.day).to eq '10'
+      expect(bank_transaction.day).to eq '11'
     end
   end
 end

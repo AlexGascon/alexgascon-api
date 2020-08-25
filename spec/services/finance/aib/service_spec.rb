@@ -31,7 +31,7 @@ RSpec.describe Finance::Aib::Service do
       stub_request(:get, 'https://api.fake-truelayer.com/data/v1/accounts/123456789009876543212/transactions')
       .with(
         headers: { 'Authorization' => 'Bearer defaultFactoryAccessToken' },
-        query: { from: '2020-07-31', to: '2020-08-02'}
+        query: { from: '2020-07-30T23:00:00Z', to: '2020-08-01T22:59:59Z' }
       )
     end
     let(:get_transactions_response) { load_json_fixture 'finance/truelayer/aib_transactions_response' }
@@ -99,7 +99,7 @@ RSpec.describe Finance::Aib::Service do
         stub_request(:get, 'https://api.fake-truelayer.com/data/v1/accounts/123456789009876543212/transactions')
         .with(
           headers: { 'Authorization' => 'Bearer refreshedSuperLongAndRandomAccessTokenReturnedByTruelayer' },
-          query: { from: '2020-07-31', to: '2020-08-02'}
+          query: { from: '2020-07-30T23:00:00Z', to: '2020-08-01T22:59:59Z' }
         )
       end
 
