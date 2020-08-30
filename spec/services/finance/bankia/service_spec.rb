@@ -61,12 +61,12 @@ RSpec.describe Finance::Bankia::Service do
 
   let(:retries_metric) do
     retry_metric = Metrics::BaseMetric.new
-    retry_metric.namespace = "Infrastructure/Finance/Fintonic"
+    retry_metric.namespace = 'Infrastructure/Finance'
     retry_metric.metric_name = 'get_transactions retries'
     retry_metric.unit = 'Count'
     retry_metric.value = expected_retries
     retry_metric.timestamp = Time.new(2020, 5, 3, 12, 34, 56)
-    retry_metric.dimensions = []
+    retry_metric.dimensions = [{ name: 'Bank', value: 'Bankia' }]
 
     retry_metric
   end

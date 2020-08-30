@@ -135,15 +135,9 @@ module Finance
       end
 
       def publish_metrics
-        # Namespace and Dimensions are different for backwards compatibility
-        # This metric was created first and we didn't use any convention then 
-        retry_metric = Metrics::BaseMetric.new
-        retry_metric.namespace = "#{Metrics::Namespaces::INFRASTRUCTURE}/#{Metrics::Namespaces::FINANCE}/Openbank"
+        retry_metric = base_openbank_metric
         retry_metric.metric_name = 'get_transactions retries'
-        retry_metric.unit = Metrics::Units::COUNT
         retry_metric.value = @retries
-        retry_metric.timestamp = DateTime.now
-        retry_metric.dimensions = []
 
         request_error_metric = base_openbank_metric
         request_error_metric.metric_name = 'Request transactions error'
