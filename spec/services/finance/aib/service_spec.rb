@@ -1,5 +1,53 @@
 # frozen_string_literal: true
 
+RSpec.shared_examples 'auth error metric' do |metric_value|
+  it "emits an auth error metric with value #{metric_value}" do
+    auth_error_metric = Metrics::BaseMetric.new
+    auth_error_metric.namespace = "Infrastructure/Finance"
+    auth_error_metric.metric_name = 'Auth error'
+    auth_error_metric.unit = 'Count'
+    auth_error_metric.value = metric_value
+    auth_error_metric.timestamp = Time.new(2020, 8, 1, 12, 34, 56)
+    auth_error_metric.dimensions = [{ name: 'Bank', value: 'AIB' }]
+
+    expect(PublishCloudwatchDataCommand).to receive(:new).with(auth_error_metric)
+
+    subject
+  end
+end
+
+RSpec.shared_examples 'request error metric' do |metric_value|
+  it "emits a request error metric with value #{metric_value}" do
+    request_error_metric = Metrics::BaseMetric.new
+    request_error_metric.namespace = 'Infrastructure/Finance'
+    request_error_metric.metric_name = 'Request transactions error'
+    request_error_metric.unit = 'Count'
+    request_error_metric.value = metric_value
+    request_error_metric.timestamp = Time.new(2020, 8, 1, 12, 34, 56)
+    request_error_metric.dimensions = [{ name: 'Bank', value: 'AIB' }]
+
+    expect(PublishCloudwatchDataCommand).to receive(:new).with(request_error_metric)
+
+    subject
+  end
+end
+
+RSpec.shared_examples 'exception metric' do |metric_value|
+  it "emits a general error metric with value #{metric_value}" do
+    general_error_metric = Metrics::BaseMetric.new
+    general_error_metric.namespace = 'Infrastructure/Finance'
+    general_error_metric.metric_name = 'Exception'
+    general_error_metric.unit = 'Count'
+    general_error_metric.value = metric_value
+    general_error_metric.timestamp = Time.new(2020, 8, 1, 12, 34, 56)
+    general_error_metric.dimensions = [{ name: 'Bank', value: 'AIB' }]
+
+    expect(PublishCloudwatchDataCommand).to receive(:new).with(general_error_metric)
+
+    subject
+  end
+end
+
 RSpec.describe Finance::Aib::Service do
   let(:truelayer_credentials) do
     {
@@ -48,18 +96,11 @@ RSpec.describe Finance::Aib::Service do
         expect(subject).to eq expected_movements
       end
 
-      it 'emits an error metric' do
-        auth_error_metric = Metrics::BaseMetric.new
-        auth_error_metric.namespace = "Infrastructure/Finance/AIB"
-        auth_error_metric.metric_name = 'Auth error'
-        auth_error_metric.unit = 'Count'
-        auth_error_metric.value = 0
-        auth_error_metric.timestamp = Time.new(2020, 8, 1, 12, 34, 56)
-        auth_error_metric.dimensions = []
+      include_examples 'auth error metric', 0
 
-        expect(PublishCloudwatchDataCommand).to receive(:new).with(auth_error_metric)
-        subject
-      end
+      include_examples 'request error metric', 0
+
+      include_examples 'exception metric', 0
 
       context 'when there are no bank movements' do
         let(:get_transactions_response) { load_json_fixture 'finance/truelayer/no_transactions' }
@@ -67,6 +108,22 @@ RSpec.describe Finance::Aib::Service do
         it 'returns an empty array' do
           expect(subject).to eq []
         end
+      end
+
+      context 'when we get an exception' do
+        before do
+          allow_any_instance_of(described_class)
+            .to receive(:request_transactions)
+            .and_raise StandardError.new('Everything exploded very badly')
+        end
+
+        it 'returns an empty array' do
+          expect(subject).to eq []
+        end
+
+        include_examples 'request error metric', 0
+
+        include_examples 'exception metric', 1
       end
     end
 
@@ -127,22 +184,15 @@ RSpec.describe Finance::Aib::Service do
           refresh_token_request.to_return(status: 400)
         end
 
-        it 'emits an error metric' do
-          auth_error_metric = Metrics::BaseMetric.new
-          auth_error_metric.namespace = "Infrastructure/Finance/AIB"
-          auth_error_metric.metric_name = 'Auth error'
-          auth_error_metric.unit = 'Count'
-          auth_error_metric.value = 1
-          auth_error_metric.timestamp = Time.new(2020, 8, 1, 12, 34, 56)
-          auth_error_metric.dimensions = []
-
-          expect(PublishCloudwatchDataCommand).to receive(:new).with(auth_error_metric)
-          subject
-        end
-
         it 'returns an empty array' do
           expect(subject).to eq []
         end
+
+        include_examples 'auth error metric', 1
+
+        include_examples 'request error metric', 0
+
+        include_examples 'exception metric', 0
       end
     end
   end

@@ -1,5 +1,38 @@
 # frozen_string_literal: true
 
+RSpec.shared_examples 'request error metric' do |metric_value|
+  it "emits an request error metric with value #{metric_value}" do
+    request_error_metric = Metrics::BaseMetric.new
+    request_error_metric.namespace = 'Infrastructure/Finance'
+    request_error_metric.metric_name = 'Request transactions error'
+    request_error_metric.unit = 'Count'
+    request_error_metric.value = metric_value
+    request_error_metric.timestamp = Time.new(2020, 5, 3, 12, 34, 56)
+    request_error_metric.dimensions = [{ name: 'Bank', value: 'Bankia' }]
+
+    expect(PublishCloudwatchDataCommand).to receive(:new).with(request_error_metric)
+
+    subject
+  end
+end
+
+RSpec.shared_examples 'exception metric' do |metric_value|
+  it "emits an exception metric with value #{metric_value}" do
+    exception_metric = Metrics::BaseMetric.new
+    exception_metric.namespace = 'Infrastructure/Finance'
+    exception_metric.metric_name = 'Exception'
+    exception_metric.unit = 'Count'
+    exception_metric.value = metric_value
+    exception_metric.timestamp = Time.new(2020, 5, 3, 12, 34, 56)
+    exception_metric.dimensions = [{ name: 'Bank', value: 'Bankia' }]
+
+    expect(PublishCloudwatchDataCommand).to receive(:new).with(exception_metric)
+
+    subject
+  end
+
+end
+
 RSpec.describe Finance::Bankia::Service do
   let(:credentials) do
     {
@@ -64,6 +97,10 @@ RSpec.describe Finance::Bankia::Service do
       end
 
       include_examples 'retry metric', 0
+
+      include_examples 'request error metric', 0
+
+      include_examples 'exception metric', 0
     end
 
     context 'when there are no new movements' do
@@ -77,23 +114,34 @@ RSpec.describe Finance::Bankia::Service do
 
       let(:transactions_response) { load_json_fixture 'finance/fintonic/bankia_transactions_response_no_movements' }
 
-      it 'returns an empty array' do
-        result = subject
-        expect(result).to eq []
-      end
+      include_examples 'returns an empty array'
 
       include_examples 'retry metric', 0
+
+      include_examples 'request error metric', 0
+
+      include_examples 'exception metric', 0
+    end
+
+    context 'when we get a Bad Request' do
+      before do
+        auth_request.to_return(status: 200, body: auth_response.to_json, headers: auth_headers)
+        transactions_request.to_return(status: 400)
+      end
+
+      include_examples 'returns an empty array'
+
+      include_examples 'retry metric', 0
+
+      include_examples 'request error metric', 1
+
+      include_examples 'exception metric', 0
     end
 
     context 'when the request timeouts when reading' do
       before do
         auth_request.to_return(status: 200, body: auth_response.to_json, headers: auth_headers)
         transactions_request.to_raise(EOFError)
-      end
-
-      it 'returns an empty array' do
-        result = subject
-        expect(result).to eq []
       end
 
       it 'retries 3 times' do
@@ -103,6 +151,10 @@ RSpec.describe Finance::Bankia::Service do
       end
 
       include_examples 'retry metric', 4
+
+      include_examples 'request error metric', 0
+
+      include_examples 'exception metric', 1
     end
   end
 end

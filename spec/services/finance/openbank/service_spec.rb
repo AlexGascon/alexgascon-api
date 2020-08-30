@@ -1,5 +1,38 @@
 # frozen_string_literal: true
 
+RSpec.shared_examples 'request error metric' do |metric_value|
+  it "emits an request error metric with value #{metric_value}" do
+    request_error_metric = Metrics::BaseMetric.new
+    request_error_metric.namespace = 'Infrastructure/Finance'
+    request_error_metric.metric_name = 'Request transactions error'
+    request_error_metric.unit = 'Count'
+    request_error_metric.value = metric_value
+    request_error_metric.timestamp = Time.new(2020, 5, 3, 12, 34, 56)
+    request_error_metric.dimensions = [{ name: 'Bank', value: 'Openbank' }]
+
+    expect(PublishCloudwatchDataCommand).to receive(:new).with(request_error_metric)
+
+    subject
+  end
+end
+
+RSpec.shared_examples 'exception metric' do |metric_value|
+  it "emits an exception metric with value #{metric_value}" do
+    exception_metric = Metrics::BaseMetric.new
+    exception_metric.namespace = 'Infrastructure/Finance'
+    exception_metric.metric_name = 'Exception'
+    exception_metric.unit = 'Count'
+    exception_metric.value = metric_value
+    exception_metric.timestamp = Time.new(2020, 5, 3, 12, 34, 56)
+    exception_metric.dimensions = [{ name: 'Bank', value: 'Openbank' }]
+
+    expect(PublishCloudwatchDataCommand).to receive(:new).with(exception_metric)
+
+    subject
+  end
+
+end
+
 RSpec.describe Finance::Openbank::Service do
   let(:openbank_credentials) do
     {
@@ -66,6 +99,10 @@ RSpec.describe Finance::Openbank::Service do
       end
 
       include_examples 'retry metric', 0
+
+      include_examples 'request error metric', 0
+
+      include_examples 'exception metric', 0
     end
 
     context 'when there are no new movements' do
@@ -76,12 +113,47 @@ RSpec.describe Finance::Openbank::Service do
         movements_request.to_return(status: 404, body: movements_response.to_json, headers: content_type_header)
       end
 
-      it 'returns an empty array' do
-        result = subject
-        expect(result).to eq []
-      end
+      include_examples 'returns an empty array'
 
       include_examples 'retry metric', 0
+
+      include_examples 'request error metric', 0
+
+      include_examples 'exception metric', 0
+    end
+
+    context 'when we get a Bad Request response' do
+      before do
+        auth_request.to_return(status: 200, body: auth_response.to_json, headers: content_type_header)
+        movements_request.to_return(status: 400, body: {}.to_json, headers: content_type_header)
+      end
+
+      include_examples 'returns an empty array'
+
+      include_examples 'retry metric', 0
+
+      include_examples 'request error metric', 1
+
+      include_examples 'exception metric', 0
+    end
+
+    context 'when we get an exception' do
+      before do
+        auth_request.to_return(status: 200, body: auth_response.to_json, headers: content_type_header)
+        movements_request.to_return(status: 200)
+
+        allow_any_instance_of(described_class)
+          .to receive(:request_transactions)
+          .and_raise StandardError.new('Everything exploded very badly')
+      end
+
+      it 'returns an empty array' do
+        expect(subject).to eq []
+      end
+
+      include_examples 'request error metric', 0
+
+      include_examples 'exception metric', 1
     end
 
     context 'when the request timeouts when reading' do
@@ -96,12 +168,13 @@ RSpec.describe Finance::Openbank::Service do
         expect(movements_request).to have_been_made.times(4)
       end
 
-      it 'returns an empty array' do
-        result = subject
-        expect(result).to eq []
-      end
+      include_examples 'returns an empty array'
 
       include_examples 'retry metric', 4
+
+      include_examples 'request error metric', 0
+
+      include_examples 'exception metric', 1
     end
   end
 end

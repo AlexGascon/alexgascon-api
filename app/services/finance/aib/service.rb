@@ -7,28 +7,28 @@ module Finance
     class Service
       def initialize
         @auth_error = false
+        @request_error = false
+        @exception = false
       end
 
       def get_transactions(from, to = nil)
         to ||= from
 
-        authenticate unless @auth_token
+        authenticate
 
         response = request_transactions(from, to)
 
-        if response.unauthorized?
-          authenticate
-          response = request_transactions(from, to)
+        unless response.ok?
+          return handle_error(response, :request)
         end
 
         response['results']
       rescue Finance::Aib::AuthError => e
-        Jets.logger.warn "Authentication error: #{e.message}"
-
-        @auth_error = true
-        []
+        handle_error(e, :auth)
+      rescue StandardError => e
+        handle_error(e, :exception)
       ensure
-        publish_auth_error_metric
+        publish_metrics
       end
 
       private
@@ -142,16 +142,60 @@ module Finance
         @auth_token = auth_token
       end
 
-      def publish_auth_error_metric
-        auth_error_metric = Metrics::BaseMetric.new
-        auth_error_metric.namespace = "#{Metrics::Namespaces::INFRASTRUCTURE}/#{Metrics::Namespaces::FINANCE}/AIB"
+      def handle_error(additional_data, error_type)
+        case error_type
+        when :auth
+          handle_auth_error(additional_data)
+        when :request
+          handle_request_error(additional_data)
+        when :exception
+          handle_exception(additional_data)
+        end
+
+        []
+      end
+
+      def handle_auth_error(exception)
+        Jets.logger.warn "Error in #{self.class}: Authentication error: #{exception.message}"
+        @auth_error = true
+      end
+
+      def handle_request_error(response)
+        Jets.logger.warn "Error in #{self.class}: Non-200 status code received: #{e.code}"
+        @request_error = true
+      end
+
+      def handle_exception(exception)
+        Jets.logger.warn "Error in #{self.class}: #{exception.message}"
+        @exception = true
+      end
+
+      def base_aib_metric
+        metric = Metrics::BaseMetric.new
+        metric.namespace = "#{Metrics::Namespaces::INFRASTRUCTURE}/#{Metrics::Namespaces::FINANCE}"
+        metric.unit = Metrics::Units::COUNT
+        metric.timestamp = DateTime.now
+        metric.dimensions = [{ name: 'Bank', value: 'AIB' }]
+
+        metric
+      end
+
+      def publish_metrics
+        auth_error_metric = base_aib_metric
         auth_error_metric.metric_name = 'Auth error'
-        auth_error_metric.unit = Metrics::Units::COUNT
         auth_error_metric.value = @auth_error ? 1 : 0
-        auth_error_metric.timestamp = DateTime.now
-        auth_error_metric.dimensions = []
+
+        request_error_metric = base_aib_metric
+        request_error_metric.metric_name = 'Request transactions error'
+        request_error_metric.value = @request_error ? 1 : 0
+
+        error_metric = base_aib_metric
+        error_metric.metric_name = 'Exception'
+        error_metric.value = @exception ? 1 : 0
 
         PublishCloudwatchDataCommand.new(auth_error_metric).execute
+        PublishCloudwatchDataCommand.new(request_error_metric).execute
+        PublishCloudwatchDataCommand.new(error_metric).execute
       end
     end
   end
