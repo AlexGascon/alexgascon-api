@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: CloudWatch Alarms used to monitor health-related parameters
+
+Resources:
+  NoBasalInsulinAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: alexgascon-api_No-Basal-Insulin
+      AlarmDescription: Represents if there has been any basal insulin injection in the last 24 hours. Useful to make sure that I don't forget to take the insulin or track the data
+      Namespace: Health
+      MetricName: Insulin
+      Dimensions:
+      - Name: Type
+        Value: Basal
+      Unit: Count
+      ComparisonOperator: LessThanThreshold
+      EvaluationPeriods: 1
+      Period: 86400 # One day in seconds
+      Statistic: Sum
+      Threshold: 1
+      TreatMissingData: breaching
+      AlarmActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
+      OKActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
+      InsufficientDataActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
