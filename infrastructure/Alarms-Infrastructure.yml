@@ -129,12 +129,138 @@ Resources:
       AlarmName: alexgascon-api_AIB-auth-error
       AlarmDescription: Fires if there are errors when authenticating to retrieve AIB transactions data
       EvaluationPeriods: 1
-      Namespace: Infrastructure/Finance/AIB
+      Namespace: Infrastructure/Finance
       MetricName: Auth error
+      Dimensions:
+        - Name: Bank
+          Value: AIB
       ComparisonOperator: GreaterThanOrEqualToThreshold
       Statistic: Sum
       Period: 300
       Threshold: 1
       TreatMissingData: ignore
+      AlarmActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
+      OKActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
+
+  AIBErrorAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: alexgascon-api_AIB-Error
+      AlarmDescription: Fires if there are errors when retrieving AIB transactions data
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      EvaluationPeriods: 1
+      Threshold: 1
+      TreatMissingData: ignore
+      Metrics:
+        - Label: AIB errors
+          Id: e1
+          Expression: SUM([m1, m2])
+          ReturnData: true
+        - Id: m1
+          MetricStat:
+            Metric:
+              Namespace: Infrastructure/Finance
+              MetricName: Exception
+              Dimensions:
+                - Name: Bank
+                  Value: AIB
+            Period: 60
+            Stat: Sum
+            Unit: Count
+          ReturnData: false
+        - Id: m2
+          MetricStat:
+            Metric:
+              Namespace: Infrastructure/Finance
+              MetricName: Exception
+              Dimensions:
+                - Name: Bank
+                  Value: AIB
+            Period: 60
+            Stat: Sum
+            Unit: Count
+          ReturnData: false
+      AlarmActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
+      OKActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
+
+  BankiaErrorAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: alexgascon-api_Bankia-Error
+      AlarmDescription: Fires if there are errors when retrieving Bankia transactions data
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      EvaluationPeriods: 1
+      Threshold: 1
+      TreatMissingData: ignore
+      Metrics:
+        - Label: Bankia errors
+          Id: e1
+          Expression: SUM([m1, m2])
+          ReturnData: true
+        - Id: m1
+          MetricStat:
+            Metric:
+              Namespace: Infrastructure/Finance
+              MetricName: Exception
+              Dimensions:
+                - Name: Bank
+                  Value: Bankia
+            Period: 60
+            Stat: Sum
+            Unit: Count
+          ReturnData: false
+        - Id: m2
+          MetricStat:
+            Metric:
+              Namespace: Infrastructure/Finance
+              MetricName: Exception
+              Dimensions:
+                - Name: Bank
+                  Value: Bankia
+            Period: 60
+            Stat: Sum
+            Unit: Count
+          ReturnData: false
+      AlarmActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
+      OKActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
+
+  OpenbankErrorAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: alexgascon-api_Openbank-Error
+      AlarmDescription: Fires if there are errors when retrieving Openbank transactions data
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      EvaluationPeriods: 1
+      Threshold: 1
+      TreatMissingData: ignore
+      Metrics:
+        - Label: Openbank errors
+          Id: e1
+          Expression: SUM([m1, m2])
+          ReturnData: true
+        - Id: m1
+          MetricStat:
+            Metric:
+              Namespace: Infrastructure/Finance
+              MetricName: Exception
+              Dimensions:
+                - Name: Bank
+                  Value: Openbank
+            Period: 60
+            Stat: Sum
+            Unit: Count
+          ReturnData: false
+        - Id: m2
+          MetricStat:
+            Metric:
+              Namespace: Infrastructure/Finance
+              MetricName: Exception
+              Dimensions:
+                - Name: Bank
+                  Value: Openbank
+            Period: 60
+            Stat: Sum
+            Unit: Count
+          ReturnData: false
       AlarmActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
       OKActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
