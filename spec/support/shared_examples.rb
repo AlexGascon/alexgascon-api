@@ -7,3 +7,9 @@ RSpec.shared_examples 'retry metric' do |retries|
     subject
   end
 end
+
+RSpec.shared_examples 'returns an empty array' do
+  it 'returns an empty array' do
+    expect(subject).to eq []
+  end
+end

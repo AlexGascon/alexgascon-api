@@ -9,37 +9,38 @@ module Finance
 
       def initialize
         @retries = 0
+        @request_error = false
+        @exception = false
       end
 
       def get_transactions(from, to = nil)
         to ||= from
 
-        authenticate unless @auth_token
+        authenticate
 
         response = request_transactions(from, to)
 
-        if response.unauthorized?
-          authenticate
-          response = request_transactions(from, to)
+        unless response.ok?
+          return handle_error(response, :request)
         end
 
-        # Note: when there are no movements for the specified date range, Fintonic
-        # returns movements anyway. To mimic this behavior, we'll return a
-        # response with movements on dates differents to the specified
+        # Note: when there are no transactions for the specified date range, Fintonic
+        # returns transactions anyway. To avoid propagating them, we'll make sure
+        # that we are selecting transactions in the specified range
         response
           .yield_self { |r| JSON.parse(r .body) }
           .dig('resultList')
           .select { |transaction| correct_date_range?(transaction, from, to) }
       rescue EOFError
         Jets.logger.warn "Error while retrieving bank transactions, retrying... Retry #: #{@retries}"
-
         @retries += 1
         retry unless @retries > MAX_RETRIES
 
-        Jets.logger.error('No more retries left, aborting')
-        []
+        handle_error({}, :no_more_retries)
+      rescue StandardError => e
+        handle_error(e, :exception)
       ensure
-        publish_retry_metric
+        publish_metrics
       end
 
       private
@@ -125,16 +126,55 @@ module Finance
         @device_uuid ||= ENV['FINTONIC_DEVICE_UUID']
       end
 
-      def publish_retry_metric
-        retry_metric = Metrics::BaseMetric.new
-        retry_metric.namespace = "#{Metrics::Namespaces::INFRASTRUCTURE}/#{Metrics::Namespaces::FINANCE}/Fintonic"
+      def handle_error(additional_data, error_type)
+        case error_type
+        when :no_more_retries
+          Jets.logger.error('No more retries left, aborting')
+          @exception = true
+        when :request
+          handle_request_error(additional_data)
+        when :exception
+          handle_exception(additional_data)
+        end
+
+        []
+      end
+
+      def handle_request_error(response)
+        Jets.logger.warn "Error in #{self.class}: Non-200 status code received: #{response.code}"
+        @request_error = true
+      end
+
+      def handle_exception(exception)
+        @exception = true
+      end
+
+      def base_bankia_metric
+        metric = Metrics::BaseMetric.new
+        metric.namespace = "#{Metrics::Namespaces::INFRASTRUCTURE}/#{Metrics::Namespaces::FINANCE}"
+        metric.unit = Metrics::Units::COUNT
+        metric.timestamp = DateTime.now
+        metric.dimensions = [{ name: 'Bank', value: 'Bankia' }]
+
+        metric
+      end
+
+      def publish_metrics
+        retry_metric = base_bankia_metric
         retry_metric.metric_name = 'get_transactions retries'
-        retry_metric.unit = Metrics::Units::COUNT
         retry_metric.value = @retries
-        retry_metric.timestamp = DateTime.now
-        retry_metric.dimensions = []
+
+        request_error_metric = base_bankia_metric
+        request_error_metric.metric_name = 'Request transactions error'
+        request_error_metric.value = @request_error ? 1 : 0
+
+        exception_metric = base_bankia_metric
+        exception_metric.metric_name = 'Exception'
+        exception_metric.value = @exception ? 1 : 0
 
         PublishCloudwatchDataCommand.new(retry_metric).execute
+        PublishCloudwatchDataCommand.new(request_error_metric).execute
+        PublishCloudwatchDataCommand.new(exception_metric).execute
       end
     end
   end
