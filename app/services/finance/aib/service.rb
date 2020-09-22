@@ -161,7 +161,7 @@ module Finance
       end
 
       def handle_request_error(response)
-        Jets.logger.warn "Error in #{self.class}: Non-200 status code received: #{e.code}"
+        Jets.logger.warn "Error in #{self.class}: Non-200 status code received: #{response.code}"
         @request_error = true
       end
 
