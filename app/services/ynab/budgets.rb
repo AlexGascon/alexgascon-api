@@ -2,6 +2,6 @@
 
 module Ynab
   module Budgets
-    BUDGET_ID = '5c2bebb8-3fc4-4393-95c6-288daeba7898'
+    BUDGET_ID = 'c3ba3a92-e794-4099-a36a-2980110a6cab'
   end
 end

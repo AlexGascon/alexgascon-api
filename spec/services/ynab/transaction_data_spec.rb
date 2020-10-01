@@ -3,8 +3,8 @@
 RSpec.describe Ynab::TransactionData do
   let(:category) { 'eating out' }
   let(:expense) { Finance::Expense.new(amount: 42.24, notes: 'Expense for testing', category: category, created_at: Time.now) }
-  let(:default_account_id) { 'e1a73ac1-62aa-4c12-a012-040982104623' }
-  let(:eating_out_category_id) { 'f8ba8264-2699-49b4-b233-1fca11788721' }
+  let(:default_account_id) { '52b9fb9e-43fd-4610-a2be-7ced8c8c7fe4' }
+  let(:eating_out_category_id) { 'c494b8b4-a82c-4ba7-941e-b3ee811206ab' }
 
   describe '.from_expense' do
     subject(:transaction) { Ynab::TransactionData.from_expense(expense) }

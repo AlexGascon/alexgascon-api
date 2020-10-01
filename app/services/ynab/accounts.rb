@@ -9,9 +9,9 @@ module Ynab
     DEFAULT = AIB
 
     ACCOUNT_IDS = {
-      AIB => 'e1a73ac1-62aa-4c12-a012-040982104623',
-      BANKIA => '8c36cf6d-fac1-4517-a501-7287955d8706',
-      OPENBANK => 'ba3e4149-19e0-404d-a5c1-2c1878005ac6'
+      AIB => '52b9fb9e-43fd-4610-a2be-7ced8c8c7fe4',
+      BANKIA => '110eb1a6-1d99-4117-8f15-a71a014fff64',
+      OPENBANK => 'ee318949-69b9-42cd-9b07-1dfebf9bbd37'
     }.freeze
 
     def self.get_id(account = nil)
