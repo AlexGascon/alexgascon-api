@@ -14,12 +14,21 @@ class AlarmReceivedJob < ApplicationJob
 
   def telegram_message
     <<~MSG
-    #{Emojis::BELL} Alarm! Alarm! #{Emojis::BELL}
+    #{message_header}
 
     The alarm "#{alarm.name}" has changed to "#{alarm.state}"
 
     Reason:
     #{alarm.reason}
     MSG
+  end
+
+  def message_header
+    case alarm.state.upcase
+    when "OK"
+      "#{Emojis::WHITE_CHECK_MARK} All good! #{Emojis::WHITE_CHECK_MARK}"
+    else
+      "#{Emojis::BELL} Alarm! Alarm! #{Emojis::BELL}"
+    end
   end
 end
