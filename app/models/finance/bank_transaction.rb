@@ -46,6 +46,10 @@ module Finance
       errors.add(:internal_id, ERROR_INTERNAL_ID_BLANK) if internal_id.blank?
     end
 
+    def to_s
+      "Finance::BankTransaction(description: #{description}, amount: #{amount}, bank: #{bank}, datetime: #{datetime})"
+    end
+
     private
 
     def bank_is_valid?
