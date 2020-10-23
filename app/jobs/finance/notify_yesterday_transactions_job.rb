@@ -21,6 +21,15 @@ module Finance
           .to_a
     end
 
+    def monthly_transactions
+      yesterday_year_month = Date.yesterday.strftime('%Y-%m')
+
+      @monthly_transactions ||=
+        Finance::BankTransaction
+          .where('year_month': yesterday_year_month)
+          .to_a
+    end
+
     def telegram_message
       <<~MSG
       #{Emojis::FLYING_MONEY} #{yesterday_transactions.size} expenses yesterday #{Emojis::FLYING_MONEY}
@@ -28,6 +37,7 @@ module Finance
       #{yesterday_transactions.map { |t| format_transaction(t) }.join("\n\n")}
 
       Total: #{yesterday_transactions.map(&:amount).sum}€
+      Month to date: #{monthly_transactions.map(&:amount).sum}€
       MSG
     end
 
