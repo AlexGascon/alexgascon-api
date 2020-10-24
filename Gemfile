@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'jets', '<= 1.9.30'
+gem 'jets'
 
 gem 'airrecord'
 gem 'aws-sdk-cloudwatch'
