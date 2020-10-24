@@ -9,7 +9,7 @@ Jets.application.configure do
 end
 
 Dynamoid.configure do |config|
-  config.endpoint = 'http://localhost:6000'
+  config.endpoint = 'http://localhost:8000'
   config.read_capacity = 1
   config.write_capacity = 1
 end
