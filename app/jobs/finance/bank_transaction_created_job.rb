@@ -18,7 +18,7 @@ module Finance
 
     def get_bank_transaction
       bank_transaction_data = event['Records'].first['dynamodb']
-      bank_transaction_id = bank_transaction_data.dig('keys', 'id', 'S')
+      bank_transaction_id = bank_transaction_data.dig('Keys', 'id', 'S')
 
       Finance::BankTransaction.find(bank_transaction_id)
     end
