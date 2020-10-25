@@ -65,3 +65,10 @@ jobs:
                 AWS_SECRET_ACCESS_KEY: 'fakeSecretKey'
             - image: amazon/dynamodb-local
               command: "-jar DynamoDBLocal.jar -inMemory"
+workflows:
+  version: 2.1
+  build:
+    jobs:
+      - "ruby-25"
+      - "ruby-26"
+      - "ruby-27"
