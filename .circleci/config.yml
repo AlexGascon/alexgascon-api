@@ -34,7 +34,6 @@ jobs:
         docker:
             - image: circleci/ruby:2.5
               environment:
-                AWS_REGION: 'local'
                 AWS_ACCESS: 'fakeAccessKey'
                 AWS_SECRET: 'fakeSecretKey'
             - image: amazon/dynamodb-local
@@ -44,7 +43,6 @@ jobs:
         docker:
             - image: circleci/ruby:2.6
               environment:
-                AWS_REGION: 'local'
                 AWS_ACCESS: 'fakeAccessKey'
                 AWS_SECRET: 'fakeSecretKey'
             - image: amazon/dynamodb-local
@@ -54,7 +52,6 @@ jobs:
         docker:
             - image: ruby:2.7
               environment:
-                AWS_REGION: 'local'
                 AWS_ACCESS: 'fakeAccessKey'
                 AWS_SECRET: 'fakeSecretKey'
             - image: amazon/dynamodb-local
