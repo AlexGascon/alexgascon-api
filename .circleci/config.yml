@@ -36,11 +36,9 @@ jobs:
               environment:
                 AWS_REGION: 'local'
                 AWS_ACCESS: 'fakeAccessKey'
-                AWS_ACCESS_KEY_ID: 'fakeAccessKey'
                 AWS_SECRET: 'fakeSecretKey'
-                AWS_SECRET_ACCESS_KEY: 'fakeSecretKey'
             - image: amazon/dynamodb-local
-              command: "-jar DynamoDBLocal.jar -inMemory"
+              command: "-jar DynamoDBLocal.jar -inMemory -port 6000"
     "ruby-26":
         <<: *common
         docker:
@@ -48,11 +46,9 @@ jobs:
               environment:
                 AWS_REGION: 'local'
                 AWS_ACCESS: 'fakeAccessKey'
-                AWS_ACCESS_KEY_ID: 'fakeAccessKey'
                 AWS_SECRET: 'fakeSecretKey'
-                AWS_SECRET_ACCESS_KEY: 'fakeSecretKey'
             - image: amazon/dynamodb-local
-              command: "-jar DynamoDBLocal.jar -inMemory"
+              command: "-jar DynamoDBLocal.jar -inMemory -port 6000"
     "ruby-27":
         <<: *common
         docker:
@@ -60,11 +56,9 @@ jobs:
               environment:
                 AWS_REGION: 'local'
                 AWS_ACCESS: 'fakeAccessKey'
-                AWS_ACCESS_KEY_ID: 'fakeAccessKey'
                 AWS_SECRET: 'fakeSecretKey'
-                AWS_SECRET_ACCESS_KEY: 'fakeSecretKey'
             - image: amazon/dynamodb-local
-              command: "-jar DynamoDBLocal.jar -inMemory"
+              command: "-jar DynamoDBLocal.jar -inMemory -port 6000"
 workflows:
   version: 2.1
   build:
