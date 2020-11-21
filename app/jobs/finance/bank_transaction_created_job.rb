@@ -7,19 +7,30 @@ module Finance
     def run
       Jets.logger.info "DynamoDB event: #{event}"
 
-      SendTelegramMessageCommand.new(bank_transaction.to_s).execute
+      bank_transactions.map do |bank_transaction|
+        SendTelegramMessageCommand.new(bank_transaction.to_s).execute
+      end
     end
 
     private
 
-    def bank_transaction
-      @bank_transaction ||= get_bank_transaction
+    def bank_transactions
+      @bank_transactions ||= parse_bank_transactions
     end
 
-    def get_bank_transaction
-      bank_transaction_data = event['Records'].first['dynamodb']
-      bank_transaction_id = bank_transaction_data.dig('Keys', 'id', 'S')
+    def parse_bank_transactions
+      event['Records']
+        .map { |record| record['dynamodb'] }
+        .map { |dynamodb_record| extract_bank_transaction_id(record) }
+        .map { |transaction_id| find_bank_transaction(transaction_id) }
+      end
+    end
 
+    def extract_bank_transaction_id(dynamodb_record)
+      dynamodb_record.dig('Keys', 'id', 'S')
+    end
+
+    def find_bank_transaction(bank_transaction_id)
       Finance::BankTransaction.find(bank_transaction_id)
     end
   end
