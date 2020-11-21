@@ -2,6 +2,7 @@
 
 ENV['TEST'] = '1'
 ENV['JETS_ENV'] ||= 'test'
+ENV['JETS_BUILD_NO_INTERNET'] = 'true'
 # Ensures AWS APIs are never called. Fixture home folder does not contain ~/.aws/credentials
 ENV['HOME'] = File.join(Dir.pwd, 'spec/fixtures/home')
 
