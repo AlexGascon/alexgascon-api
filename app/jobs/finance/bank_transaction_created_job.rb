@@ -23,7 +23,6 @@ module Finance
         .map { |record| record['dynamodb'] }
         .map { |dynamodb_record| extract_bank_transaction_id(record) }
         .map { |transaction_id| find_bank_transaction(transaction_id) }
-      end
     end
 
     def extract_bank_transaction_id(dynamodb_record)
