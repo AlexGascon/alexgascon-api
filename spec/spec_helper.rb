@@ -6,16 +6,20 @@ ENV['JETS_BUILD_NO_INTERNET'] = 'true'
 # Ensures AWS APIs are never called. Fixture home folder does not contain ~/.aws/credentials
 ENV['HOME'] = File.join(Dir.pwd, 'spec/fixtures/home')
 
+require 'active_support/testing/time_helpers'
 require 'byebug'
 require 'fileutils'
 require 'jets'
+require 'rake'
 require 'webmock/rspec'
-require 'active_support/testing/time_helpers'
 
 WebMock.disable_net_connect!(allow_localhost: true)
 
 abort('The Jets environment is running in production mode!') if Jets.env == 'production'
 Jets.boot
+
+Jets.load_tasks
+Rake::Task['prepare_test_db'].invoke
 
 require 'jets/spec_helpers'
 

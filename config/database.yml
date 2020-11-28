@@ -1,0 +1,14 @@
+common: &common
+  adapter: postgresql
+  pool: 5
+  username: test
+  password: test
+  host: 0.0.0.0
+  port: 5433
+
+development:
+  <<: *common
+  database: alexgascon-api_development
+test:
+  <<: *common
+  database: alexgascon-api_test
