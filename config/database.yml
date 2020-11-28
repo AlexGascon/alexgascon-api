@@ -12,3 +12,9 @@ development:
 test:
   <<: *common
   database: alexgascon-api_test
+production:
+  <<: *common
+  host: kandula.db.elephantsql.com
+  database: <%= ENV['POSTGRES_DB'] %>
+  username: <%= ENV['POSTGRES_USERNAME'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
