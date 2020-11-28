@@ -42,8 +42,6 @@ jobs:
               environment:
                 POSTGRES_PASSWORD: 'test'
                 POSTGRES_USER: 'test'
-              ports:
-                - "5433"
     "ruby-26":
         <<: *common
         docker:
@@ -57,8 +55,6 @@ jobs:
               environment:
                 POSTGRES_PASSWORD: 'test'
                 POSTGRES_USER: 'test'
-              ports:
-                - "5433"
     "ruby-27":
         <<: *common
         docker:
@@ -72,8 +68,6 @@ jobs:
               environment:
                 POSTGRES_PASSWORD: 'test'
                 POSTGRES_USER: 'test'
-              ports:
-                - "5433"
 workflows:
   version: 2.1
   build:
