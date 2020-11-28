@@ -1,0 +1,16 @@
+version: "3"
+services:
+  dynamo:
+    image: amazon/dynamodb-local
+    command: "-jar DynamoDBLocal.jar -inMemory -port 6000 -sharedDb"
+    ports:
+      - "6000:6000"
+  postgres:
+    image: postgres
+    volumes:
+      - "./docker-resources/postgres/data:/var/lib/postgresql/data"
+    environment:
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_USER=test
+    ports:
+      - "5432:5432"

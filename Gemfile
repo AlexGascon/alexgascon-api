@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'jets'
 
 gem 'airrecord'
+gem 'annotate'
 gem 'aws-sdk-cloudwatch'
 gem 'aws-sdk-s3'
 gem 'climate_control'
@@ -13,6 +14,7 @@ gem 'httparty'
 # Min version forced by Lambda https://github.com/tongueroo/jets/pull/470
 gem 'json', '>= 2.3.1'
 gem 'parallel'
+gem 'pg'
 gem 'telegram-bot-ruby'
 gem 'ynab'
 

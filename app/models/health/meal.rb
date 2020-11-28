@@ -1,16 +1,19 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: health_meals
+#
+#  id                     :bigint           not null, primary key
+#  carbohydrates_portions :float
+#  date                   :datetime
+#  food                   :text
+#  meal_type              :text
+#  notes                  :text
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#
 module Health
-  class Meal
-    include Dynamoid::Document
-
-    field :carbohydrates_portions, :number
-    field :date, :date
-    field :food, :string
-    field :meal_type, :string
-    field :notes, :string
-
-    validates_presence_of :food
-    validates_presence_of :meal_type
+  class Meal < ::ApplicationRecord
   end
 end

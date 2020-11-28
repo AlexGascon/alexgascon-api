@@ -38,6 +38,10 @@ jobs:
                 AWS_SECRET: 'fakeSecretKey'
             - image: amazon/dynamodb-local
               command: "-jar DynamoDBLocal.jar -inMemory -port 6000"
+            - image: postgres
+              environment:
+                POSTGRES_PASSWORD: 'test'
+                POSTGRES_USER: 'test'
     "ruby-26":
         <<: *common
         docker:
@@ -47,6 +51,10 @@ jobs:
                 AWS_SECRET: 'fakeSecretKey'
             - image: amazon/dynamodb-local
               command: "-jar DynamoDBLocal.jar -inMemory -port 6000"
+            - image: postgres
+              environment:
+                POSTGRES_PASSWORD: 'test'
+                POSTGRES_USER: 'test'
     "ruby-27":
         <<: *common
         docker:
@@ -56,6 +64,10 @@ jobs:
                 AWS_SECRET: 'fakeSecretKey'
             - image: amazon/dynamodb-local
               command: "-jar DynamoDBLocal.jar -inMemory -port 6000"
+            - image: postgres
+              environment:
+                POSTGRES_PASSWORD: 'test'
+                POSTGRES_USER: 'test'
 workflows:
   version: 2.1
   build:

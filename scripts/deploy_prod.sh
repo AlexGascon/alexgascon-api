@@ -4,6 +4,9 @@ bundle exec jets deploy production
 echo "Creating the new DynamoDB tables..."
 JETS_ENV=production bundle exec rake dynamoid:create_tables
 
+echo "Running SQL migrations..."
+JETS_ENV=production bundle exec jets db:prepare
+
 echo "Updating the CloudFormation stacks..."
 for template_path in infrastructure/*
 do
