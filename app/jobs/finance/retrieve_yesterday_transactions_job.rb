@@ -28,7 +28,7 @@ module Finance
     end
 
     def yesterday
-      DateTime.now.utc.yesterday.to_date
+      Time.now.utc.yesterday.beginning_of_day
     end
 
     def publish_in_cloudwatch(bank_transaction)

@@ -72,7 +72,7 @@ RSpec.describe Finance::Aib::Service do
     travel_back
   end
 
-  subject { described_class.new.get_transactions(Date.yesterday, Date.today) }
+  subject { described_class.new.get_transactions(Time.now.yesterday, Time.now) }
 
   describe 'get_transactions' do
     let(:get_transactions_request) do

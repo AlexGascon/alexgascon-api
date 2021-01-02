@@ -26,6 +26,10 @@ require 'jets/spec_helpers'
 Dir[Jets.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 RSpec.configure do |c|
+  c.before(:suite) do
+    Time.zone = 'UTC'
+  end
+
   c.before(:each) do
     DynamoidReset.all
   end
