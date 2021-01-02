@@ -21,7 +21,7 @@ module Finance
     def parse_bank_transactions
       event['Records']
         .map { |record| record['dynamodb'] }
-        .map { |dynamodb_record| extract_bank_transaction_id(record) }
+        .map { |dynamodb_record| extract_bank_transaction_id(dynamodb_record) }
         .map { |transaction_id| find_bank_transaction(transaction_id) }
     end
 
