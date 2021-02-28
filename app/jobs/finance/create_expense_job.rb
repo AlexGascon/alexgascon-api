@@ -27,7 +27,7 @@ module Finance
     end
 
     def publish_expense_in_airtable(expense)
-      Airtable::Expense.from_expense(expense)
+      Airtable::ExpensePublisher.publish(expense)
     end
 
     def publish_expense_in_ynab(expense)
