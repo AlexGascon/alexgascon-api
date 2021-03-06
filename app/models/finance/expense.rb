@@ -11,6 +11,8 @@ module Finance
     field :category, :string
     field :notes, :string
 
+    alias amount_in_euros amount
+
     validates_presence_of :amount
     validates_presence_of :category
     validate :category_is_a_valid_expense_category
