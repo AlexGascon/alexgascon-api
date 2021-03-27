@@ -10,6 +10,10 @@ module Finance::ExpenseClassification::Rules
       amount_matches? && description_matches?
     end
 
+    def airtable_category
+      raise NotImplementedError, "airtable_category not implemented for #{self.class}"
+    end
+
     def expense_category
       raise NotImplementedError, "expense_category not implemented for #{self.class}"
     end

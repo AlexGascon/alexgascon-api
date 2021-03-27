@@ -10,6 +10,10 @@ module Finance::ExpenseClassification::Rules
       'netflix'
     end
 
+    def airtable_category
+      Airtable::Categories::SUBSCRIPTIONS
+    end
+
     def expense_category
       Finance::ExpenseCategories::SUBSCRIPTION
     end

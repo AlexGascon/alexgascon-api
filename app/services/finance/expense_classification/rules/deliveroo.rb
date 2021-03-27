@@ -6,6 +6,10 @@ module Finance::ExpenseClassification::Rules
       'deliveroo.ie'
     end
 
+    def airtable_category
+      Airtable::Categories::BAR_RESTAURANT
+    end
+
     def expense_category
       Finance::ExpenseCategories::EATING_OUT
     end
