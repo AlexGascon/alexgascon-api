@@ -10,6 +10,10 @@ module Finance::ExpenseClassification::Rules
       'netflix'
     end
 
+    def expense_category
+      Finance::ExpenseCategories::SUBSCRIPTION
+    end
+
     def ynab_id
       Ynab::Categories::NETFLIX_ID
     end

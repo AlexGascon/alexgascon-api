@@ -6,6 +6,10 @@ module Finance::ExpenseClassification::Rules
       'deliveroo plus'
     end
 
+    def expense_category
+      Finance::ExpenseCategories::SUBSCRIPTION
+    end
+
     def ynab_id
       Ynab::Categories::DELIVEROO_PLUS_ID
     end

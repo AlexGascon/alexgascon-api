@@ -10,6 +10,10 @@ module Finance::ExpenseClassification::Rules
       'disney plus'
     end
 
+    def expense_category
+      Finance::ExpenseCategories::SUBSCRIPTION
+    end
+
     def ynab_id
       Ynab::Categories::DISNEY_PLUS_ID
     end

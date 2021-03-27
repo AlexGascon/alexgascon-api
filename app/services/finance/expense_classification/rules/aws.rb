@@ -6,6 +6,10 @@ module Finance::ExpenseClassification::Rules
       'aws emea'
     end
 
+    def expense_category
+      Finance::ExpenseCategories::SUBSCRIPTION
+    end
+
     def ynab_id
       Ynab::Categories::AWS_ID
     end

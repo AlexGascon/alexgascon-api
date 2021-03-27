@@ -10,6 +10,14 @@ module Finance::ExpenseClassification::Rules
       amount_matches? && description_matches?
     end
 
+    def expense_category
+      raise NotImplementedError, "expense_category not implemented for #{self.class}"
+    end
+
+    def ynab_id
+      raise NotImplementedError, "ynab_id not implemented for #{self.class}"
+    end
+
     private
 
     attr_reader :expense

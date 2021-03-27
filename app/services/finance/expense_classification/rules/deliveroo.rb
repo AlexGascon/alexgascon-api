@@ -6,6 +6,10 @@ module Finance::ExpenseClassification::Rules
       'deliveroo.ie'
     end
 
+    def expense_category
+      Finance::ExpenseCategories::EATING_OUT
+    end
+
     def ynab_id
       Ynab::Categories::EATING_OUT_ID
     end

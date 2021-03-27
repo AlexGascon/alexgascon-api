@@ -10,6 +10,10 @@ module Finance::ExpenseClassification::Rules
       'dazn'
     end
 
+    def expense_category
+      Finance::ExpenseCategories::SUBSCRIPTION
+    end
+
     def ynab_id
       Ynab::Categories::DAZN_ID
     end

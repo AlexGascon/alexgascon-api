@@ -10,6 +10,10 @@ module Finance::ExpenseClassification::Rules
       'spotify'
     end
 
+    def expense_category
+      Finance::ExpenseCategories::SUBSCRIPTION
+    end
+
     def ynab_id
       Ynab::Categories::SPOTIFY_ID
     end
