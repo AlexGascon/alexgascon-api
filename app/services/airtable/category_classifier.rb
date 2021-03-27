@@ -9,6 +9,8 @@ module Airtable
         .find { |rule| rule.matches?(expense) }
 
       return matching_rule.airtable_category if matching_rule.present?
+
+      Airtable::Categories::UNDEFINED
     end
   end
 end

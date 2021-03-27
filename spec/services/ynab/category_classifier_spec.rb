@@ -36,5 +36,12 @@ RSpec.describe Ynab::CategoryClassifier do
 
       expect(described_class.category_id_for(transaction)).to eq category_id
     end
+
+    it 'returns Undefined category when no rules match' do
+      transaction = create(:unclassified_expense)
+      uncategorized_id = 'e172c064-eb5c-4fb2-9bd7-ae5fe9af692f'
+
+      expect(described_class.category_id_for(transaction)).to eq uncategorized_id
+    end
   end
 end

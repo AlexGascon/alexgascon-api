@@ -8,6 +8,8 @@ module Finance
     SUBSCRIPTION = 'subscription'
     SUPERMARKET = 'supermercado'
 
+    UNDEFINED = 'undefined'
+
     ALL = [
       COCA_COLA, EATING_OUT, FUN, SUBSCRIPTION, SUPERMARKET
     ].freeze

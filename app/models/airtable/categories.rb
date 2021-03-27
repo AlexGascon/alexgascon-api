@@ -7,6 +7,8 @@ module Airtable
     SUBSCRIPTIONS = 'Subscriptions'
     SUPERMARKET = 'Supermercado'
 
+    UNDEFINED = 'Sin clasificar'
+
     MAPPING = {
       Finance::ExpenseCategories::COCA_COLA => BAR_RESTAURANT,
       Finance::ExpenseCategories::EATING_OUT => BAR_RESTAURANT,

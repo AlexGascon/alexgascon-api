@@ -13,7 +13,7 @@ module Finance
     end
 
     def category
-      'Undefined'
+      ExpenseCategories::UNDEFINED
     end
 
     def notes

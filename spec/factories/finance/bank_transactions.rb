@@ -9,6 +9,14 @@ FactoryBot.define do
     internal_id     { 'BH095' }
   end
 
+  factory :unclassified_bank_transaction, class: Finance::BankTransaction do
+    amount_in_cents   { 4242 }
+    bank              { 'Openbank' }
+    datetime          { DateTime.now - 1.day }
+    description       { 'Random expense that doesnt make sense' }
+    internal_id       { 'HRTAU' }
+  end
+
   factory :netflix_bank_transaction, class: Finance::BankTransaction do
     amount_in_cents   { 1199 }
     bank              { 'AIB' }

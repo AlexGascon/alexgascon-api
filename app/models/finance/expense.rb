@@ -35,7 +35,7 @@ module Finance
     end
 
     def valid_category?
-      Finance::ExpenseCategories::ALL.include? category
+      (Finance::ExpenseCategories::ALL.include? category) || category == Finance::ExpenseCategories::UNDEFINED
     end
   end
 end

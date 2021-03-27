@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :unclassified_expense, class: Finance::Expense do
+    amount      { 42.42 }
+    category    { 'undefined' }
+    notes       { 'Random expense that doesnt make sense' }
+  end
+
   factory :netflix_expense, class: Finance::Expense do
     amount      { 11.99 }
     category    { 'subscription' }

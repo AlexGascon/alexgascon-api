@@ -10,9 +10,9 @@ module Finance
         .map(&:new)
         .find { |rule| rule.matches?(bank_expense) }
 
-      return if matching_rule.nil?
+      return matching_rule.expense_category if matching_rule.present?
 
-      matching_rule.expense_category
+      Finance::ExpenseCategories::UNDEFINED
     end
   end
 end
