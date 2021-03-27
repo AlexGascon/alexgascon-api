@@ -5,7 +5,6 @@ RSpec.describe Finance::CreateExpenseJob do
     let(:fixture) { 'sns_events/finance/MoneySpent' }
     let(:event) { load_json_fixture fixture }
     let(:mock_cw) { instance_double(AwsServices::CloudwatchWrapper) }
-    let(:mock_ynab) { instance_double(YNAB::API) }
 
     subject { described_class.perform_now(:create_expense, event) }
 
@@ -13,10 +12,8 @@ RSpec.describe Finance::CreateExpenseJob do
       allow(AwsServices::CloudwatchWrapper).to receive(:new).and_return(mock_cw)
       allow(mock_cw).to receive(:publish).and_return({})
 
-      allow(YNAB::API).to receive(:new).and_return(mock_ynab)
-      allow(mock_ynab).to receive_message_chain(:transactions, :create_transaction)
-
-      allow_any_instance_of(Airtable::Expense).to receive(:save)
+      allow(Airtable::ExpensePublisher).to receive(:publish)
+      allow(Ynab::ExpensePublisher).to receive(:publish)
     end
 
     it 'creates a new expense' do
@@ -42,13 +39,13 @@ RSpec.describe Finance::CreateExpenseJob do
     end
 
     it 'publishes the expense in YNAB' do
-      expect(mock_ynab).to receive_message_chain(:transactions, :create_transaction)
+      expect(Ynab::ExpensePublisher).to receive(:publish)
 
       subject
     end
 
     it 'publishes the expense in Airtable' do
-      expect_any_instance_of(Airtable::Expense).to receive(:save)
+      expect(Airtable::ExpensePublisher).to receive(:publish)
 
       subject
     end

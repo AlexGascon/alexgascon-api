@@ -11,6 +11,8 @@ module Finance
     field :category, :string
     field :notes, :string
 
+    alias amount_in_euros amount
+
     validates_presence_of :amount
     validates_presence_of :category
     validate :category_is_a_valid_expense_category
@@ -33,7 +35,7 @@ module Finance
     end
 
     def valid_category?
-      Finance::ExpenseCategories::ALL.include? category
+      (Finance::ExpenseCategories::ALL.include? category) || category == Finance::ExpenseCategories::UNDEFINED
     end
   end
 end

@@ -27,14 +27,11 @@ module Finance
     end
 
     def publish_expense_in_airtable(expense)
-      Airtable::Expense.from_expense(expense)
+      Airtable::ExpensePublisher.publish(expense)
     end
 
     def publish_expense_in_ynab(expense)
-      ynab = YNAB::API.new(ENV['YNAB_TOKEN'])
-
-      data = { transaction: Ynab::TransactionData.from_expense(expense).to_h }
-      ynab.transactions.create_transaction(Ynab::Budgets::BUDGET_ID, data)
+      Ynab::ExpensePublisher.publish(expense)
     end
   end
 end
