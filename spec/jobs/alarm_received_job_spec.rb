@@ -6,7 +6,7 @@ RSpec.describe AlarmReceivedJob do
   describe 'run' do
     before { stub_command(SendTelegramMessageCommand) }
 
-    let(:event) { load_json_fixture('sns_events/cloudwatch_alarm_alarm') }
+    let(:event) { load_json_fixture('aws/sns/cloudwatch_alarm_alarm') }
 
     it 'sends a Telegram message' do
       expect_any_instance_of(SendTelegramMessageCommand).to receive(:execute)
@@ -15,7 +15,7 @@ RSpec.describe AlarmReceivedJob do
     end
 
     context 'when the alarm has changed to ALARM state' do
-      let(:event) { load_json_fixture('sns_events/cloudwatch_alarm_alarm') }
+      let(:event) { load_json_fixture('aws/sns/cloudwatch_alarm_alarm') }
 
       it 'passes an alarm message to the command' do
         expected_message = <<~MSG
@@ -34,7 +34,7 @@ RSpec.describe AlarmReceivedJob do
     end
 
     context 'when the alarm has changed to OK state' do
-      let(:event) { load_json_fixture('sns_events/cloudwatch_alarm_ok') }
+      let(:event) { load_json_fixture('aws/sns/cloudwatch_alarm_ok') }
 
       it 'passes an OK message to the command' do
         expected_message = <<~MSG

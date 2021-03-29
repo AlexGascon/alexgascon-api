@@ -4,7 +4,7 @@ RSpec.describe Health::MealParser do
   let(:parser) { described_class.new(sns_event) }
 
   describe 'parse' do
-    let(:sns_event) { load_json_fixture('sns_events/health/MealEaten') }
+    let(:sns_event) { load_json_fixture('aws/sns/health/MealEaten') }
 
     subject { parser.parse }
 

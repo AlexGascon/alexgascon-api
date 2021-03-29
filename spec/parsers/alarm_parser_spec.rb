@@ -2,7 +2,7 @@
 
 RSpec.describe AlarmParser do
   describe 'parse' do
-    let(:event) { load_json_fixture('sns_events/cloudwatch_alarm_alarm') }
+    let(:event) { load_json_fixture('aws/sns/cloudwatch_alarm_alarm') }
     let(:parser) { described_class.new(event) }
 
     subject(:alarm) { parser.parse }

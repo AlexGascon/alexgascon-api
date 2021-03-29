@@ -1,0 +1,106 @@
+{
+    "Records": [
+      {
+        "eventID": "8e171d4bdfe7f0ad0c949703a76d12e2",
+        "eventName": "INSERT",
+        "eventVersion": "1.1",
+        "eventSource": "aws:dynamodb",
+        "awsRegion": "eu-west-1",
+        "dynamodb": {
+          "ApproximateCreationDateTime": 1616642875,
+          "Keys": {
+            "id": {
+              "S": "c7192992-5277-4b49-ba75-183f37982aee"
+            }
+          },
+          "NewImage": {
+            "year_month": {
+              "S": "2021-03"
+            },
+            "bank": {
+              "S": "Openbank"
+            },
+            "datetime": {
+              "N": "1616544000"
+            },
+            "amount_in_cents": {
+              "N": "-999"
+            },
+            "internal_id": {
+              "S": "BH778_2329"
+            },
+            "updated_at": {
+              "N": "1616642875.228566434"
+            },
+            "created_at": {
+              "N": "1616642875.228410114"
+            },
+            "description": {
+              "S": "COMPRA EN PAYPAL *SPOTIFY, CON LA TARJETA : XXXXXXXXXXXX4205 EL 2021-03-22"
+            },
+            "id": {
+              "S": "c7192992-5277-4b49-ba75-183f37982aee"
+            },
+            "day": {
+              "S": "24"
+            }
+          },
+          "SequenceNumber": "1676127400000000008633463483",
+          "SizeBytes": 290,
+          "StreamViewType": "NEW_IMAGE"
+        },
+        "eventSourceARN": "arn:aws:dynamodb:eu-west-1:598877714121:table/alexgascon-api_production_banktransactions/stream/2020-10-23T22:23:36.821"
+      },
+      {
+        "eventID": "319575351db2c14b5756245cee513c20",
+        "eventName": "MODIFY",
+        "eventVersion": "1.1",
+        "eventSource": "aws:dynamodb",
+        "awsRegion": "eu-west-1",
+        "dynamodb": {
+          "ApproximateCreationDateTime": 1616642875,
+          "Keys": {
+            "id": {
+              "S": "c7192992-5277-4b49-ba75-183f37982aee"
+            }
+          },
+          "NewImage": {
+            "year_month": {
+              "S": "2021-03"
+            },
+            "bank": {
+              "S": "Openbank"
+            },
+            "datetime": {
+              "N": "1616544000"
+            },
+            "amount_in_cents": {
+              "N": "-999"
+            },
+            "internal_id": {
+              "S": "BH778_2329"
+            },
+            "updated_at": {
+              "N": "1616642875.238844377"
+            },
+            "created_at": {
+              "N": "1616642875.228410114"
+            },
+            "description": {
+              "S": "COMPRA EN PAYPAL *SPOTIFY, CON LA TARJETA : XXXXXXXXXXXX4205 EL 2021-03-22"
+            },
+            "id": {
+              "S": "c7192992-5277-4b49-ba75-183f37982aee"
+            },
+            "day": {
+              "S": "24"
+            }
+          },
+          "SequenceNumber": "1676127500000000008633463594",
+          "SizeBytes": 290,
+          "StreamViewType": "NEW_IMAGE"
+        },
+        "eventSourceARN": "arn:aws:dynamodb:eu-west-1:598877714121:table/alexgascon-api_production_banktransactions/stream/2020-10-23T22:23:36.821"
+      }
+    ]
+  }

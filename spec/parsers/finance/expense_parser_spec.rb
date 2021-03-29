@@ -4,7 +4,7 @@ RSpec.describe Finance::ExpenseParser do
   let(:parser) { described_class.new(sns_event) }
 
   describe '#parse' do
-    let(:sns_event) { load_json_fixture('sns_events/finance/MoneySpent') }
+    let(:sns_event) { load_json_fixture('aws/sns/finance/MoneySpent') }
 
     subject { parser.parse }
 
