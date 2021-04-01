@@ -28,6 +28,10 @@ module Finance
         other.notes == notes
     end
 
+    def to_s
+      "Finance::Expense(amount: #{amount}, category: #{category}, notes: #{notes})"
+    end
+
     private
 
     def category_is_a_valid_expense_category

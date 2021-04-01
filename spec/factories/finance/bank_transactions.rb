@@ -56,4 +56,13 @@ FactoryBot.define do
     description       { 'VDP-DELIVEROO.IE' }
     internal_id       { 'BH095' }
   end
+
+  factory :dynamodb_event_bank_transaction, class: Finance::BankTransaction do
+    amount_in_cents   { -999 }
+    bank              { 'Openbank' }
+    datetime          { DateTime.now - 1.day }
+    description       { 'COMPRA EN PAYPAL *SPOTIFY, CON LA TARJETA : XXXXXXXXXXXX4205 EL 2021-03-22' }
+    id                { 'c7192992-5277-4b49-ba75-183f37982aee' }
+    internal_id       { 'BH778_2329' }
+  end
 end
