@@ -4,7 +4,7 @@ RSpec.describe Health::InjectionParser do
   let(:parser) { described_class.new(sns_event) }
 
   describe 'parse' do
-    let(:sns_event) { load_json_fixture('sns_events/health/InsulinInjected') }
+    let(:sns_event) { load_json_fixture('aws/sns/health/InsulinInjected') }
 
     subject { parser.parse }
 

@@ -2,7 +2,7 @@
 
 RSpec.describe Health::CreateMealJob do
   describe 'create_meal' do
-    let(:event) { load_json_fixture('sns_events/health/MealEaten') }
+    let(:event) { load_json_fixture('aws/sns/health/MealEaten') }
 
     subject { described_class.perform_now(:create_meal, event) }
 
@@ -23,7 +23,7 @@ RSpec.describe Health::CreateMealJob do
     end
 
     context 'when the event does not have any date' do
-      let(:event) { load_json_fixture('sns_events/health/MealEaten-no_date') }
+      let(:event) { load_json_fixture('aws/sns/health/MealEaten-no_date') }
 
       it 'creates a new meal' do
         expect { subject }.to change { Health::Meal.all.count }.by(1)

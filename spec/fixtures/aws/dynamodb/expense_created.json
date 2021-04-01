@@ -1,0 +1,65 @@
+{
+    "Records": [
+      {
+        "eventID": "8e171d4bdfe7f0ad0c949703a76d12e2",
+        "eventName": "INSERT",
+        "eventVersion": "1.1",
+        "eventSource": "aws:dynamodb",
+        "awsRegion": "eu-west-1",
+        "dynamodb": {
+          "ApproximateCreationDateTime": 1616642875,
+          "Keys": {
+            "id": {
+              "S": "05a860a8-0174-4a5a-8a15-deea3ac4b2ba"
+            }
+          },
+          "NewImage": {
+            "amount": {
+              "N": "9.99"
+            },
+            "category": {
+              "S": "subscription"
+            },
+            "updated_at": {
+              "N": "1616642875.238844377"
+            },
+            "created_at": {
+              "N": "1616642875.228410114"
+            },
+            "notes": {
+              "S": "COMPRA EN PAYPAL *SPOTIFY, CON LA TARJETA : XXXXXXXXXXXX4205 EL 2021-03-22"
+            },
+            "id": {
+              "S": "05a860a8-0174-4a5a-8a15-deea3ac4b2ba"
+            }
+          },
+          "SequenceNumber": "1676127400000000008633463483",
+          "SizeBytes": 290,
+          "StreamViewType": "NEW_IMAGE"
+        },
+        "eventSourceARN": "arn:aws:dynamodb:eu-west-1:598877714121:table/alexgascon-api_production_expenses/stream/2020-10-23T22:23:36.821"
+      },
+      {
+        "eventID": "319575351db2c14b5756245cee513c20",
+        "eventName": "MODIFY",
+        "eventVersion": "1.1",
+        "eventSource": "aws:dynamodb",
+        "awsRegion": "eu-west-1",
+        "dynamodb": {
+          "ApproximateCreationDateTime": 1616642875,
+          "Keys": {
+            "id": {
+              "S": "05a860a8-0174-4a5a-8a15-deea3ac4b2ba"
+            }
+          },
+          "NewImage": {
+          },
+          "SequenceNumber": "1676127500000000008633463594",
+          "SizeBytes": 290,
+          "StreamViewType": "NEW_IMAGE"
+        },
+        "eventSourceARN": "arn:aws:dynamodb:eu-west-1:598877714121:table/alexgascon-api_production_expenses/stream/2020-10-23T22:23:36.821"
+      }
+    ]
+  }
+
