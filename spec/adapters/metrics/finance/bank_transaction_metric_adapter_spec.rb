@@ -15,7 +15,7 @@ RSpec.describe Metrics::Finance::BankTransactionMetricAdapter do
   end
 
   it 'sets the metric value' do
-    expect(metric.value).to eq 42
+    expect(metric.value).to eq -42
   end
 
   it 'sets the timestamp' do
