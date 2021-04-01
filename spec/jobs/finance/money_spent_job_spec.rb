@@ -1,20 +1,11 @@
 # frozen_string_literal: true
 
-RSpec.describe Finance::CreateExpenseJob do
-  describe 'create_expense' do
+RSpec.describe Finance::MoneySpentJob do
+  describe 'run' do
     let(:fixture) { 'aws/sns/finance/MoneySpent' }
     let(:event) { load_json_fixture fixture }
-    let(:mock_cw) { instance_double(AwsServices::CloudwatchWrapper) }
 
-    subject { described_class.perform_now(:create_expense, event) }
-
-    before do
-      allow(AwsServices::CloudwatchWrapper).to receive(:new).and_return(mock_cw)
-      allow(mock_cw).to receive(:publish).and_return({})
-
-      allow(Airtable::ExpensePublisher).to receive(:publish)
-      allow(Ynab::ExpensePublisher).to receive(:publish)
-    end
+    subject { described_class.perform_now(:run, event) }
 
     it 'creates a new expense' do
       expect { subject }.to change { Finance::Expense.all.count }.by 1
@@ -30,24 +21,6 @@ RSpec.describe Finance::CreateExpenseJob do
       expect(expense.amount).to eq 42.24
       expect(expense.category).to eq 'eating out'
       expect(expense.notes).to eq 'Expense testing notes'
-    end
-
-    it 'publishes the expense in CloudWatch' do
-      expect(mock_cw).to receive(:publish)
-
-      subject
-    end
-
-    it 'publishes the expense in YNAB' do
-      expect(Ynab::ExpensePublisher).to receive(:publish)
-
-      subject
-    end
-
-    it 'publishes the expense in Airtable' do
-      expect(Airtable::ExpensePublisher).to receive(:publish)
-
-      subject
     end
 
     context 'when the category is not in lowercase' do

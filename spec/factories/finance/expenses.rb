@@ -36,4 +36,11 @@ FactoryBot.define do
     category    { 'eating out' }
     notes       { 'VDP-DELIVEROO.IE' }
   end
+
+  factory :dynamodb_event_expense, class: Finance::Expense do
+    amount      { '9.99' }
+    category    { 'subscription' }
+    notes       { 'COMPRA EN PAYPAL *SPOTIFY, CON LA TARJETA : XXXXXXXXXXXX4205 EL 2021-03-22' }
+    id          { '05a860a8-0174-4a5a-8a15-deea3ac4b2ba' }
+  end
 end
