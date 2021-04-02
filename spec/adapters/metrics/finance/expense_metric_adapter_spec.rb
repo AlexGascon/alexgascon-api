@@ -33,5 +33,33 @@ RSpec.describe Metrics::Finance::ExpenseMetricAdapter do
       expect(dimension[:name]).to eq 'Category'
       expect(dimension[:value]).to eq 'Supermarket'
     end
+
+    context 'categories with direct mapping' do
+      CATEGORIES_WITH_DIRECT_MAPPING = {
+        Finance::ExpenseCategories::FUN => 'Fun',
+        Finance::ExpenseCategories::SUPERMARKET => 'Supermarket'
+      }
+
+      CATEGORIES_WITH_DIRECT_MAPPING.each_pair do |expense_category, dimension|
+        it "#{expense_category} is mapped correctly" do
+          expense = build(:unclassified_expense, category: expense_category)
+          metric = described_class.new(expense)
+
+          expect(metric.dimensions.first[:name]).to eq 'Category'
+          expect(metric.dimensions.first[:value]).to eq dimension
+        end
+      end
+    end
+
+    context 'categories without direct mapping' do
+      let(:expense) { create(:netflix_expense) }
+
+      it 'are mapped automatically' do
+        dimension = metric.dimensions.first
+
+        expect(dimension[:name]).to eq 'Category'
+        expect(dimension[:value]).to eq 'Subscription'
+      end
+    end
   end
 end

@@ -12,6 +12,8 @@ module AwsServices
     end
 
     def publish(metricable)
+      Jets.logger.info "METRICABLE: Namespace=#{metricable.metric_namespace}, Data=(#{metricable.metric_data})"
+
       client.put_metric_data(namespace: metricable.metric_namespace, metric_data: [metricable.metric_data])
     end
 

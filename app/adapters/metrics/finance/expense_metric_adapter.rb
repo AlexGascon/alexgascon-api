@@ -21,12 +21,12 @@ module Metrics
       private
 
       def map_category(expense)
-        {
-          ::Finance::ExpenseCategories::COCA_COLA => DIMENSION_COCA_COLA,
-          ::Finance::ExpenseCategories::EATING_OUT => DIMENSION_EATING_OUT,
+        mapped_category = {
           ::Finance::ExpenseCategories::FUN => DIMENSION_FUN,
           ::Finance::ExpenseCategories::SUPERMARKET => DIMENSION_SUPERMARKET
         }[expense.category]
+
+        mapped_category.presence || expense.category.capitalize
       end
     end
   end
