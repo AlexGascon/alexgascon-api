@@ -2,28 +2,31 @@
 
 RSpec.describe Health::GetLiveDexcomDataJob do
   describe '#run' do
+    let(:minutes) { 1440 }
+    let(:bg_datapoints) { minutes / 5 }
+
     before do
-      bg = build(:dexcom_blood_glucose)
-      allow(Dexcom::BloodGlucose).to receive(:last).and_return(bg)
+      bgs = build_list(:dexcom_blood_glucose, bg_datapoints)
+      allow(Dexcom::BloodGlucose).to receive(:get_last).with(minutes: minutes).and_return(bgs)
 
       stub_command(PublishCloudwatchDataCommand)
     end
 
     subject { described_class.perform_now(:run) }
 
-    it 'creates a GlucoseValue' do
-      expect { subject }.to change { Health::GlucoseValue.count }.by(1)
-    end
-    
-    it 'fills the data correctly' do
-      glucose_value = subject
+    it 'creates GlucoseValues correctly' do
+      expect { subject }.to change { Health::GlucoseValue.count }.by(bg_datapoints)
+
+      example_glucose_value = Health::GlucoseValue.last
+      expect(example_glucose_value.value).to eq 142
+      expect(example_glucose_value.timestamp).to eq DateTime.new(2020, 6, 10, 21, 43, 14, '+00:00')
     end
 
     it 'publishes the glucose metrics' do
       command_double = instance_double(PublishCloudwatchDataCommand)
       allow(PublishCloudwatchDataCommand).to receive(:new).and_return(command_double)
 
-      expect(command_double).to receive(:execute).exactly(1).times
+      expect(command_double).to receive(:execute).exactly(bg_datapoints).times
 
       subject
     end
