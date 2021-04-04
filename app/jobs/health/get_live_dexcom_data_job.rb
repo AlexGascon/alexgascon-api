@@ -5,10 +5,11 @@ module Health
 
     rate '5 minutes'
     def run
-      bg = ::Dexcom::BloodGlucose.last
-      
-      glucose_value = Health::GlucoseValueFactory.from_dexcom_gem(bg, persist=true)
-      PublishCloudwatchDataCommand.new(glucose_value).execute
+      bgs = ::Dexcom::BloodGlucose.get_last(minutes: 1440)
+
+      Health::GlucoseValueFactory
+        .from_dexcom_gem_entries(bgs)
+        .each { |glucose_value| PublishCloudwatchDataCommand.new(glucose_value).execute }
     end
   end
 end
