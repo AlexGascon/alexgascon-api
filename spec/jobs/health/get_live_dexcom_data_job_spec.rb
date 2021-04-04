@@ -24,8 +24,14 @@ RSpec.describe Health::GetLiveDexcomDataJob do
 
     it 'publishes the glucose metrics' do
       command_double = instance_double(PublishCloudwatchDataCommand)
-      allow(PublishCloudwatchDataCommand).to receive(:new).and_return(command_double)
+      allow(PublishCloudwatchDataCommand)
+        .to receive(:new)
+        .with(a_kind_of Health::GlucoseValue)
+        .and_return(command_double)
 
+      # NOTE: If this fails, maybe the method has been called, but not on the double
+      # That would mean that PublishCloudwatchDataCommand.new hasn't been called with
+      # an instance of Health::GlucoseValue
       expect(command_double).to receive(:execute).exactly(bg_datapoints).times
 
       subject
