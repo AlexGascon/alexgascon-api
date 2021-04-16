@@ -2,7 +2,7 @@
 
 RSpec.describe Health::GetLiveDexcomDataJob do
   describe '#run' do
-    let(:minutes) { 1440 }
+    let(:minutes) { 180 }
     let(:bg_datapoints) { minutes / 5 }
 
     before do

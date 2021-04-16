@@ -5,7 +5,7 @@ module Health
 
     rate '5 minutes'
     def run
-      bgs = ::Dexcom::BloodGlucose.get_last(minutes: 1440)
+      bgs = ::Dexcom::BloodGlucose.get_last(minutes: 180)
 
       Health::GlucoseValueFactory
         .from_dexcom_gem_entries(bgs)
