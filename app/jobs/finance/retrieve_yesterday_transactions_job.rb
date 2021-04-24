@@ -3,7 +3,7 @@
 module Finance
   class RetrieveYesterdayTransactionsJob < ::ApplicationJob
 
-    BANKS = %w[Aib Bankia Openbank].freeze
+    BANKS = %w[Aib Openbank].freeze
 
     cron '27 03 * * ? *'
     def run

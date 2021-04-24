@@ -6,9 +6,8 @@ module Finance
     include Metricable
 
     AIB = 'AIB'
-    BANKIA = 'Bankia'
     OPENBANK = 'Openbank'
-    VALID_BANKS = [AIB, BANKIA, OPENBANK].freeze
+    VALID_BANKS = [AIB, OPENBANK].freeze
 
     ERROR_BANK_INVALID = 'The specified bank is not allowed'
     ERROR_INTERNAL_ID_BLANK = 'internal_id cannot be blank if the bank is present'
