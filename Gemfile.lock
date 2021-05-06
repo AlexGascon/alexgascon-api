@@ -127,7 +127,8 @@ GEM
     debug_inspector (1.0.0)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
-    dexcom (0.2.2)
+    dexcom (0.3.0)
+      activesupport
       httparty
     diff-lcs (1.4.4)
     dotenv (2.7.6)
@@ -329,7 +330,7 @@ DEPENDENCIES
   aws-sdk-s3
   byebug (= 11.0.1)
   climate_control
-  dexcom (~> 0.2.2)
+  dexcom (~> 0.3.0)
   dynamoid
   factory_bot
   httparty
