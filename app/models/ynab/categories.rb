@@ -10,6 +10,7 @@ module Ynab
     EATING_OUT_ID = 'c494b8b4-a82c-4ba7-941e-b3ee811206ab'
     ELECTRICITY_ID = 'e6c91f5f-428d-4d69-ab02-07ec0aa028f5'
     FUN_ID = 'c494b8b4-a82c-4ba7-941e-b3ee811206ab'
+    INVESTMENTS_ID = '2997bc5e-9ac7-41fc-9f47-ef0e9b557fc5'
     GOOGLE_ONE_ID = '63391544-f4df-44f9-b76b-61e7db74383a'
     HEALTH_ID = 'd5d189b3-9bb4-41ee-a1de-a35460e95a10'
     INTERNET_ID = '83f01b95-407b-4a1c-bb13-557792cfeeec'

@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 module Finance::ExpenseClassification::Rules
-  class Pepephone < BaseRule
+  class GoogleOne < BaseRule
     def amount
-      11.90
+      1.99
     end
 
     def description
-      'pepe mobile'
+      'Google Storage'
     end
 
     def airtable_category
@@ -19,7 +19,7 @@ module Finance::ExpenseClassification::Rules
     end
 
     def ynab_id
-      Ynab::Categories::PEPEPHONE_ID
+      Ynab::Categories::GOOGLE_ONE_ID
     end
   end
 end

@@ -37,7 +37,7 @@ FactoryBot.define do
     amount_in_cents   { -1190 }
     bank              { 'AIB' }
     datetime          { DateTime.now - 1.day }
-    description       { 'PEPEMOBILE S.L.'}
+    description       { 'PEPE MOBILE S.L.U.'}
     internal_id       { 'BH095' }
   end
 

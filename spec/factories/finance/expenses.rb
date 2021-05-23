@@ -22,7 +22,7 @@ FactoryBot.define do
   factory :pepephone_expense, class: Finance::Expense do
     amount      { 11.9 }
     category    { 'subscription' }
-    notes       { 'PEPEMOBILE S.L.' }
+    notes       { 'PEPE MOBILE S.L.U.' }
   end
 
   factory :deliveroo_subscription, class: Finance::Expense do
