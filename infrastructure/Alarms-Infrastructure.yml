@@ -172,7 +172,7 @@ Resources:
           MetricStat:
             Metric:
               Namespace: Infrastructure/Finance
-              MetricName: Exception
+              MetricName: Request transactions error
               Dimensions:
                 - Name: Bank
                   Value: AIB
@@ -213,7 +213,7 @@ Resources:
           MetricStat:
             Metric:
               Namespace: Infrastructure/Finance
-              MetricName: Exception
+              MetricName: Request transactions error
               Dimensions:
                 - Name: Bank
                   Value: Openbank
