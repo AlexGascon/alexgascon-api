@@ -35,7 +35,8 @@ module Finance
     private
 
     def category_is_a_valid_expense_category
-      errors.add(:category, ERROR_CATEGORY_INVALID) unless valid_category?
+      error_message = "#{ERROR_CATEGORY_INVALID}: #{category}"
+      errors.add(:category, error_message) unless valid_category?
     end
 
     def valid_category?
