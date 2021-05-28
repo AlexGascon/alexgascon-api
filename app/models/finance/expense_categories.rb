@@ -5,7 +5,7 @@ module Finance
     COCA_COLA = 'coca cola'
     EATING_OUT = 'eating out'
     FUN = 'fun money'
-    INVESTMENT = 'Investment'
+    INVESTMENT = 'investment'
     SUBSCRIPTION = 'subscription'
     SUPERMARKET = 'supermercado'
 
