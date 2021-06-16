@@ -37,6 +37,16 @@ RSpec.configure do |c|
   c.include ActiveSupport::Testing::TimeHelpers
 end
 
+RSpec::Matchers.define :have_fields do |fields|
+  match do |actual|
+    fields.each_pair do |field, expected_value|
+      actual.send(field) == expected_value
+    end
+  end
+end
+
+RSpec::Matchers.alias_matcher :fields_with_values, :have_fields
+
 def with_modified_env(options, &block)
   ClimateControl.modify(options, &block)
 end

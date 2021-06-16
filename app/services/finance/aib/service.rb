@@ -18,11 +18,7 @@ module Finance
 
         response = request_transactions(from, to)
 
-        unless response.ok?
-          return handle_error(response, :request)
-        end
-
-        response['results']
+        response.transactions
       rescue Finance::Aib::AuthError => e
         handle_error(e, :auth)
       rescue StandardError => e
@@ -34,22 +30,17 @@ module Finance
       private
 
       def request_transactions(from, to)
-        # AIB uses Irish Standard Time (IST) for its transactions, so in UTC it's
-        # 1 hour less. This means that a transaction registered at 00:00 IST
-        # will be returned by TrueLayer as belonging to the previous day.
-        #
-        # To avoid this problem, we'll make the conversion before sending
-        # the request to TrueLayer
-        #
-        # More context: https://github.com/AlexGascon/alexgascon-api/issues/43#issuecomment-678669868
-        from = from.to_time.in_time_zone('Europe/Dublin').beginning_of_day.utc
-        to = to.to_time.in_time_zone('Europe/Dublin').end_of_day.utc
+        from = from.strftime('%Y-%m-%d')
+        to = to.strftime('%Y-%m-%d')
 
-        HTTParty.get(
-          api_endpoint,
-          headers: api_headers,
-          query: { from: from.iso8601, to: to.iso8601 }
+        request_data = Plaid::TransactionsGetRequest.new(
+          access_token: @auth_token,
+          start_date: from,
+          end_date: to
         )
+
+        plaid_client = Finance::PlaidClientFactory.build
+        plaid_client.transactions_get(request_data)
       end
 
       def api_endpoint
