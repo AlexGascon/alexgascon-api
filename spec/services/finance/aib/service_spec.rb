@@ -67,7 +67,7 @@ RSpec.describe Finance::Aib::Service do
     allow_any_instance_of(Plaid::PlaidApi)
       .to receive(:transactions_get)
       .with(
-        fields_with_values(start_date: '2020-07-31', end_date: '2020-08-01', access_token: 'access-development-12345678-9abc-deff-edcb-a98765432100')
+        fields_with_values(start_date: '2020-07-31', end_date: '2020-08-01', access_token: 'defaultFactoryAccessToken')
         .and be_a_kind_of(Plaid::TransactionsGetRequest)
       )
       .and_return(transactions_get_response)
@@ -135,7 +135,7 @@ RSpec.describe Finance::Aib::Service do
           allow_any_instance_of(Plaid::PlaidApi)
             .to receive(:transactions_get)
             .with(
-              fields_with_values(start_date: '2020-07-31', end_date: '2020-08-01', access_token: 'access-development-12345678-9abc-deff-edcb-a98765432100')
+              fields_with_values(start_date: '2020-07-31', end_date: '2020-08-01', access_token: 'defaultFactoryAccessToken')
               .and be_a_kind_of(Plaid::TransactionsGetRequest)
             ).and_raise plaid_auth_error
         end

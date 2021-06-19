@@ -37,7 +37,7 @@ module Finance
         to = to.strftime('%Y-%m-%d')
 
         request_data = Plaid::TransactionsGetRequest.new(
-          access_token: @auth_token,
+          access_token: @auth_token.access_token,
           start_date: from,
           end_date: to
         )
@@ -60,6 +60,9 @@ module Finance
       end
 
       def handle_error(additional_data, error_type)
+        Jets.logger.warn "ERROR - #{error_type}"
+        Jets.logger.warn "ERROR INFO - #{additional_data}"
+
         case error_type
         when :auth
           handle_auth_error(additional_data)
