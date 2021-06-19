@@ -121,63 +121,23 @@ RSpec.describe Finance::Aib::Service do
 
         include_examples 'exception metric', 1
       end
-    end
 
-    context 'when the access token has expired' do
-      before do
-        FactoryBot.create(:aib_token, expiration_time: Time.now.to_i - 200)
-        get_transactions_request.to_return(status: 401)
-      end
+      context 'when Plaid returns an Auth error' do
+        let(:plaid_auth_error) do
+          Plaid::ApiError.new(
+            code: 400,
+            response_headers: { 'server'=>'nginx', 'date'=>'Wed, 16 Jun 2021 22:16:30 GMT', 'content-type'=>'application/json; charset=utf-8', 'content-length'=>'277', 'connection'=>'keep-alive', 'plaid-version'=>'2020-09-14', 'vary'=>'Accept-Encoding' },
+            response_body: "{\n  \"display_message\": null,\n  \"documentation_url\": \"https://plaid.com/docs/?ref=error#invalid-input-errors\",\n  \"error_code\": \"INVALID_ACCESS_TOKEN\",\n  \"error_message\": \"could not find matching access token\",\n  \"error_type\": \"INVALID_INPUT\",\n  \"request_id\": \"A8FB4xip7LVjlMs\",\n  \"suggested_action\": null\n}"
+          )
+        end
 
-      let(:refresh_token_payload) do
-        {
-          client_id: 'myclientid-1234ab', client_secret: 'e9f9a53e-9db9-4707-aaa7-c9a117b4d12c',
-          grant_type: 'refresh_token', refresh_token: 'defaultFactoryRefreshToken'
-        }
-      end
-      let(:refresh_token_ok_response) do
-        {
-          access_token: 'refreshedSuperLongAndRandomAccessTokenReturnedByTruelayer', expire_in: '60',
-          refresh_token: 'my-second-refresh-token', token_type: 'Bearer'
-        }
-      end
-      let(:refresh_token_request) do
-        stub_request(:post, 'https://auth.fake-truelayer.com/connect/token')
-        .with(
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: refresh_token_payload
-        )
-      end
-      let(:get_transactions_request_with_refreshed_token) do
-        stub_request(:get, 'https://api.fake-truelayer.com/data/v1/accounts/123456789009876543212/transactions')
-        .with(
-          headers: { 'Authorization' => 'Bearer refreshedSuperLongAndRandomAccessTokenReturnedByTruelayer' },
-          query: { from: '2020-07-30T23:00:00Z', to: '2020-08-01T22:59:59Z' }
-        )
-      end
-
-      context 'when the token renewal is successful' do
         before do
-          refresh_token_request.to_return(status: 200, body: refresh_token_ok_response.to_json, headers: content_type_json)
-          get_transactions_request_with_refreshed_token.to_return(status: 200, body: get_transactions_response.to_json, headers: content_type_json)
-        end
-
-        it 'refreshes the token' do
-          subject
-
-          expect(refresh_token_request).to have_been_requested
-        end
-
-        it 'retries the operation' do
-          subject
-
-          expect(get_transactions_request_with_refreshed_token).to have_been_requested
-        end
-      end
-
-      context 'when refreshing the token fails' do
-        before do
-          refresh_token_request.to_return(status: 400)
+          allow_any_instance_of(Plaid::PlaidApi)
+            .to receive(:transactions_get)
+            .with(
+              fields_with_values(start_date: '2020-07-31', end_date: '2020-08-01', access_token: 'access-development-12345678-9abc-deff-edcb-a98765432100')
+              .and be_a_kind_of(Plaid::TransactionsGetRequest)
+            ).and_raise plaid_auth_error
         end
 
         it 'returns an empty array' do
@@ -190,6 +150,22 @@ RSpec.describe Finance::Aib::Service do
 
         include_examples 'exception metric', 0
       end
+    end
+
+    context 'when the access token has expired' do
+      before do
+        FactoryBot.create(:aib_token, expiration_time: Time.now.to_i - 200)
+      end
+
+      it 'returns an empty array' do
+        expect(subject).to eq []
+      end
+
+      include_examples 'auth error metric', 1
+
+      include_examples 'request error metric', 0
+
+      include_examples 'exception metric', 0
     end
   end
 end
