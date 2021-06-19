@@ -6,7 +6,7 @@ module Finance
       private
 
       def amount_in_cents
-        @transaction_information['amount'] * CENTS_PER_EURO
+        -@transaction_information['amount'] * CENTS_PER_EURO
       end
 
       def bank
@@ -18,11 +18,11 @@ module Finance
       end
 
       def transaction_datetime
-        DateTime.parse(@transaction_information['timestamp']).in_time_zone('Europe/Dublin').to_date
+        DateTime.parse(@transaction_information['date']).in_time_zone('Europe/Dublin').to_date
       end
 
       def description
-        @transaction_information['description']
+        @transaction_information['name']
       end
     end
   end

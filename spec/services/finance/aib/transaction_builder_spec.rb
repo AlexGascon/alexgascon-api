@@ -7,7 +7,7 @@ RSpec.describe Finance::Aib::TransactionBuilder do
     subject(:bank_transaction) { described_class.new(transaction_information).build }
 
     it 'sets the amount_in_cents' do
-      expect(bank_transaction.amount_in_cents).to eq -2637
+      expect(bank_transaction.amount_in_cents).to eq -2000
     end
 
     it 'sets the bank' do
@@ -15,23 +15,23 @@ RSpec.describe Finance::Aib::TransactionBuilder do
     end
 
     it 'sets the datetime' do
-      expect(bank_transaction.datetime).to eq DateTime.parse('2020-08-11')
+      expect(bank_transaction.datetime).to eq DateTime.parse('2021-05-24')
     end
 
     it 'sets the description' do
-      expect(bank_transaction.description).to eq 'VDP-AMZNMktplace'
+      expect(bank_transaction.description).to eq 'ATM FAKE STREET 22MAY21 TIME 12:18'
     end
 
     it 'sets the internal_id' do
-      expect(bank_transaction.internal_id).to eq '7ee551d422dfd72ebe2b144396bb280c'
+      expect(bank_transaction.internal_id).to eq 'aJgKYrKa7Yt7oe3pb68qiX509M3gKgCjb9J4y'
     end
 
     it 'sets year_month' do
-      expect(bank_transaction.year_month).to eq '2020-08'
+      expect(bank_transaction.year_month).to eq '2021-05'
     end
 
     it 'sets day' do
-      expect(bank_transaction.day).to eq '11'
+      expect(bank_transaction.day).to eq '24'
     end
   end
 end
