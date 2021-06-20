@@ -223,3 +223,19 @@ Resources:
           ReturnData: false
       AlarmActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
       OKActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
+
+  RedisErrorAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: alexgascon-api_Redis-Error
+      AlarmDescription: Fires if we get an error when using the Redis cache that prevents duplication of Dexcom metrics
+      EvaluationPeriods: 1
+      Namespace: Infrastructure
+      MetricName: Error
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      Threshold: 1
+      Statistic: Sum
+      Period: 300
+      TreatMissingData: notBreaching
+      AlarmActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']
+      OKActions: ['arn:aws:sns:eu-west-1:598877714121:AlarmFired']

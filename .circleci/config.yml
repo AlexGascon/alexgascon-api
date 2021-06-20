@@ -42,6 +42,8 @@ jobs:
               environment:
                 POSTGRES_PASSWORD: 'test'
                 POSTGRES_USER: 'test'
+            - image: redis
+              command: redis-server --requirepass "pass"
     "ruby-26":
         <<: *common
         docker:
@@ -55,6 +57,8 @@ jobs:
               environment:
                 POSTGRES_PASSWORD: 'test'
                 POSTGRES_USER: 'test'
+            - image: redis
+              command: redis-server --requirepass "pass"
     "ruby-27":
         <<: *common
         docker:
@@ -68,6 +72,8 @@ jobs:
               environment:
                 POSTGRES_PASSWORD: 'test'
                 POSTGRES_USER: 'test'
+            - image: redis
+              command: redis-server --requirepass "pass"
 workflows:
   version: 2.1
   build:
