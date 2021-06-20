@@ -14,6 +14,7 @@ gem 'httparty'
 gem 'parallel'
 gem 'pg'
 gem 'plaid', '~> 14.0.0.beta'
+gem 'redis'
 gem 'telegram-bot-ruby'
 gem 'ynab'
 
