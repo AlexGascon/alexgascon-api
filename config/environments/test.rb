@@ -13,3 +13,5 @@ Dynamoid.configure do |config|
   config.read_capacity = 1
   config.write_capacity = 1
 end
+
+ENV['REDIS_PASSWORD'] = 'pass'

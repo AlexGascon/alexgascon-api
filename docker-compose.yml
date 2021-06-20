@@ -14,3 +14,8 @@ services:
       - POSTGRES_USER=test
     ports:
       - "5432:5432"
+  redis:
+    image: redis
+    command: redis-server --requirepass "pass"
+    ports:
+      - "6379:6379"
