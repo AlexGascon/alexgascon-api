@@ -10,7 +10,6 @@ module Finance
       BANKS
         .map { |bank_name| retrieve_transactions(bank_name) }
         .flatten
-        .each { |bank_transaction| publish_in_cloudwatch(bank_transaction) }
     end
 
     private
