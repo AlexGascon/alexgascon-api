@@ -29,36 +29,6 @@ common: &common
 
 
 jobs:
-    "ruby-25":
-        <<: *common
-        docker:
-            - image: circleci/ruby:2.5
-              environment:
-                AWS_ACCESS: 'fakeAccessKey'
-                AWS_SECRET: 'fakeSecretKey'
-            - image: amazon/dynamodb-local
-              command: "-jar DynamoDBLocal.jar -inMemory -port 6000"
-            - image: postgres
-              environment:
-                POSTGRES_PASSWORD: 'test'
-                POSTGRES_USER: 'test'
-            - image: redis
-              command: redis-server --requirepass "pass"
-    "ruby-26":
-        <<: *common
-        docker:
-            - image: circleci/ruby:2.6
-              environment:
-                AWS_ACCESS: 'fakeAccessKey'
-                AWS_SECRET: 'fakeSecretKey'
-            - image: amazon/dynamodb-local
-              command: "-jar DynamoDBLocal.jar -inMemory -port 6000"
-            - image: postgres
-              environment:
-                POSTGRES_PASSWORD: 'test'
-                POSTGRES_USER: 'test'
-            - image: redis
-              command: redis-server --requirepass "pass"
     "ruby-27":
         <<: *common
         docker:
@@ -78,6 +48,4 @@ workflows:
   version: 2.1
   build:
     jobs:
-      - "ruby-25"
-      - "ruby-26"
       - "ruby-27"
