@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'jets'
+# More info on why this version is required:
+# https://github.com/boltops-tools/jets/issues/574#issuecomment-880348281
+gem 'jets', '>= 3.0.11'
 
 gem 'airrecord'
 gem 'annotate'
