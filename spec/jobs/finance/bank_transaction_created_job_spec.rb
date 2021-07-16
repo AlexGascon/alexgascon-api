@@ -31,10 +31,5 @@ RSpec.describe Finance::BankTransactionCreatedJob do
       expect(expense.category).to eq Finance::ExpenseCategories::SUBSCRIPTION
       expect(expense.notes).to eq 'COMPRA EN PAYPAL *SPOTIFY, CON LA TARJETA : XXXXXXXXXXXX4205 EL 2021-03-22'
     end
-
-    it 'publishes the expense details to Telegram' do
-      expect(SendTelegramMessageCommand).to receive(:new).once
-      subject
-    end
   end
 end

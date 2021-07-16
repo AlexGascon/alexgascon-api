@@ -9,7 +9,6 @@ module Finance
 
       bank_transactions
         .map { |bank_transaction| convert_to_expense!(bank_transaction) }
-        .each { |expense| publish_in_telegram(expense) }
     end
 
     private
