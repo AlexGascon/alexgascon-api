@@ -42,6 +42,10 @@ FactoryBot.define do
     pending_transaction_id  { 'kk3t7qLhjQGfbZZma4WFPLldcfEexKGAE1lqy' }
     transaction_id          { 'W00Vi6WZnIL0J4I0ToP2uTjvb3GgCvjKmX4c3' }
     transaction_type        { 'place' }
+
+    trait :pending do
+      pending { true }
+    end
   end
 
   factory :plaid_location, class: Plaid::Location do
@@ -64,5 +68,12 @@ FactoryBot.define do
     item               { association(:plaid_item) }
     total_transactions { 1 }
     transactions       { build_list(:plaid_transaction, 1) }
+
+    trait :with_pending_transactions do
+      after(:build) do |response|
+        response.transactions = response.transactions + build_list(:plaid_transaction, 1, :pending)
+        response.total_transactions = 2
+      end
+    end
   end
 end

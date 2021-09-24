@@ -106,6 +106,17 @@ RSpec.describe Finance::Aib::Service do
         end
       end
 
+      context 'when an operation is not confirmed' do
+        let(:transactions_get_response) { build(:plaid_transactions_get_response, :with_pending_transactions) }
+
+        it 'returns only the confirmed operations' do
+          transactions = subject
+
+          expect(transactions.count).to eq 1
+          expect(transactions.first.pending).to be false
+        end
+      end
+
       context 'when we get an exception' do
         before do
           allow_any_instance_of(described_class)

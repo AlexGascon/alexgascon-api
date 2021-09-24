@@ -19,7 +19,9 @@ module Finance
 
         response = request_transactions(from, to)
 
-        response.transactions
+        response
+          .transactions
+          .reject { |transaction| transaction.pending }
       rescue Finance::Aib::AuthError => e
         handle_error(e, :auth)
       rescue Plaid::ApiError => e
