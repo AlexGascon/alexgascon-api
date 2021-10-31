@@ -3,6 +3,7 @@
 module Health
   class GetLiveDexcomDataJob < ApplicationJob
     THREE_HOURS_IN_MINUTES = 180
+    CACHE_EXPIRATION_TIME_IN_SECONDS = THREE_HOURS_IN_MINUTES * 60 * 2 # Adding an extra margin
 
     rate '5 minutes'
     def run
@@ -29,7 +30,7 @@ module Health
     def publish(glucose_value)
       PublishCloudwatchDataCommand.new(glucose_value).execute
 
-      Redis.current.set(glucose_value.timestamp.to_s, true)
+      Redis.current.set(glucose_value.timestamp.to_s, true, ex: CACHE_EXPIRATION_TIME_IN_SECONDS)
     rescue Redis::BaseError
       Jets.logger.warn 'Redis is unavailable - Skipping cache write'
       publish_redis_metric
