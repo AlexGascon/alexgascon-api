@@ -31,7 +31,7 @@ group :development, :test do
   gem 'pry'
   gem 'pry-byebug'
   gem 'pry-stack_explorer'
-  gem 'puma', '4.3.8' # 2021/11/01 Higher versions not yet available on Lambdagems
+  gem 'puma', '4.3.9' # 2021/11/01 Higher versions not yet available on Lambdagems
   gem 'rack'
   gem 'shotgun'
 end
