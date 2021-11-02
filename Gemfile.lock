@@ -107,7 +107,7 @@ GEM
     binding_of_caller (1.0.0)
       debug_inspector (>= 0.0.1)
     builder (3.2.4)
-    byebug (11.0.1)
+    byebug (11.1.3)
     cfn-status (0.4.3)
       aws-sdk-cloudformation
     cfn_camelizer (0.4.9)
@@ -252,7 +252,7 @@ GEM
       binding_of_caller (~> 1.0)
       pry (~> 0.13)
     public_suffix (4.0.6)
-    puma (4.3.9)
+    puma (4.3.8)
       nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.3)
@@ -341,7 +341,7 @@ DEPENDENCIES
   awesome_print
   aws-sdk-cloudwatch
   aws-sdk-s3
-  byebug (= 11.0.1)
+  byebug
   climate_control
   dexcom (~> 0.3.0)
   dynamoid
@@ -355,7 +355,7 @@ DEPENDENCIES
   pry
   pry-byebug
   pry-stack_explorer
-  puma (= 4.3.9)
+  puma (= 4.3.8)
   rack
   redis
   rspec
