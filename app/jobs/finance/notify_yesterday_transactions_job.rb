@@ -3,7 +3,7 @@
 module Finance
   class NotifyYesterdayTransactionsJob < ::ApplicationJob
 
-    cron '27 06 * * ? *'
+    cron '27 09 * * ? *'
     def run
       return if yesterday_transactions.empty?
 

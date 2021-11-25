@@ -5,7 +5,7 @@ module Finance
 
     BANKS = %w[Aib Openbank].freeze
 
-    cron '27 03 * * ? *'
+    cron '27 08 * * ? *'
     def run
       BANKS
         .map { |bank_name| retrieve_transactions(bank_name) }
