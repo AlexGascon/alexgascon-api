@@ -22,7 +22,7 @@ link_token_create_request = Plaid::LinkTokenCreateRequest.new({
 
 response = plaid.link_token_create(link_token_create_request)
 
-puts "Link token: #{response.link_token}
+puts "Link token: #{response.link_token}"
 ```
 
 ### 2 - Use the link token to renew the credentials validity
