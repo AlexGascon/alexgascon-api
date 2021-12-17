@@ -24,6 +24,10 @@ FactoryBot.define do
     update_type             { 'background' }
     webhook                 { 'example.com/webhooks'}
     consent_expiration_time { '2021-08-23T18:53:12Z' }
+
+    trait :with_expired_consent do
+      consent_expiration_time { '2000-01-01T00:00:00Z' }
+    end
   end
 
   factory :plaid_transaction, class: Plaid::Transaction do
@@ -74,6 +78,11 @@ FactoryBot.define do
         response.transactions = response.transactions + build_list(:plaid_transaction, 1, :pending)
         response.total_transactions = 2
       end
+    end
+
+    trait :with_expired_consent do
+      item { association(:plaid_item, :with_expired_consent) }
+      transactions { [] }
     end
   end
 end
