@@ -3,6 +3,7 @@
 module Finance
   module Aib
     class AuthError < StandardError; end
+    ERROR_CONSENT_EXPIRED = 'CONSENT_EXPIRED'
     ERROR_INVALID_ACCESS_TOKEN = 'INVALID_ACCESS_TOKEN'
 
     class Service
@@ -18,6 +19,8 @@ module Finance
         authenticate
 
         response = request_transactions(from, to)
+
+        validate_consent!(response)
 
         response
           .transactions
@@ -59,6 +62,12 @@ module Finance
       def validate_auth_token!
         raise Finance::Aib::AuthError, 'The AuthToken is empty' if @auth_token.access_token.nil?
         raise Finance::Aib::AuthError, 'AuthToken expired' if Time.at(@auth_token.expiration_time).past?
+      end
+
+      def validate_consent!(response)
+        consent_expiration_time = DateTime.parse(response.item.consent_expiration_time)
+
+        raise Finance::Aib::AuthError, ERROR_CONSENT_EXPIRED if consent_expiration_time.past?
       end
 
       def handle_error(additional_data, error_type)

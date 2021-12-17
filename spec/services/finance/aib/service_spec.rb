@@ -161,6 +161,16 @@ RSpec.describe Finance::Aib::Service do
 
         include_examples 'exception metric', 0
       end
+
+      context 'when Plaid consent has expired' do
+        let(:transactions_get_response) { build(:plaid_transactions_get_response, :with_expired_consent) }
+
+        include_examples 'auth error metric', 1
+
+        include_examples 'request error metric', 0
+
+        include_examples 'exception metric', 0
+      end
     end
 
     context 'when the access token has expired' do
