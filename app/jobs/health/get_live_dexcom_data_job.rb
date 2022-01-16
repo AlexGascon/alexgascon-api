@@ -2,12 +2,13 @@
 
 module Health
   class GetLiveDexcomDataJob < ApplicationJob
-    THREE_HOURS_IN_MINUTES = 180
-    CACHE_EXPIRATION_TIME_IN_SECONDS = THREE_HOURS_IN_MINUTES * 60 * 2 # Adding an extra margin
+    TWENTY_FOUR_HOURS_IN_MINUTES = 1440
+    DEXCOM_QUERY_RANGE_IN_MINUTES = TWENTY_FOUR_HOURS_IN_MINUTES
+    CACHE_EXPIRATION_TIME_IN_SECONDS = DEXCOM_QUERY_RANGE_IN_MINUTES * 60 * 2 # Adding an extra margin
 
     rate '5 minutes'
     def run
-      bgs = ::Dexcom::BloodGlucose.get_last(minutes: THREE_HOURS_IN_MINUTES)
+      bgs = ::Dexcom::BloodGlucose.get_last(minutes: DEXCOM_QUERY_RANGE_IN_MINUTES)
 
       Health::GlucoseValueFactory
         .from_dexcom_gem_entries(bgs)
