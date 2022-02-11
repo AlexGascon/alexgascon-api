@@ -31,7 +31,7 @@ group :development, :test do
   gem 'pry'
   gem 'pry-byebug'
   gem 'pry-stack_explorer'
-  gem 'puma', '4.3.9'
+  gem 'puma', '4.3.11'
   gem 'rack'
   gem 'shotgun'
 end
