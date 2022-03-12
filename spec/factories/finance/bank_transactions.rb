@@ -53,7 +53,7 @@ FactoryBot.define do
     amount_in_cents   { -1499 }
     bank              { 'AIB' }
     datetime          { DateTime.now - 1.day }
-    description       { 'VDP-DELIVEROO.IE' }
+    description       { 'VDP-DELIVEROO' }
     internal_id       { 'BH095' }
   end
 

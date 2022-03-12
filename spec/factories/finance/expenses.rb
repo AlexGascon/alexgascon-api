@@ -34,7 +34,19 @@ FactoryBot.define do
   factory :deliveroo_expense, class: Finance::Expense do
     amount      { '15.42' }
     category    { 'eating out' }
-    notes       { 'VDP-DELIVEROO.IE' }
+    notes       { 'VDP-DELIVEROO' }
+  end
+
+  factory :tesco_expense, class: Finance::Expense do
+    amount      { '15.42' }
+    category    { 'supermercado' }
+    notes       { 'VDC-TESCO STORES 6' }
+  end
+
+  factory :mercadona_expense, class: Finance::Expense do
+    amount      { '39.87' }
+    category    { 'supermercado' }
+    notes       { 'MERCADONA TAVE' }
   end
 
   factory :dynamodb_event_expense, class: Finance::Expense do

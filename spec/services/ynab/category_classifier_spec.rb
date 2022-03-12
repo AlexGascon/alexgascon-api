@@ -37,6 +37,20 @@ RSpec.describe Ynab::CategoryClassifier do
       expect(described_class.category_id_for(transaction)).to eq category_id
     end
 
+    it 'matches Tesco expenses' do
+      transaction = create(:tesco_expense)
+      category_id = '2b65b6fd-25f0-42cc-9664-1c4cc61812a7'
+
+      expect(described_class.category_id_for(transaction)).to eq category_id
+    end
+
+    it 'matches Mercadona expenses' do
+      transaction = create(:mercadona_expense)
+      category_id = '2b65b6fd-25f0-42cc-9664-1c4cc61812a7'
+
+      expect(described_class.category_id_for(transaction)).to eq category_id
+    end
+
     it 'returns Undefined category when no rules match' do
       transaction = create(:unclassified_expense)
       uncategorized_id = 'e172c064-eb5c-4fb2-9bd7-ae5fe9af692f'

@@ -5,6 +5,10 @@ module Finance::ExpenseClassification::Rules
     attr_reader :amount, :description
 
     def matches?(expense)
+      if rule_implementation_error?
+        raise NotImplementedError, "No matching criteria implemented in #{self.class}, this rule will match any expense"
+      end
+
       @expense = expense
 
       amount_matches? && description_matches?
@@ -36,6 +40,12 @@ module Finance::ExpenseClassification::Rules
       return true if description.blank?
 
       expense.notes.downcase.include? description.downcase
+    end
+
+    def rule_implementation_error?
+      amount.nil? && description.blank? &&
+        self.method(:amount_matches?).owner != self.class &&
+        self.method(:description_matches?).owner != self.class
     end
   end
 end
