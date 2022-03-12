@@ -16,3 +16,6 @@ tmp
 
 # DynamoDB local instance
 shared-local-instance.db
+
+# RSpec test run data
+rspec_examples.txt
