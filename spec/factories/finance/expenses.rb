@@ -14,7 +14,7 @@ FactoryBot.define do
   end
 
   factory :spotify_expense, class: Finance::Expense do
-    amount      { 9.99 }
+    amount      { 4.99 }
     category    { 'subscription' }
     notes       { 'Compra en paypal *spotify, con la tarjeta xxxxxxx'}
   end
@@ -38,7 +38,7 @@ FactoryBot.define do
   end
 
   factory :dynamodb_event_expense, class: Finance::Expense do
-    amount      { '9.99' }
+    amount      { '4.99' }
     category    { 'subscription' }
     notes       { 'COMPRA EN PAYPAL *SPOTIFY, CON LA TARJETA : XXXXXXXXXXXX4205 EL 2021-03-22' }
     id          { '05a860a8-0174-4a5a-8a15-deea3ac4b2ba' }

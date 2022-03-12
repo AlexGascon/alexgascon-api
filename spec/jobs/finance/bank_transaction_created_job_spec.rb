@@ -27,7 +27,7 @@ RSpec.describe Finance::BankTransactionCreatedJob do
       result = subject
       expense = result.first
 
-      expect(expense.amount).to eq 9.99
+      expect(expense.amount).to eq 4.99
       expect(expense.category).to eq Finance::ExpenseCategories::SUBSCRIPTION
       expect(expense.notes).to eq 'COMPRA EN PAYPAL *SPOTIFY, CON LA TARJETA : XXXXXXXXXXXX4205 EL 2021-03-22'
     end
