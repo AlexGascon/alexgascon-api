@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 module Finance::ExpenseClassification::Rules
-  class Spotify < BaseRule
+  class Internet < BaseRule
     def amount
-      4.99
+      59.00
     end
 
     def description
-      'spotify'
+      'virgin media'
     end
 
     def airtable_category
@@ -19,7 +19,8 @@ module Finance::ExpenseClassification::Rules
     end
 
     def ynab_id
-      Ynab::Categories::SPOTIFY_ID
+      Ynab::Categories::INTERNET_ID
     end
   end
 end
+

@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 module Finance::ExpenseClassification::Rules
-  class Spotify < BaseRule
+  class Gomo < BaseRule
     def amount
-      4.99
+      14.99
     end
 
     def description
-      'spotify'
+      'gomo'
     end
 
     def airtable_category
@@ -19,7 +19,7 @@ module Finance::ExpenseClassification::Rules
     end
 
     def ynab_id
-      Ynab::Categories::SPOTIFY_ID
+      Ynab::Categories::GOMO_ID
     end
   end
 end

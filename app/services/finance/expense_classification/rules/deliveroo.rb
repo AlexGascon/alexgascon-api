@@ -2,8 +2,8 @@
 
 module Finance::ExpenseClassification::Rules
   class Deliveroo < BaseRule
-    def description
-      'deliveroo.ie'
+    def description_matches?
+      expense.notes.downcase.include?('deliveroo') && !expense.notes.downcase.include?('plus')
     end
 
     def airtable_category

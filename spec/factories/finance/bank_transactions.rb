@@ -26,7 +26,7 @@ FactoryBot.define do
   end
 
   factory :spotify_bank_transaction, class: Finance::BankTransaction do
-    amount_in_cents   { -999 }
+    amount_in_cents   { -499 }
     bank              { 'AIB' }
     datetime          { DateTime.now - 1.day }
     description       { 'Compra en paypal *spotify, con la tarjeta xxxxxxx' }
@@ -53,12 +53,12 @@ FactoryBot.define do
     amount_in_cents   { -1499 }
     bank              { 'AIB' }
     datetime          { DateTime.now - 1.day }
-    description       { 'VDP-DELIVEROO.IE' }
+    description       { 'VDP-DELIVEROO' }
     internal_id       { 'BH095' }
   end
 
   factory :dynamodb_event_bank_transaction, class: Finance::BankTransaction do
-    amount_in_cents   { -999 }
+    amount_in_cents   { -499 }
     bank              { 'Openbank' }
     datetime          { DateTime.now - 1.day }
     description       { 'COMPRA EN PAYPAL *SPOTIFY, CON LA TARJETA : XXXXXXXXXXXX4205 EL 2021-03-22' }

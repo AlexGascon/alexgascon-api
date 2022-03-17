@@ -35,6 +35,8 @@ RSpec.configure do |c|
   end
 
   c.include ActiveSupport::Testing::TimeHelpers
+
+  c.example_status_persistence_file_path = 'rspec_examples.txt'
 end
 
 def with_modified_env(options, &block)
