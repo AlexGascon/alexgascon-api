@@ -2,7 +2,7 @@
 
 module Airtable
   class Expense < Airrecord::Table
-    self.base_key = 'appxOlf4rvMwaYk4K'
+    self.base_key = 'appuQwQY7hhjTPgPz'
     self.table_name = 'Receipt Log'
 
     ATTRIBUTE_TO_COLUMN = {
