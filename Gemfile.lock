@@ -211,7 +211,7 @@ GEM
       zeitwerk (~> 2.4.0)
     jets-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
-    jmespath (1.4.0)
+    jmespath (1.6.1)
     json (2.6.1)
     kramdown (2.3.1)
       rexml
