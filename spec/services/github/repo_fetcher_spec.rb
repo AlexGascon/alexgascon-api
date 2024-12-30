@@ -28,26 +28,20 @@ RSpec.describe Github::RepoFetcher do
     end
 
     it 'sets the correct authorization header' do
-      expect(Net::HTTP::Get)
-        .to receive(:new)
-        .with(URI(url))
-        .and_wrap_original do |method, *args|
-          request = method.call(*args)
+      expect(mock_http)
+        .to receive(:request)
+        .and_wrap_original do
           expect(request['Authorization']).to eq("Bearer #{token}")
-          request
         end
 
       described_class.make_github_request(url)
     end
 
     it 'sets the correct accept header' do
-      expect(Net::HTTP::Get)
-        .to receive(:new)
-        .with(URI(url))
-        .and_wrap_original do |method, *args|
-          request = method.call(*args)
+      expect(mock_http)
+        .to receive(:request)
+        .and_wrap_original do
           expect(request['Accept']).to eq('application/vnd.github+json')
-          request
         end
 
       described_class.make_github_request(url)
