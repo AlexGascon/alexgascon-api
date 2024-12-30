@@ -55,9 +55,9 @@ RSpec.describe Github::RepoFetcher do
 
     it 'sends the request to Github' do
       expect(Net::HTTP)
-        .to_receive(:start)
+        .to receive(:start)
       expect(mock_http)
-        .to_receive(:request)
+        .to receive(:request)
 
       described_class.make_github_request(url)
     end
