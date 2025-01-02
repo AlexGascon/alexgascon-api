@@ -29,9 +29,8 @@ RSpec.describe Github::RepoFetcher do
 
     it 'sets the correct authorization header' do
       expect(mock_http)
-        .to receive(:request)
-        .and_wrap_original do
-          expect(request['Authorization']).to eq("Bearer #{token}")
+        .to receive(:request) do |request_obj|
+          expect(request_obj['Authorization']).to eq("Bearer #{token}")
         end
 
       described_class.make_github_request(url)
@@ -39,9 +38,8 @@ RSpec.describe Github::RepoFetcher do
 
     it 'sets the correct accept header' do
       expect(mock_http)
-        .to receive(:request)
-        .and_wrap_original do
-          expect(request['Accept']).to eq('application/vnd.github+json')
+        .to receive(:request) do |request_obj|
+          expect(request_obj['Accept']).to eq('application/vnd.github+json')
         end
 
       described_class.make_github_request(url)
